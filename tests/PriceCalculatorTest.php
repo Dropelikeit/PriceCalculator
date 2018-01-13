@@ -17,7 +17,7 @@ class PriceCalculatorTest extends TestCase
      */
     private function getPriceCalculator(): PriceCalculator
     {
-        return new PriceCalculator(19);
+        return PriceCalculator::getInstance(19);
     }
 
     /**

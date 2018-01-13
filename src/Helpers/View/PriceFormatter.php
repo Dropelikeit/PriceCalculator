@@ -2,8 +2,6 @@
 
 namespace Src\Helpers\View;
 
-use Src\Exceptions\PriceException;
-
 /**
  * Class PriceFormatter
  * @author Marcel Strahl <info@marcel-strahl.de>
