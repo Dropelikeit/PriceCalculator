@@ -1,0 +1,39 @@
+build_settings:
+    clone_depth: 1 # depth of 1 is a shallow clone, remove this line to clone entire repo
+setup:
+    composer:
+        action: "install"
+test:
+    php_unit:
+        config:
+            - "./phpunit.xml"
+        directory:
+            - "./tests/"
+        coverage: "./tests/logs/coverage"
+    php_mess_detector:
+        ignore:
+            - 'public'
+            - 'vendor'
+        rules:
+            - "cleancode"
+            - "controversial"
+            - "codesize"
+            - "design"
+            - "naming"
+            - "unusedcode"
+        allowed_warnings: -1
+        zero_config: true
+    php_code_sniffer:
+        ignore:
+            - 'vendor'
+        standard: 'PSR2'
+        allowed_errors: -1
+    php_cpd:
+        allow_failures: true
+failure:
+    email:
+        committer: true
+        default_mailto_address: info@marcel-strahl.de
+complete:
+    email:
+        default_mailto_address: info@marcel-strahl.de
