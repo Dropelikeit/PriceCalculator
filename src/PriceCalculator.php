@@ -20,7 +20,7 @@ class PriceCalculator
     private $vatToCalculate = '';
 
     /**
-     * @var int 
+     * @var int
      */
     private $vat = 0;
 
@@ -48,7 +48,7 @@ class PriceCalculator
      * @param int $price
      * @return int
      */
-    public function addPrice (int $total, int $price): int
+    public function addPrice(int $total, int $price): int
     {
         return (int)bcadd($total, $price);
     }
@@ -59,7 +59,7 @@ class PriceCalculator
      * @param int $price
      * @return int
      */
-    public function subPrice (int $total, int $price): int
+    public function subPrice(int $total, int $price): int
     {
         $total = (int)bcsub($total, $price);
         return ($total < 0) ? 0 : $total;
@@ -71,7 +71,7 @@ class PriceCalculator
      * @param int $price
      * @return int
      */
-    public function mulPrice (int $amount, int $price): int
+    public function mulPrice(int $amount, int $price): int
     {
         return bcmul($price, $amount);
     }
@@ -80,7 +80,7 @@ class PriceCalculator
      * @param int $netPrice
      * @return int
      */
-    public function calculatePriceWithSalesTax (int $netPrice): int
+    public function calculatePriceWithSalesTax(int $netPrice): int
     {
         return (int)round((float)bcmul($netPrice, $this->vatToCalculate, 2));
     }
