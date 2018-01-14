@@ -22,8 +22,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Src\\": "src/",
-      "Tests\\": "tests/"
+      "MarcelStrahl\\PriceCalculator\\": "src/",
+      "MarcelStrahl\\PriceCalculator\\Tests\\": "tests/"
     }
   },
   "config": {
