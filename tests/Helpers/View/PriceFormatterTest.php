@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Helpers\View;
+namespace MarcelStrahl\PriceCalculator\Tests\Helpers\View;
 
 use PHPUnit\Framework\TestCase;
 use MarcelStrahl\PriceCalculator\Helpers\View\Formatter;

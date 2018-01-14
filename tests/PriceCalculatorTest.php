@@ -3,7 +3,7 @@
 namespace MarcelStrahl\PriceCalculator\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Src\PriceCalculator;
+use MarcelStrahl\PriceCalculator\PriceCalculator;
 
 /**
  * Class PriceCalculatorTest
