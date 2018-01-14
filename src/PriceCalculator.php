@@ -1,6 +1,6 @@
 <?php
 
-namespace Src;
+namespace MarcelStrahl\PriceCalculator;
 
 /**
  * Class PriceCalculator

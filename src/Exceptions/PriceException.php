@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Exceptions;
+namespace MarcelStrahl\PriceCalculator\Exceptions;
 
 /**
  * Class PriceException

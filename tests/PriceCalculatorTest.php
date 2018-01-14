@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace MarcelStrahl\PriceCalculator\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Src\PriceCalculator;

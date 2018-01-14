@@ -3,8 +3,8 @@
 namespace Tests\Helpers\View;
 
 use PHPUnit\Framework\TestCase;
-use Src\Helpers\View\Formatter;
-use Src\Helpers\View\PriceFormatter;
+use MarcelStrahl\PriceCalculator\Helpers\View\Formatter;
+use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
 
 /**
  * Class PriceFormatterTest

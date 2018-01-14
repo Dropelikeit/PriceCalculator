@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Helpers\View;
+namespace MarcelStrahl\PriceCalculator\Helpers\View;
 
 /**
  * Class PriceFormatter
