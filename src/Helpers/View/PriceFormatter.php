@@ -15,8 +15,8 @@ class PriceFormatter implements Formatter
     public function formatPrice(
         float $price,
         ?int $decimals = 2,
-        ?string $decPoint = '',
-        ?string $thousandsSep = '',
+        ?string $decPoint = ',',
+        ?string $thousandsSep = '.',
         ?string $currency = '€'
     ): string {
         return number_format($price, $decimals, $decPoint, $thousandsSep).' '.$currency;
