@@ -10,11 +10,6 @@ namespace MarcelStrahl\PriceCalculator;
 class PriceCalculator
 {
     /**
-     * @var PriceCalculator
-     */
-    private static $instance;
-
-    /**
      * @var string
      */
     private $vatToCalculate = '';
@@ -27,19 +22,10 @@ class PriceCalculator
     /**
      * @param $vatInPercent
      */
-    private function __construct(int $vatInPercent)
+    public function __construct(int $vatInPercent)
     {
         $this->vat = $vatInPercent;
         $this->vatToCalculate = bcadd(1, bcdiv($this->vat, 100, 2), 2);
-    }
-
-    /**
-     * @param int $vatInPercent
-     * @return PriceCalculator
-     */
-    public static function getInstance(int $vatInPercent): PriceCalculator
-    {
-        return self::$instance !== null ? self::$instance : new self($vatInPercent);
     }
 
     /**
