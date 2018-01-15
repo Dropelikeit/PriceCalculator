@@ -19,6 +19,6 @@ class PriceFormatter implements Formatter
         ?string $thousandsSep = '',
         ?string $currency = '€'
     ): string {
-        return number_format($price, 2, ',', '.').' €';
+        return number_format($price, $decimals, $decPoint, $thousandsSep).' '.$currency;
     }
 }
