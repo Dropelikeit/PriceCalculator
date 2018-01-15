@@ -34,6 +34,9 @@ before-install:
 # Create database, schema and fixtures
 install:
   - composer install
+  - wget -c -nc --retry-connrefused --tries=0 https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar
+  - chmod +x php-coveralls.phar
+  - php php-coveralls.phar --version
   #- cp app/config/parameters.yml.dist app/config/parameters.yml
   #- php bin/console doctrine:database:create --env=test
   #- php bin/console doctrine:schema:create --env=test
@@ -43,7 +46,14 @@ install:
 # Run script
 script:
   - phpunit
+  - phpunit --coverage-clover build/logs/clover.xml
+
+after_success:
+  - travis_retry php php-coveralls.phar -v
+
 
 # After a build, send email notification with the build results
 notifications:
-  email: info@marcel-strahl.de
+email:
+    on_success: never
+    on_failure: always
