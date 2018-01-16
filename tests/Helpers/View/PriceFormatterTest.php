@@ -18,28 +18,54 @@ class PriceFormatterTest extends TestCase
      */
     public function testInitPriceFormatter(): void
     {
-        $priceFormatter = $this->getPriceFormatter();
+        $priceFormatter = $this->getPriceFormatter(0, '', '', '€');
         $this->assertInstanceOf(PriceFormatter::class, $priceFormatter);
         $this->assertInstanceOf(Formatter::class, $priceFormatter);
     }
 
     /**
+     * @param int $decimals
+     * @param string $decPoint
+     * @param string $thousandsSep
+     * @param string $currency
      * @return PriceFormatter
      */
-    private function getPriceFormatter(): PriceFormatter
-    {
-        return new PriceFormatter();
+    private function getPriceFormatter(
+        int $decimals,
+        string $decPoint,
+        string $thousandsSep,
+        string $currency
+    ): PriceFormatter {
+        return new PriceFormatter($decimals, $decPoint, $thousandsSep, $currency);
     }
 
     /**
      * @dataProvider dataProviderFormatPriceForView
      * @param float $price
      * @param string $expected
+     * @param int $decimals
+     * @param string $decPoint
+     * @param string $thousandsSep
+     * @param string $currency
      * @return void
      */
-    public function testCanFormatPriceForView(float $price, string $expected): void
-    {
-        $this->assertSame($expected, $this->getPriceFormatter()->formatPrice($price));
+    public function testCanFormatPriceForView(
+        float $price,
+        string $expected,
+        int $decimals,
+        string $decPoint,
+        string $thousandsSep,
+        string $currency
+    ): void {
+        $this->assertSame(
+            $expected,
+            $this->getPriceFormatter(
+                $decimals,
+                $decPoint,
+                $thousandsSep,
+                $currency
+            )->formatPrice($price)
+        );
     }
 
     /**
@@ -52,7 +78,7 @@ class PriceFormatterTest extends TestCase
      * @param string $currency
      * @return void
      */
-    public function testCanFormatPriceWithNoDefaults(
+    public function testCanFormatPrice(
         float $price,
         string $expected,
         int $decimals,
@@ -62,7 +88,7 @@ class PriceFormatterTest extends TestCase
     ): void {
         $this->assertSame(
             $expected,
-            $this->getPriceFormatter()->formatPrice($price, $decimals, $decSep, $thousandsSep, $currency)
+            $this->getPriceFormatter($decimals, $decSep, $thousandsSep, $currency)->formatPrice($price)
         );
     }
 
@@ -94,16 +120,16 @@ class PriceFormatterTest extends TestCase
     {
         return [
             [
-                1.15, '1,15 €',
+                1.15, '1,15 €', 2, ',', '.', '€',
             ],
             [
-                4.05, '4,05 €',
+                4.05, '4,05 €', 2, ',', '.', '€',
             ],
             [
-                .15, '0,15 €',
+                .15, '0,15 €', 2, ',', '.', '€',
             ],
             [
-                761.60, '761,60 €',
+                761.60, '761,60 €', 2, ',', '.', '€',
             ],
         ];
     }
@@ -113,7 +139,7 @@ class PriceFormatterTest extends TestCase
      */
     public function testThrowExceptionByNonNumeric(): void
     {
-        $priceFormatter = $this->getPriceFormatter();
+        $priceFormatter = $this->getPriceFormatter(2, ',', '.', '€');
         $priceFormatter->formatPrice('Hello World');
     }
 }
