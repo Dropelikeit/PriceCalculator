@@ -30,6 +30,7 @@ class PriceCalculator
 
     /**
      * Add an price to total
+     *
      * @param int $total
      * @param int $price
      * @return int
@@ -41,6 +42,7 @@ class PriceCalculator
 
     /**
      * Sub an price from total
+     *
      * @param int $total
      * @param int $price
      * @return int
@@ -53,6 +55,7 @@ class PriceCalculator
 
     /**
      * Mul an price with amount
+     *
      * @param int $amount
      * @param int $price
      * @return int
@@ -63,6 +66,8 @@ class PriceCalculator
     }
 
     /**
+     * Calculates the gross price
+     *
      * @param int $netPrice
      * @return int
      */
@@ -72,12 +77,26 @@ class PriceCalculator
     }
 
     /**
+     * Calculates the value added tax from the current total price
+     *
      * @param int $total
      * @return int
      */
     public function calculateSalesTaxFromTotalPrice(int $total) : int
     {
         return (int)bcsub($total, round((float)bcdiv($total, $this->vatToCalculate, 2)));
+    }
+
+    /**
+     * Calculates the net price from the gross price
+     *
+     * @param int $total
+     * @return int
+     */
+    public function calculateNetPriceFromGrossPrice(int $total) : int
+    {
+        $vatPrice = $this->calculateSalesTaxFromTotalPrice($total);
+        return $this->subPrice($total, $vatPrice);
     }
 
     /**

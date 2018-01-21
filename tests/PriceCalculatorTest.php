@@ -261,4 +261,41 @@ class PriceCalculatorTest extends TestCase
             ]
         ];
     }
+
+    /**
+     * @dataProvider dataProviderCalculateNetPriceFromGrossPrice
+     * @param int $grossPrice
+     * @param int $expectedNetPrice
+     */
+    public function testCanCalculateNetPriceFromGrossPrice(int $grossPrice, int $expectedNetPrice): void
+    {
+        $priceCalculator = $this->getPriceCalculator();
+        $netPrice = $priceCalculator->calculateNetPriceFromGrossPrice($grossPrice);
+
+        $this->assertSame($expectedNetPrice, $netPrice);
+    }
+
+    /**
+     * @return array
+     */
+    public function dataProviderCalculateNetPriceFromGrossPrice(): array
+    {
+        return [
+            [
+                300, 252,
+            ],
+            [
+                405, 340,
+            ],
+            [
+                238, 200,
+            ],
+            [
+                15, 13,
+            ],
+            [
+                76160, 64000,
+            ],
+        ];
+    }
 }
