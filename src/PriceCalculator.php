@@ -7,7 +7,7 @@ namespace MarcelStrahl\PriceCalculator;
  * @author Marcel Strahl <info@marcel-strahl.de>
  * @package Src
  */
-class PriceCalculator
+class PriceCalculator implements PriceCalculatorInterface
 {
     /**
      * @var string

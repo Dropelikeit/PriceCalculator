@@ -2,6 +2,7 @@
 
 namespace MarcelStrahl\PriceCalculator\Tests;
 
+use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 use PHPUnit\Framework\TestCase;
 use MarcelStrahl\PriceCalculator\PriceCalculator;
 
@@ -29,6 +30,7 @@ class PriceCalculatorTest extends TestCase
         $vatMax = '1.19';
         $priceCalculator = $this->getPriceCalculator();
         $this->assertInstanceOf(PriceCalculator::class, $priceCalculator);
+        $this->assertInstanceOf(PriceCalculatorInterface::class, $priceCalculator);
         $this->assertSame($vat, $priceCalculator->getVat());
         $this->assertSame($vatMax, $priceCalculator->getVatToCalculate());
     }
