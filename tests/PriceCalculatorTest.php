@@ -2,6 +2,7 @@
 
 namespace MarcelStrahl\PriceCalculator\Tests;
 
+use MarcelStrahl\PriceCalculator\Factory\ConverterFactory;
 use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 use PHPUnit\Framework\TestCase;
 use MarcelStrahl\PriceCalculator\PriceCalculator;
@@ -18,7 +19,7 @@ class PriceCalculatorTest extends TestCase
      */
     private function getPriceCalculator(): PriceCalculator
     {
-        return new PriceCalculator(19);
+        return new PriceCalculator(19, new ConverterFactory());
     }
 
     /**
@@ -119,13 +120,18 @@ class PriceCalculatorTest extends TestCase
     /**
      * @dataProvider dataProviderEuroToCent
      * @param float $price
-     * @param int $expected
+     * @param float $expected
+     * @param string $currentUnit
+     * @param string $newUnit
      * @return void
      */
-    public function testCanCalculateEuroToCent(float $price, int $expected): void
+    public function testCanConvertUnit(float $price, float $expected, string $currentUnit, string $newUnit): void
     {
         $priceCalculator = $this->getPriceCalculator();
-        $this->assertSame($expected, $priceCalculator->calculateEuroToCent($price));
+        $this->assertSame(
+            $expected,
+            $priceCalculator->convertUnitToAnother($price, $currentUnit, $newUnit)
+        );
     }
 
     /**
@@ -135,55 +141,34 @@ class PriceCalculatorTest extends TestCase
     {
         return [
             [
-                1.15, 115,
+                1.15, 115, PriceCalculatorInterface::EURO, PriceCalculatorInterface::EURO_CENT,
             ],
             [
-                2.38, 238,
+                2.38, 238, PriceCalculatorInterface::EURO, PriceCalculatorInterface::EURO_CENT,
             ],
             [
-                4.05, 405,
+                4.05, 405, PriceCalculatorInterface::EURO, PriceCalculatorInterface::EURO_CENT,
             ],
             [
-                761.60, 76160,
+                761.60, 76160, PriceCalculatorInterface::EURO, PriceCalculatorInterface::EURO_CENT,
             ],
             [
-                0.15, 15,
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider dataProviderCentToEuro
-     * @param int $price
-     * @param string $expected
-     * @return void
-     */
-    public function testCanCalculateCentToEuro(int $price, string $expected): void
-    {
-        $priceCalculator = $this->getPriceCalculator();
-        $this->assertSame($expected, $priceCalculator->calculateCentToEuro($price));
-    }
-
-    /**
-     * @return array
-     */
-    public function dataProviderCentToEuro(): array
-    {
-        return [
-            [
-                115, '1.15'
+                0.15, 15, PriceCalculatorInterface::EURO, PriceCalculatorInterface::EURO_CENT,
             ],
             [
-                76160, '761.60'
+                115, 1.15, PriceCalculatorInterface::EURO_CENT, PriceCalculatorInterface::EURO,
             ],
             [
-                238, '2.38'
+                76160, 761.60, PriceCalculatorInterface::EURO_CENT, PriceCalculatorInterface::EURO,
             ],
             [
-                15, '0.15'
+                238, 2.38, PriceCalculatorInterface::EURO_CENT, PriceCalculatorInterface::EURO,
             ],
             [
-                405, '4.05'
+                15, 0.15, PriceCalculatorInterface::EURO_CENT, PriceCalculatorInterface::EURO,
+            ],
+            [
+                405, 4.05, PriceCalculatorInterface::EURO_CENT, PriceCalculatorInterface::EURO,
             ],
         ];
     }

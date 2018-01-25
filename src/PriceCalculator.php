@@ -2,6 +2,8 @@
 
 namespace MarcelStrahl\PriceCalculator;
 
+use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
+
 /**
  * Class PriceCalculator
  * @author Marcel Strahl <info@marcel-strahl.de>
@@ -20,12 +22,19 @@ class PriceCalculator implements PriceCalculatorInterface
     private $vat = 0;
 
     /**
-     * @param $vatInPercent
+     * @var ConverterFactoryInterface
      */
-    public function __construct(int $vatInPercent)
+    private $factory;
+
+    /**
+     * @param $vatInPercent
+     * @param ConverterFactoryInterface $factory
+     */
+    public function __construct(int $vatInPercent, ConverterFactoryInterface $factory)
     {
         $this->vat = $vatInPercent;
         $this->vatToCalculate = bcadd(1, bcdiv($this->vat, 100, 2), 2);
+        $this->factory = $factory;
     }
 
     /**
@@ -100,25 +109,15 @@ class PriceCalculator implements PriceCalculatorInterface
     }
 
     /**
-     * Calculate the euro price into cent
-     *
-     * @param string $total
-     * @return int
+     * @param float $amount
+     * @param string $currentUnit
+     * @param string $newUnit
+     * @return float
      */
-    public function calculateEuroToCent(string $total): int
+    public function convertUnitToAnother(float $amount, string $currentUnit, string $newUnit): float
     {
-        return (int)bcmul($total, 100);
-    }
-
-    /**
-     * Calculate the cent price to euro
-     *
-     * @param int $total
-     * @return string
-     */
-    public function calculateCentToEuro(int $total): string
-    {
-        return bcdiv($total, 100, 2);
+        $converter = $this->factory->get($amount, $currentUnit, $newUnit);
+        return $converter->convert();
     }
 
     /**

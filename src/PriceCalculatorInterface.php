@@ -9,5 +9,6 @@ namespace MarcelStrahl\PriceCalculator;
  */
 interface PriceCalculatorInterface
 {
-
+    public const EURO_CENT = 'euro_cent';
+    public const EURO = 'euro';
 }
