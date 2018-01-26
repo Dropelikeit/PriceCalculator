@@ -2,34 +2,32 @@
 
 namespace MarcelStrahl\PriceCalculator;
 
+use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
+use MarcelStrahl\PriceCalculator\Helpers\Entity\VatInterface;
+
 /**
  * Class PriceCalculator
  * @author Marcel Strahl <info@marcel-strahl.de>
  * @package Src
  */
-class PriceCalculator
+class PriceCalculator implements PriceCalculatorInterface
 {
     /**
-     * @var string
+     * @var VatInterface
      */
-    private $vatToCalculate = '';
+    private $vat;
 
     /**
-     * @var int
+     * @param $vat
      */
-    private $vat = 0;
-
-    /**
-     * @param $vatInPercent
-     */
-    public function __construct(int $vatInPercent)
+    public function __construct(VatInterface $vat)
     {
-        $this->vat = $vatInPercent;
-        $this->vatToCalculate = bcadd(1, bcdiv($this->vat, 100, 2), 2);
+        $this->vat = $vat;
     }
 
     /**
      * Add an price to total
+     *
      * @param int $total
      * @param int $price
      * @return int
@@ -41,6 +39,7 @@ class PriceCalculator
 
     /**
      * Sub an price from total
+     *
      * @param int $total
      * @param int $price
      * @return int
@@ -53,6 +52,7 @@ class PriceCalculator
 
     /**
      * Mul an price with amount
+     *
      * @param int $amount
      * @param int $price
      * @return int
@@ -63,58 +63,45 @@ class PriceCalculator
     }
 
     /**
+     * Calculates the gross price
+     *
      * @param int $netPrice
      * @return int
      */
     public function calculatePriceWithSalesTax(int $netPrice): int
     {
-        return (int)round((float)bcmul($netPrice, $this->vatToCalculate, 2));
+        return (int)round((float)bcmul($netPrice, $this->vat->getVatToCalculate(), 2));
     }
 
     /**
+     * Calculates the value added tax from the current total price
+     *
      * @param int $total
      * @return int
      */
     public function calculateSalesTaxFromTotalPrice(int $total) : int
     {
-        return (int)bcsub($total, round((float)bcdiv($total, $this->vatToCalculate, 2)));
+        return (int)bcsub($total, round((float)bcdiv($total, $this->vat->getVatToCalculate(), 2)));
     }
 
     /**
-     * Calculate the euro price into cent
-     *
-     * @param string $total
-     * @return int
-     */
-    public function calculateEuroToCent(string $total): int
-    {
-        return (int)bcmul($total, 100);
-    }
-
-    /**
-     * Calculate the cent price to euro
+     * Calculates the net price from the gross price
      *
      * @param int $total
-     * @return string
-     */
-    public function calculateCentToEuro(int $total): string
-    {
-        return bcdiv($total, 100, 2);
-    }
-
-    /**
      * @return int
      */
-    public function getVat(): int
+    public function calculateNetPriceFromGrossPrice(int $total) : int
     {
-        return $this->vat;
+        $vatPrice = $this->calculateSalesTaxFromTotalPrice($total);
+        return $this->subPrice($total, $vatPrice);
     }
 
     /**
-     * @return string
+     * @param float $vat
+     * @return void
      */
-    public function getVatToCalculate(): string
+    public function setVat(float $vat): void
     {
-        return $this->vatToCalculate;
+        $this->vat->setVat($vat);
     }
 }

@@ -2,6 +2,9 @@
 
 namespace MarcelStrahl\PriceCalculator\Tests;
 
+use MarcelStrahl\PriceCalculator\Factory\Converter;
+use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
+use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 use PHPUnit\Framework\TestCase;
 use MarcelStrahl\PriceCalculator\PriceCalculator;
 
@@ -17,7 +20,8 @@ class PriceCalculatorTest extends TestCase
      */
     private function getPriceCalculator(): PriceCalculator
     {
-        return new PriceCalculator(19);
+
+        return new PriceCalculator(new Vat());
     }
 
     /**
@@ -25,12 +29,9 @@ class PriceCalculatorTest extends TestCase
      */
     public function testCanInitPriceCalculator(): void
     {
-        $vat = 19;
-        $vatMax = '1.19';
         $priceCalculator = $this->getPriceCalculator();
         $this->assertInstanceOf(PriceCalculator::class, $priceCalculator);
-        $this->assertSame($vat, $priceCalculator->getVat());
-        $this->assertSame($vatMax, $priceCalculator->getVatToCalculate());
+        $this->assertInstanceOf(PriceCalculatorInterface::class, $priceCalculator);
     }
 
     /**
@@ -102,6 +103,9 @@ class PriceCalculatorTest extends TestCase
         $this->assertEquals($total, $priceCalculator->mulPrice($amount, $price));
     }
 
+    /**
+     * @return array
+     */
     public function dataProviderMulPrice(): array
     {
         return [
@@ -110,78 +114,6 @@ class PriceCalculatorTest extends TestCase
             ],
             [
                 15, 2, 30
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider dataProviderEuroToCent
-     * @param float $price
-     * @param int $expected
-     * @return void
-     */
-    public function testCanCalculateEuroToCent(float $price, int $expected): void
-    {
-        $priceCalculator = $this->getPriceCalculator();
-        $this->assertSame($expected, $priceCalculator->calculateEuroToCent($price));
-    }
-
-    /**
-     * @return array
-     */
-    public function dataProviderEuroToCent(): array
-    {
-        return [
-            [
-                1.15, 115,
-            ],
-            [
-                2.38, 238,
-            ],
-            [
-                4.05, 405,
-            ],
-            [
-                761.60, 76160,
-            ],
-            [
-                0.15, 15,
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider dataProviderCentToEuro
-     * @param int $price
-     * @param string $expected
-     * @return void
-     */
-    public function testCanCalculateCentToEuro(int $price, string $expected): void
-    {
-        $priceCalculator = $this->getPriceCalculator();
-        $this->assertSame($expected, $priceCalculator->calculateCentToEuro($price));
-    }
-
-    /**
-     * @return array
-     */
-    public function dataProviderCentToEuro(): array
-    {
-        return [
-            [
-                115, '1.15'
-            ],
-            [
-                76160, '761.60'
-            ],
-            [
-                238, '2.38'
-            ],
-            [
-                15, '0.15'
-            ],
-            [
-                405, '4.05'
             ],
         ];
     }
@@ -196,6 +128,7 @@ class PriceCalculatorTest extends TestCase
     public function testCanCalculateSalesTaxOfTotal(int $grossPrice, int $netPrice, int $expectedVat): void
     {
         $priceCalculator = $this->getPriceCalculator();
+        $priceCalculator->setVat(19);
         $vatPrice = $priceCalculator->calculateSalesTaxFromTotalPrice($grossPrice);
         $this->assertSame($expectedVat, $vatPrice);
         $this->assertSame($netPrice, (int)bcsub($grossPrice, $vatPrice));
@@ -234,6 +167,7 @@ class PriceCalculatorTest extends TestCase
     public function testCanCalculatePriceWithSalesTax(int $netPrice, int $expectedPrice): void
     {
         $priceCalculator = $this->getPriceCalculator();
+        $priceCalculator->setVat(19);
         $total = $priceCalculator->calculatePriceWithSalesTax($netPrice);
         $this->assertSame($expectedPrice, $total);
     }
@@ -259,6 +193,44 @@ class PriceCalculatorTest extends TestCase
             [
                 64000, 76160
             ]
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderCalculateNetPriceFromGrossPrice
+     * @param int $grossPrice
+     * @param int $expectedNetPrice
+     */
+    public function testCanCalculateNetPriceFromGrossPrice(int $grossPrice, int $expectedNetPrice): void
+    {
+        $priceCalculator = $this->getPriceCalculator();
+        $priceCalculator->setVat(19);
+        $netPrice = $priceCalculator->calculateNetPriceFromGrossPrice($grossPrice);
+
+        $this->assertSame($expectedNetPrice, $netPrice);
+    }
+
+    /**
+     * @return array
+     */
+    public function dataProviderCalculateNetPriceFromGrossPrice(): array
+    {
+        return [
+            [
+                300, 252,
+            ],
+            [
+                405, 340,
+            ],
+            [
+                238, 200,
+            ],
+            [
+                15, 13,
+            ],
+            [
+                76160, 64000,
+            ],
         ];
     }
 }
