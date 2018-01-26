@@ -3,12 +3,11 @@
 namespace MarcelStrahl\PriceCalculator\Tests\Factory;
 
 use MarcelStrahl\PriceCalculator\Exceptions\PriceCalculatorFactoryException;
-use MarcelStrahl\PriceCalculator\Factory\ConverterFactory;
+use MarcelStrahl\PriceCalculator\Factory\Converter;
 use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\EuroToCent;
-use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,26 +22,25 @@ class ConverterFactoryTest extends TestCase
      */
     public function testImplements(): void
     {
-        $converterFactory = new ConverterFactory();
+        $converterFactory = new Converter();
         $this->assertInstanceOf(ConverterFactoryInterface::class, $converterFactory);
-        $this->assertInstanceOf(ConverterFactory::class, $converterFactory);
+        $this->assertInstanceOf(Converter::class, $converterFactory);
     }
 
     /**
      * @dataProvider dataProviderGetConverter
-     * @param string $currentUnit
-     * @param string $newUnit
+     * @param string $destinationUnit
      * @param string $expectedClass
      * @return void
      */
-    public function testGetConverter(string $currentUnit, string $newUnit, string $expectedClass): void
+    public function testGetConverter(string $destinationUnit, string $expectedClass): void
     {
-        $factory = new ConverterFactory();
+        $factory = new Converter();
 
-        if ($currentUnit === '' || $newUnit === '') {
+        if ($destinationUnit === '') {
             $this->expectException(PriceCalculatorFactoryException::class);
         }
-        $converter = $factory->get(1.00, $currentUnit, $newUnit);
+        $converter = $factory->factorize($destinationUnit);
 
         $this->assertInstanceOf(ConverterInterface::class, $converter);
         $this->assertInstanceOf($expectedClass, $converter);
@@ -54,11 +52,9 @@ class ConverterFactoryTest extends TestCase
     public function dataProviderGetConverter(): array
     {
         return [
-            [PriceCalculatorInterface::EURO_CENT, PriceCalculatorInterface::EURO, CentToEuro::class],
-            [PriceCalculatorInterface::EURO, PriceCalculatorInterface::EURO_CENT, EuroToCent::class],
-            ['', '', ''],
-            ['', PriceCalculatorInterface::EURO_CENT, ''],
-            [PriceCalculatorInterface::EURO, '', ''],
+            [ConverterFactoryInterface::CENT_TO_EURO, CentToEuro::class],
+            [ConverterFactoryInterface::EURO_TO_CENT, EuroToCent::class],
+            ['', ''],
         ];
     }
 }

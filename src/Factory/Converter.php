@@ -7,25 +7,29 @@ use MarcelStrahl\PriceCalculator\Helpers\Converter\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\EuroToCent;
 use MarcelStrahl\PriceCalculator\PriceCalculator;
+use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 
 /**
  * Class ConverterFactory
  * @author Marcel Strahl <info@marcel-strahl.de>
  * @package MarcelStrahl\PriceCalculator\Factory
  */
-class ConverterFactory implements ConverterFactoryInterface
+class Converter implements ConverterFactoryInterface
 {
     /**
      * @inheritdoc
      */
-    public function get(float $amount, string $currentUnit, string $newUnit): ConverterInterface
+    public function factorize(string $destinationUnit): ConverterInterface
     {
-        if ($currentUnit === PriceCalculator::EURO_CENT && $newUnit === PriceCalculator::EURO) {
-            $converter = new CentToEuro($amount);
-        } elseif ($currentUnit === PriceCalculator::EURO && $newUnit === PriceCalculator::EURO_CENT) {
-            $converter = new EuroToCent($amount);
-        } else {
-            throw new PriceCalculatorFactoryException('The required currency translation is not currently supported.');
+        switch ($destinationUnit) {
+            case ConverterFactoryInterface::CENT_TO_EURO:
+                $converter = new CentToEuro();
+                break;
+            case ConverterFactoryInterface::EURO_TO_CENT:
+                $converter = new EuroToCent();
+                break;
+            default:
+                PriceCalculatorFactoryException::fromUnsupportedArgument($destinationUnit);
         }
 
         return $converter;

@@ -18,7 +18,7 @@ class CentToEuroTest extends TestCase
      */
     public function testImplements(): void
     {
-        $converter = new CentToEuro(1.00);
+        $converter = new CentToEuro();
         $this->assertInstanceOf(ConverterInterface::class, $converter);
         $this->assertInstanceOf(CentToEuro::class, $converter);
     }
@@ -31,8 +31,8 @@ class CentToEuroTest extends TestCase
      */
     public function testConvert(float $amount, float $expected): void
     {
-        $converter = new CentToEuro($amount);
-        $this->assertSame($expected, $converter->convert());
+        $converter = new CentToEuro();
+        $this->assertSame($expected, $converter->convert($amount));
     }
 
     /**

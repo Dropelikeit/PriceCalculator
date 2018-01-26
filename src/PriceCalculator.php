@@ -3,6 +3,7 @@
 namespace MarcelStrahl\PriceCalculator;
 
 use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
+use MarcelStrahl\PriceCalculator\Helpers\Entity\VatInterface;
 
 /**
  * Class PriceCalculator
@@ -12,29 +13,16 @@ use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
 class PriceCalculator implements PriceCalculatorInterface
 {
     /**
-     * @var string
+     * @var VatInterface
      */
-    private $vatToCalculate = '';
+    private $vat;
 
     /**
-     * @var int
+     * @param $vat
      */
-    private $vat = 0;
-
-    /**
-     * @var ConverterFactoryInterface
-     */
-    private $factory;
-
-    /**
-     * @param $vatInPercent
-     * @param ConverterFactoryInterface $factory
-     */
-    public function __construct(int $vatInPercent, ConverterFactoryInterface $factory)
+    public function __construct(VatInterface $vat)
     {
-        $this->vat = $vatInPercent;
-        $this->vatToCalculate = bcadd(1, bcdiv($this->vat, 100, 2), 2);
-        $this->factory = $factory;
+        $this->vat = $vat;
     }
 
     /**
@@ -82,7 +70,7 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function calculatePriceWithSalesTax(int $netPrice): int
     {
-        return (int)round((float)bcmul($netPrice, $this->vatToCalculate, 2));
+        return (int)round((float)bcmul($netPrice, $this->vat->getVatToCalculate(), 2));
     }
 
     /**
@@ -93,7 +81,7 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function calculateSalesTaxFromTotalPrice(int $total) : int
     {
-        return (int)bcsub($total, round((float)bcdiv($total, $this->vatToCalculate, 2)));
+        return (int)bcsub($total, round((float)bcdiv($total, $this->vat->getVatToCalculate(), 2)));
     }
 
     /**
@@ -109,30 +97,11 @@ class PriceCalculator implements PriceCalculatorInterface
     }
 
     /**
-     * @param float $amount
-     * @param string $currentUnit
-     * @param string $newUnit
-     * @return float
+     * @param float $vat
+     * @return void
      */
-    public function convertUnitToAnother(float $amount, string $currentUnit, string $newUnit): float
+    public function setVat(float $vat): void
     {
-        $converter = $this->factory->get($amount, $currentUnit, $newUnit);
-        return $converter->convert();
-    }
-
-    /**
-     * @return int
-     */
-    public function getVat(): int
-    {
-        return $this->vat;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVatToCalculate(): string
-    {
-        return $this->vatToCalculate;
+        $this->vat->setVat($vat);
     }
 }

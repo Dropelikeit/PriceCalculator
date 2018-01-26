@@ -10,23 +10,10 @@ namespace MarcelStrahl\PriceCalculator\Helpers\Converter;
 class CentToEuro implements ConverterInterface
 {
     /**
-     * @var float
-     */
-    private $amount = 0;
-
-    /**
-     * @param float $amount
-     */
-    public function __construct(float $amount)
-    {
-        $this->amount = $amount;
-    }
-
-    /**
      * @inheritDoc
      */
-    public function convert(): float
+    public function convert(float $amount): float
     {
-        return (float)bcdiv($this->amount, 100, 2);
+        return (float)bcdiv($amount, 100, 2);
     }
 }

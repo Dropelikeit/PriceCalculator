@@ -10,7 +10,8 @@ namespace MarcelStrahl\PriceCalculator\Helpers\Converter;
 interface ConverterInterface
 {
     /**
+     * @param float $amount
      * @return float
      */
-    public function convert(): float;
+    public function convert(float $amount): float;
 }

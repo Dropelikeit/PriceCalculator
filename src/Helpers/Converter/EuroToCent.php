@@ -10,23 +10,10 @@ namespace MarcelStrahl\PriceCalculator\Helpers\Converter;
 class EuroToCent implements ConverterInterface
 {
     /**
-     * @var float
-     */
-    private $amount = 0.00;
-
-    /**
-     * @param float $amount
-     */
-    public function __construct(float $amount)
-    {
-        $this->amount = $amount;
-    }
-
-    /**
      * @inheritDoc
      */
-    public function convert(): float
+    public function convert(float $amount): float
     {
-        return (float)bcmul($this->amount, 100);
+        return (float)bcmul($amount, 100);
     }
 }
