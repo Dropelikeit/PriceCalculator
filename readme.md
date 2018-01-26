@@ -21,19 +21,34 @@ You are also welcome to use the Issue Tracker to set bugs, improvements or upgra
 ``` composer require marcel-strahl/price-calculator ```
 
 ### Example
-```
-$vat = 19; // Value added tax in Germany
-$total = 0;
-$price = 300; // cent
-$priceCalculator = new PriceCalculator($vat);
-$amount = $priceCalculator->addPrice($total, $price); // amount in cent
-
-// If you want to calculate the price including sales tax, use the following method.
-$amount = $priceCalculator->calculatePriceWithSalesTax($amount);
-
-// convert to Euro
-$amount = (float)$priceCalculator->calculateCentToEuro($amount);
+```php
+<?php
+    use MarcelStrahl\PriceCalculator\PriceCalculator;
+    use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
+    use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
+    use MarcelStrahl\PriceCalculator\Factory\Converter as UnitFactory;
+    use MarcelStrahl\PriceCalculator\UnitConverter;
     
-$formatter = new PriceFormatter();
-echo $formatter->formatPrice($amount, 2, ',', '.', '€');    
+    $vat = new Vat();
+    $total = 0;
+    $price = 300; // cent
+    $priceCalculator = new PriceCalculator($vat);
+    $priceCalculator->setVat(19); // Value added tax in Germany
+    $amount = $priceCalculator->addPrice($total, $price); // amount in cent
+    
+    // If you want to calculate the price including sales tax, use the following method.
+    $amount = $priceCalculator->calculatePriceWithSalesTax($amount);
+    
+    // Add price
+    $total = (float)$priceCalculator->addPrice($total, $amount);
+    
+    $factory = new UnitFactory();
+    $unitConveter = new UnitConverter($factory);
+    
+    // Get cent to euro converter
+    $conveter = $unitConveter->convert(UnitFactory::CENT_TO_EURO);
+    $total = $conveter->convert($total);
+    
+    $formatter = new PriceFormatter(2, ',', '.', '€');
+    echo $formatter->formatPrice($total);    
 ```
