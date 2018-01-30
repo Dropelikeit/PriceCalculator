@@ -2,7 +2,6 @@
 
 namespace MarcelStrahl\PriceCalculator;
 
-use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\VatInterface;
 
 /**
@@ -28,69 +27,69 @@ class PriceCalculator implements PriceCalculatorInterface
     /**
      * Add an price to total
      *
-     * @param int $total
-     * @param int $price
-     * @return int
+     * @param float $total
+     * @param float $price
+     * @return float
      */
-    public function addPrice(int $total, int $price): int
+    public function addPrice(float $total, float $price): float
     {
-        return (int)bcadd($total, $price);
+        return (float)bcadd($total, $price);
     }
 
     /**
      * Sub an price from total
      *
-     * @param int $total
-     * @param int $price
-     * @return int
+     * @param float $total
+     * @param float $price
+     * @return float
      */
-    public function subPrice(int $total, int $price): int
+    public function subPrice(float $total, float $price): float
     {
-        $total = (int)bcsub($total, $price);
+        $total = (float)bcsub($total, $price);
         return ($total < 0) ? 0 : $total;
     }
 
     /**
      * Mul an price with amount
      *
-     * @param int $amount
-     * @param int $price
-     * @return int
+     * @param float $amount
+     * @param float $price
+     * @return float
      */
-    public function mulPrice(int $amount, int $price): int
+    public function mulPrice(float $amount, float $price): float
     {
-        return bcmul($price, $amount);
+        return (float)bcmul($price, $amount);
     }
 
     /**
      * Calculates the gross price
      *
-     * @param int $netPrice
-     * @return int
+     * @param float $netPrice
+     * @return float
      */
-    public function calculatePriceWithSalesTax(int $netPrice): int
+    public function calculatePriceWithSalesTax(float $netPrice): float
     {
-        return (int)round((float)bcmul($netPrice, $this->vat->getVatToCalculate(), 2));
+        return (float)round((float)bcmul($netPrice, $this->vat->getVatToCalculate(), 2));
     }
 
     /**
      * Calculates the value added tax from the current total price
      *
-     * @param int $total
-     * @return int
+     * @param float $total
+     * @return float
      */
-    public function calculateSalesTaxFromTotalPrice(int $total) : int
+    public function calculateSalesTaxFromTotalPrice(float $total) : float
     {
-        return (int)bcsub($total, round((float)bcdiv($total, $this->vat->getVatToCalculate(), 2)));
+        return (float)bcsub($total, round((float)bcdiv($total, $this->vat->getVatToCalculate(), 2)));
     }
 
     /**
      * Calculates the net price from the gross price
      *
-     * @param int $total
-     * @return int
+     * @param float $total
+     * @return float
      */
-    public function calculateNetPriceFromGrossPrice(int $total) : int
+    public function calculateNetPriceFromGrossPrice(float $total) : float
     {
         $vatPrice = $this->calculateSalesTaxFromTotalPrice($total);
         return $this->subPrice($total, $vatPrice);
