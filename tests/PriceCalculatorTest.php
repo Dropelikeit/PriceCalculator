@@ -36,12 +36,12 @@ class PriceCalculatorTest extends TestCase
 
     /**
      * @dataProvider dataProviderAddPrice
-     * @param int $price
-     * @param int $amount
-     * @param int $expected
+     * @param float $price
+     * @param float $amount
+     * @param float $expected
      * @return void
      */
-    public function testCanAdd(int $price, int $amount, int $expected): void
+    public function testCanAdd(float $price, float $amount, float $expected): void
     {
         $priceCalculator = $this->getPriceCalculator();
         $this->assertSame($expected, $priceCalculator->addPrice($price, $amount));
@@ -64,12 +64,12 @@ class PriceCalculatorTest extends TestCase
 
     /**
      * @dataProvider dataProviderSubPrice
-     * @param int $price
-     * @param int $amount
-     * @param int $total
+     * @param float $price
+     * @param float $amount
+     * @param float $total
      * @return void
      */
-    public function testCanSub(int $price, int $amount, int $total): void
+    public function testCanSub(float $price, float $amount, float $total): void
     {
         $priceCalculator = $this->getPriceCalculator();
         $this->assertSame($total, $priceCalculator->subPrice($price, $amount));
@@ -120,19 +120,19 @@ class PriceCalculatorTest extends TestCase
 
     /**
      * @dataProvider dataProviderSalesTaxOfTotal
-     * @param int $grossPrice
-     * @param int $netPrice
-     * @param int $expectedVat
+     * @param float $grossPrice
+     * @param float $netPrice
+     * @param float $expectedVat
      * @return void
      */
-    public function testCanCalculateSalesTaxOfTotal(int $grossPrice, int $netPrice, int $expectedVat): void
+    public function testCanCalculateSalesTaxOfTotal(float $grossPrice, float $netPrice, float $expectedVat): void
     {
         $priceCalculator = $this->getPriceCalculator();
         $priceCalculator->setVat(19);
         $vatPrice = $priceCalculator->calculateSalesTaxFromTotalPrice($grossPrice);
         $this->assertSame($expectedVat, $vatPrice);
-        $this->assertSame($netPrice, (int)bcsub($grossPrice, $vatPrice));
-        $this->assertSame($grossPrice, (int)bcadd($netPrice, $vatPrice));
+        $this->assertSame($netPrice, (float)bcsub($grossPrice, $vatPrice));
+        $this->assertSame($grossPrice, (float)bcadd($netPrice, $vatPrice));
     }
 
     /**
@@ -161,10 +161,11 @@ class PriceCalculatorTest extends TestCase
 
     /**
      * @dataProvider dataProviderPriceWithSalesTax
-     * @param int $netPrice
-     * @param int $expectedPrice
+     * @param float $netPrice
+     * @param float $expectedPrice
+     * @return void
      */
-    public function testCanCalculatePriceWithSalesTax(int $netPrice, int $expectedPrice): void
+    public function testCanCalculatePriceWithSalesTax(float $netPrice, float $expectedPrice): void
     {
         $priceCalculator = $this->getPriceCalculator();
         $priceCalculator->setVat(19);
@@ -198,10 +199,11 @@ class PriceCalculatorTest extends TestCase
 
     /**
      * @dataProvider dataProviderCalculateNetPriceFromGrossPrice
-     * @param int $grossPrice
-     * @param int $expectedNetPrice
+     * @param float $grossPrice
+     * @param float $expectedNetPrice
+     * @return void
      */
-    public function testCanCalculateNetPriceFromGrossPrice(int $grossPrice, int $expectedNetPrice): void
+    public function testCanCalculateNetPriceFromGrossPrice(float $grossPrice, float $expectedNetPrice): void
     {
         $priceCalculator = $this->getPriceCalculator();
         $priceCalculator->setVat(19);
