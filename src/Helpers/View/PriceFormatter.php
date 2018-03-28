@@ -48,6 +48,7 @@ class PriceFormatter implements Formatter
      */
     public function formatPrice(float $price): string
     {
+        // @Todo Maybe we use money_format
         return number_format($price, $this->decimals, $this->decPoint, $this->thousandsSep) . ' ' . $this->currency;
     }
 }

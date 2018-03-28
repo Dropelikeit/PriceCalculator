@@ -3,7 +3,7 @@
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Entity;
 
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
-use MarcelStrahl\PriceCalculator\Helpers\Entity\VatInterface;
+use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -19,7 +19,6 @@ interface ConverterFactoryInterface
     /**
      * @param string $destinationUnit
      * @return ConverterInterface
-     * @throws PriceCalculatorFactoryException
      */
     public function factorize(string $destinationUnit): ConverterInterface;
 }
