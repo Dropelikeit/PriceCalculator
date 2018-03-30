@@ -6,8 +6,6 @@ use MarcelStrahl\PriceCalculator\Exceptions\PriceCalculatorFactoryException;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\EuroToCent;
-use MarcelStrahl\PriceCalculator\PriceCalculator;
-use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 
 /**
  * Class ConverterFactory
@@ -29,7 +27,7 @@ class Converter implements ConverterFactoryInterface
                 $converter = new EuroToCent();
                 break;
             default:
-                PriceCalculatorFactoryException::fromUnsupportedArgument($destinationUnit);
+                throw PriceCalculatorFactoryException::fromUnsupportedArgument($destinationUnit);
         }
 
         return $converter;

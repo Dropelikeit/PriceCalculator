@@ -2,7 +2,8 @@
 
 namespace MarcelStrahl\PriceCalculator;
 
-use MarcelStrahl\PriceCalculator\Helpers\Entity\VatInterface;
+use MarcelStrahl\PriceCalculator\Helpers\Types\DiscountInterface;
+use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
 
 /**
  * Class PriceCalculator
@@ -93,6 +94,27 @@ class PriceCalculator implements PriceCalculatorInterface
     {
         $vatPrice = $this->calculateSalesTaxFromTotalPrice($total);
         return $this->subPrice($total, $vatPrice);
+    }
+
+    /**
+     * @param DiscountInterface $discount
+     * @param float $total
+     * @return float
+     */
+    public function calculateDiscountFromTotal(DiscountInterface $discount, float $total): float
+    {
+        return bcsub($total, $this->calculateDiscountPriceFromTotal($discount, $total));
+    }
+
+    /**
+     * @param DiscountInterface $discount
+     * @param float $total
+     * @return float
+     */
+    public function calculateDiscountPriceFromTotal(DiscountInterface $discount, float $total): float
+    {
+        $total = bcdiv($total, 100, 12);
+        return (int)bcmul($total, $discount->getDiscount(), 2);
     }
 
     /**

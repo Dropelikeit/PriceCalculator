@@ -1,6 +1,6 @@
 <?php
 
-namespace MarcelStrahl\PriceCalculator\Helpers\Entity;
+namespace MarcelStrahl\PriceCalculator\Helpers\Types;
 
 /**
  * Interface VatInterface

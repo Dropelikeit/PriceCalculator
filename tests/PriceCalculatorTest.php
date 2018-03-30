@@ -3,6 +3,7 @@
 namespace MarcelStrahl\PriceCalculator\Tests;
 
 use MarcelStrahl\PriceCalculator\Factory\Converter;
+use MarcelStrahl\PriceCalculator\Helpers\Entity\Discount;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
 use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 use PHPUnit\Framework\TestCase;
@@ -232,6 +233,67 @@ class PriceCalculatorTest extends TestCase
             ],
             [
                 76160, 64000,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderCalculateDiscountPriceFromTotal
+     * @param float $total
+     * @param float $percent
+     * @param float $expectedPrice
+     * @return void
+     */
+    public function testCanCalculateDiscountPriceFromTotal(float $total, float $percent, float $expectedPrice): void
+    {
+        $priceCalculator = $this->getPriceCalculator();
+        $discount = new Discount($percent);
+
+        $discountPrice = $priceCalculator->calculateDiscountPriceFromTotal($discount, $total);
+        $this->assertSame($expectedPrice, $discountPrice);
+    }
+
+    /**
+     * @return array
+     */
+    public function dataProviderCalculateDiscountPriceFromTotal(): array
+    {
+        return [
+            [
+                30.00, 10.0, 3.,
+                150.00, 11.9, 17.85,
+                210.00, .04, 0.08,
+                .41, 25., .10,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderCalculateDiscountFromTotal
+     * @param float $total
+     * @param float $percent
+     * @param float $expectedPrice
+     * @return void
+     */
+    public function testCanCalculateDiscountFromTotal(float $total, float $percent, float $expectedPrice): void
+    {
+        $priceCalculator = $this->getPriceCalculator();
+        $discount = new Discount($percent);
+        $newTotal = $priceCalculator->calculateDiscountFromTotal($discount, $total);
+        $this->assertSame($expectedPrice, $newTotal);
+    }
+
+    /**
+     * @return array
+     */
+    public function dataProviderCalculateDiscountFromTotal(): array
+    {
+        return [
+            [
+                30.00, 10.0, 27.,
+                150.00, 11.9, 132.15,
+                210.00, .04, 209.92,
+                .41, 25., .31,
             ],
         ];
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Converter;
+namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Converter\Currencies;
 
 use MarcelStrahl\PriceCalculator\Helpers\Converter\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;

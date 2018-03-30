@@ -11,13 +11,12 @@ class PriceCalculatorFactoryException extends \InvalidArgumentException
 {
     /**
      * @param string $type
-     * @throws PriceCalculatorFactoryException
-     * @return void
+     * @return self
      */
-    public static function fromUnsupportedArgument(string $type): void
+    public static function fromUnsupportedArgument(string $type): self
     {
-        throw new PriceCalculatorFactoryException(
-            sprintf('The required currency translation is not currently supported. Type: %s', $type)
+         return new self(
+            sprintf('The required currency translation is not currently supported. Type: %s', $type), 500
         );
     }
 }
