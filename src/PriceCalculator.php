@@ -46,7 +46,7 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function subPrice(float $total, float $price): float
     {
-        $total = (float)bcsub($total, $price);
+        $total = (float)bcsub($total, $price, 2);
         return ($total < 0) ? 0 : $total;
     }
 
@@ -81,7 +81,7 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function calculateSalesTaxFromTotalPrice(float $total) : float
     {
-        return (float)bcsub($total, round((float)bcdiv($total, $this->vat->getVatToCalculate(), 2)));
+        return (float)bcsub($total, round((float)bcdiv($total, $this->vat->getVatToCalculate(), 12), 2), 2);
     }
 
     /**
