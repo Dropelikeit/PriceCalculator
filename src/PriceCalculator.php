@@ -34,7 +34,7 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function addPrice(float $total, float $price): float
     {
-        return (float)bcadd($total, $price);
+        return (float)bcadd($total, $price,2);
     }
 
     /**
@@ -59,7 +59,7 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function mulPrice(float $amount, float $price): float
     {
-        return (float)bcmul($price, $amount);
+        return (float)bcmul($price, $amount, 2);
     }
 
     /**
