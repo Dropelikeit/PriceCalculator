@@ -20,7 +20,141 @@ You are also welcome to use the Issue Tracker to set bugs, improvements or upgra
 
 ``` composer require marcel-strahl/price-calculator ```
 
-### Example
+### How to use
+
+If you want to use our price calculator, you can instantiate an instance of the price calculator via the price calculator facade from version 2.1.
+
+```php
+<?php
+    use MarcelStrahl\PriceCalculator\Facade\PriceCalculator;
+    
+    $vat = 19;
+    $priceCalculator = PriceCalculator::getPriceCalculator($vat);
+```
+
+In versions older than 2.1, you must instantiate the price calculator itself and add the dependencies.
+
+```php
+<?php
+
+use MarcelStrahl\PriceCalculator\PriceCalculator;
+use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
+    
+$vat = new Vat();
+$vat->setVat(19);        
+$priceCalculator = new PriceCalculator($vat);
+```
+
+The price calculator can add prices
+
+```php
+<?php
+
+use MarcelStrahl\PriceCalculator\PriceCalculator;
+use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
+    
+$total = 0;
+$add = 100;
+
+$vat = new Vat();
+$vat->setVat(19);        
+$priceCalculator = new PriceCalculator($vat);
+
+// Total: 100
+$total = $priceCalculator->addPrice($total, $add);
+```
+
+Subtracting prices is made possible by the following method:
+
+```php
+<?php
+
+use MarcelStrahl\PriceCalculator\PriceCalculator;
+use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
+    
+$total = 200;
+$sub = 100;
+
+$vat = new Vat();
+$vat->setVat(19);        
+$priceCalculator = new PriceCalculator($vat);
+
+// Total: 100
+$total = $priceCalculator->subPrice($total, $sub);
+```
+
+You can also multiply prices by a number (integer).
+
+```php
+<?php
+
+use MarcelStrahl\PriceCalculator\PriceCalculator;
+use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
+    
+$price = 200;
+$amount = 2;
+
+$vat = new Vat();
+$vat->setVat(19);        
+$priceCalculator = new PriceCalculator($vat);
+
+// Total: 100
+$total = $priceCalculator->mulPrice($amount, 200);
+```
+
+With the following code you can calculate the VAT:
+
+```php
+<?php
+
+use MarcelStrahl\PriceCalculator\PriceCalculator;
+use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
+    
+$total = 200.50;
+
+$vat = new Vat();
+$vat->setVat(19);        
+$priceCalculator = new PriceCalculator($vat);
+
+$vatPrice = $priceCalculator->calculateSalesTaxFromTotalPrice($total);
+```
+
+The following example shows how to calculate the net price using the gross price.
+
+```php
+<?php
+
+use MarcelStrahl\PriceCalculator\PriceCalculator;
+use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
+    
+$total = 200.50;
+
+$vat = new Vat();
+$vat->setVat(19);        
+$priceCalculator = new PriceCalculator($vat);
+
+$vatPrice = $priceCalculator->calculateNetPriceFromGrossPrice($total);
+```
+
+Or the gross price is determined using the net price
+
+```php
+<?php
+
+use MarcelStrahl\PriceCalculator\PriceCalculator;
+use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
+    
+$netPrice = 15.50;
+
+$vat = new Vat();
+$vat->setVat(19);        
+$priceCalculator = new PriceCalculator($vat);
+
+$vatPrice = $priceCalculator->calculatePriceWithSalesTax($netPrice);
+```
+In another example you can see the functions of the price calculator.
+A price is calculated, converted from cents to euros and the total sum is formatted.
+
 ```php
 <?php
     use MarcelStrahl\PriceCalculator\PriceCalculator;
