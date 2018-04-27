@@ -22,7 +22,6 @@ class DiscountTest extends TestCase
     {
         $discount = new Discount($percent = 0.5);
         $this->assertInstanceOf(DiscountInterface::class, $discount);
-        $this->assertInstanceOf(NumberInterface::class, $discount);
         $this->assertInstanceOf(PercentInterface::class, $discount);
         $this->assertSame($percent, $discount->getDiscount());
     }

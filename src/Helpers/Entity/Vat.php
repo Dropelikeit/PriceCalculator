@@ -3,7 +3,6 @@
 namespace MarcelStrahl\PriceCalculator\Helpers\Entity;
 
 use MarcelStrahl\PriceCalculator\Helpers\Types\PercentInterface;
-use MarcelStrahl\PriceCalculator\Helpers\Types\NumberInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
 
 /**
@@ -11,17 +10,25 @@ use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
  * @author Marcel Strahl <info@marcel-strahl.de>
  * @package MarcelStrahl\PriceCalculator\Helpers\Entity
  */
-class Vat implements VatInterface, PercentInterface, NumberInterface
+class Vat implements VatInterface, PercentInterface
 {
     /**
      * @var float
      */
-    private $vat = 0.00;
+    private $vat = .00;
 
     /**
      * @var float
      */
-    private $vatToCalculate = 0.00;
+    private $vatToCalculate = .00;
+
+    /**
+     * @return float
+     */
+    public function getVat(): float
+    {
+        return $this->vat;
+    }
 
     /**
      * @param float $vat
@@ -30,14 +37,6 @@ class Vat implements VatInterface, PercentInterface, NumberInterface
     {
         $this->vat = $vat;
         $this->vatToCalculate = (float)bcadd(1, bcdiv($vat, 100, 2), 2);
-    }
-
-    /**
-     * @return float
-     */
-    public function getVat(): float
-    {
-        return $this->vat;
     }
 
     /**

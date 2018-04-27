@@ -2,21 +2,20 @@
 
 namespace MarcelStrahl\PriceCalculator\Helpers\Entity;
 
-use MarcelStrahl\PriceCalculator\Helpers\Types\PercentInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Types\DiscountInterface;
-use MarcelStrahl\PriceCalculator\Helpers\Types\NumberInterface;
+use MarcelStrahl\PriceCalculator\Helpers\Types\PercentInterface;
 
 /**
  * Class Discount
  * @author Marcel Strahl <info@marcel-strahl.de>
  * @package MarcelStrahl\PriceCalculator\Helpers\Entity
  */
-class Discount implements DiscountInterface, PercentInterface, NumberInterface
+class Discount implements DiscountInterface, PercentInterface
 {
     /**
      * @var float
      */
-    private $percent = 0.0;
+    private $percent = .0;
 
     /**
      * @param float $percent

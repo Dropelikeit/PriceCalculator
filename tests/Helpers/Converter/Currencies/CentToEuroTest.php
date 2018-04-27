@@ -2,6 +2,7 @@
 
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Converter\Currencies;
 
+use MarcelStrahl\PriceCalculator\Exceptions\ConverterException;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
 use PHPUnit\Framework\TestCase;
@@ -25,13 +26,19 @@ class CentToEuroTest extends TestCase
 
     /**
      * @dataProvider dataProviderConvert
-     * @param float $amount
-     * @param float $expected
+     * @param null|float $amount
+     * @param null|float $expected
      * @return void
+     * @throws ConverterException
      */
     public function testConvert(float $amount, float $expected): void
     {
         $converter = new CentToEuro();
+
+        if ($amount === .00) {
+            $this->expectException(ConverterException::class);
+        }
+
         $this->assertSame($expected, $converter->convert($amount));
     }
 
@@ -44,6 +51,7 @@ class CentToEuroTest extends TestCase
             [100.00, 1.00],
             [250.00, 2.50],
             [178, 1.78],
+            [.00, .00],
         ];
     }
 }
