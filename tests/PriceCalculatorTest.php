@@ -132,8 +132,8 @@ class PriceCalculatorTest extends TestCase
         $priceCalculator->setVat(19);
         $vatPrice = $priceCalculator->calculateSalesTaxFromTotalPrice($grossPrice);
         $this->assertSame($expectedVat, $vatPrice);
-        $this->assertSame($netPrice, (float)bcsub($grossPrice, $vatPrice));
-        $this->assertSame($grossPrice, (float)bcadd($netPrice, $vatPrice));
+        $this->assertSame($netPrice, (float)bcsub($grossPrice, $vatPrice, 2));
+        $this->assertSame($grossPrice, (float)bcadd($netPrice, $vatPrice, 2));
     }
 
     /**
@@ -143,19 +143,22 @@ class PriceCalculatorTest extends TestCase
     {
         return [
             [
-                300, 252, 48,
+                300.0, 252.1, 47.9,
             ],
             [
                 76160, 64000, 12160
             ],
             [
-                405, 340, 65
+                405, 340.34, 64.66
             ],
             [
-                15, 13, 2
+                15, 12.61, 2.39
             ],
             [
                 238, 200, 38
+            ],
+            [
+                42.1, 35.38, 6.72
             ]
         ];
     }
@@ -220,16 +223,16 @@ class PriceCalculatorTest extends TestCase
     {
         return [
             [
-                300, 252,
+                300, 252.1,
             ],
             [
-                405, 340,
+                405, 340.34,
             ],
             [
                 238, 200,
             ],
             [
-                15, 13,
+                15, 12.61,
             ],
             [
                 76160, 64000,
