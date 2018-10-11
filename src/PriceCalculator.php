@@ -34,7 +34,7 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function addPrice(float $total, float $price): float
     {
-        return (float)bcadd($total, $price,2);
+        return (float)bcadd($total, $price, 2);
     }
 
     /**
@@ -81,7 +81,10 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function calculateSalesTaxFromTotalPrice(float $total) : float
     {
-        return (float)bcsub($total, round((float)bcdiv($total, $this->vat->getVatToCalculate(), 12), 2), 2);
+        return (float)bcsub(
+            $total,
+            round((float)bcdiv($total, $this->vat->getVatToCalculate(), 12), 2),
+            2);
     }
 
     /**
@@ -111,8 +114,10 @@ class PriceCalculator implements PriceCalculatorInterface
      * @param float $total
      * @return float
      */
-    public function calculateDiscountPriceFromTotal(DiscountInterface $discount, float $total): float
-    {
+    public function calculateDiscountPriceFromTotal(
+        DiscountInterface $discount,
+        float $total
+    ): float {
         $total = bcdiv($total, 100, 12);
         return (int)bcmul($total, $discount->getDiscount(), 2);
     }

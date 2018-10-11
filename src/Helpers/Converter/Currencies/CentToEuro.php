@@ -1,8 +1,9 @@
 <?php
 
-namespace MarcelStrahl\PriceCalculator\Helpers\Converter;
+namespace MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies;
 
 use MarcelStrahl\PriceCalculator\Exceptions\ConverterException;
+use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
 
 /**
  * Class CentToEuro

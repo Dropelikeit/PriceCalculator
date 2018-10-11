@@ -29,26 +29,25 @@ class PriceFormatter implements Formatter
      */
     private $currency;
 
-    /**
-     * @param int $decimals
-     * @param string $decPoint
-     * @param string $thousandsSep
-     * @param string $currency
-     */
-    public function __construct(int $decimals, string $decPoint, string $thousandsSep, string $currency)
-    {
+    public function __construct(
+        int $decimals,
+        string $decPoint,
+        string $thousandsSep,
+        string $currency
+    ) {
         $this->decimals = $decimals;
         $this->decPoint = $decPoint;
         $this->thousandsSep = $thousandsSep;
         $this->currency = $currency;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function formatPrice(float $price): string
     {
-        // @Todo Maybe we use money_format
-        return number_format($price, $this->decimals, $this->decPoint, $this->thousandsSep) . ' ' . $this->currency;
+        /*
+        * @todo Maybe we use money_format
+        */
+        return number_format(
+                $price, $this->decimals, $this->decPoint, $this->thousandsSep
+            ) . ' ' . $this->currency;
     }
 }

@@ -2,12 +2,11 @@
 
 namespace MarcelStrahl\PriceCalculator\Tests;
 
-use MarcelStrahl\PriceCalculator\Factory\Converter;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Discount;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
+use MarcelStrahl\PriceCalculator\PriceCalculator;
 use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 use PHPUnit\Framework\TestCase;
-use MarcelStrahl\PriceCalculator\PriceCalculator;
 
 /**
  * Class PriceCalculatorTest
@@ -126,8 +125,11 @@ class PriceCalculatorTest extends TestCase
      * @param float $expectedVat
      * @return void
      */
-    public function testCanCalculateSalesTaxOfTotal(float $grossPrice, float $netPrice, float $expectedVat): void
-    {
+    public function testCanCalculateSalesTaxOfTotal(
+        float $grossPrice,
+        float $netPrice,
+        float $expectedVat
+    ): void {
         $priceCalculator = $this->getPriceCalculator();
         $priceCalculator->setVat(19);
         $vatPrice = $priceCalculator->calculateSalesTaxFromTotalPrice($grossPrice);

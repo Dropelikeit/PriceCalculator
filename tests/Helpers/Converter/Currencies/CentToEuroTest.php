@@ -3,8 +3,8 @@
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Converter\Currencies;
 
 use MarcelStrahl\PriceCalculator\Exceptions\ConverterException;
-use MarcelStrahl\PriceCalculator\Helpers\Converter\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
+use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\CentToEuro;
 use PHPUnit\Framework\TestCase;
 
 /**

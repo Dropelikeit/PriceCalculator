@@ -4,7 +4,7 @@ namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Converter\Currencies;
 
 use MarcelStrahl\PriceCalculator\Exceptions\ConverterException;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
-use MarcelStrahl\PriceCalculator\Helpers\Converter\EuroToCent;
+use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\EuroToCent;
 use PHPUnit\Framework\TestCase;
 
 /**
