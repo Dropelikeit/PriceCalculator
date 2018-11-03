@@ -6,9 +6,7 @@ use MarcelStrahl\PriceCalculator\Helpers\Types\DiscountInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
 
 /**
- * Class PriceCalculator
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package Src
  */
 class PriceCalculator implements PriceCalculatorInterface
 {
@@ -18,7 +16,7 @@ class PriceCalculator implements PriceCalculatorInterface
     private $vat;
 
     /**
-     * @param $vat
+     * @param VatInterface $vat
      */
     public function __construct(VatInterface $vat)
     {
@@ -70,7 +68,8 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function calculatePriceWithSalesTax(float $netPrice): float
     {
-        return (float)round((float)bcmul($netPrice, $this->vat->getVatToCalculate(), 2));
+        $vat = (float)round((float)bcmul($netPrice, bcdiv($this->vat->getVat(), 100, 2), 4), 2);
+        return (float)bcadd($netPrice, $vat, 2);
     }
 
     /**
