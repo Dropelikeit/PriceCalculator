@@ -10,9 +10,7 @@ use PHPUnit\Framework\TestCase;
 use MarcelStrahl\PriceCalculator\PriceCalculator;
 
 /**
- * Class PriceCalculatorTest
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package Tests
  */
 class PriceCalculatorTest extends TestCase
 {
@@ -184,16 +182,19 @@ class PriceCalculatorTest extends TestCase
     {
         return [
             [
-                252, 300
+                31.51, 37.50
             ],
             [
-                340, 405
+                252, 299.88
+            ],
+            [
+                340, 404.60
             ],
             [
                 200, 238
             ],
             [
-                13, 15
+                13, 15.47
             ],
             [
                 64000, 76160
