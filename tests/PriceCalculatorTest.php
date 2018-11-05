@@ -2,7 +2,6 @@
 
 namespace MarcelStrahl\PriceCalculator\Tests;
 
-use MarcelStrahl\PriceCalculator\Factory\Converter;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Discount;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
 use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
@@ -140,6 +139,9 @@ class PriceCalculatorTest extends TestCase
     public function dataProviderSalesTaxOfTotal(): array
     {
         return [
+            [
+                0.24, 0.20, 0.04,
+            ],
             [
                 300.0, 252.1, 47.9,
             ],
