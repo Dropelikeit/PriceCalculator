@@ -80,7 +80,10 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function calculateSalesTaxFromTotalPrice(float $total) : float
     {
-        return (float)bcsub($total, round((float)bcdiv($total, $this->vat->getVatToCalculate(), 12), 2), 2);
+        return round(
+            (float)bcsub($total, (float)bcdiv($total, $this->vat->getVatToCalculate(), 12), 12),
+            2
+        );
     }
 
     /**
