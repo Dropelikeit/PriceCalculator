@@ -2,8 +2,8 @@
 
 namespace MarcelStrahl\PriceCalculator\Facade;
 
-use MarcelStrahl\PriceCalculator\UnitConverter as UnitConverterService;
 use MarcelStrahl\PriceCalculator\Factory\Converter as ConverterFactory;
+use MarcelStrahl\PriceCalculator\UnitConverter as UnitConverterService;
 
 /**
  * Class UnitConverter
@@ -17,7 +17,7 @@ class UnitConverter
      */
     public static function getConverter(): UnitConverterService
     {
-        return (new self)->createUnitConverter();
+        return (new self())->createUnitConverter();
     }
 
     /**

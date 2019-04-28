@@ -1,130 +1,78 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator;
 
-use MarcelStrahl\PriceCalculator\Helpers\Types\DiscountInterface;
-use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
+use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
 class PriceCalculator implements PriceCalculatorInterface
 {
-    /**
-     * @var VatInterface
-     */
-    private $vat;
-
-    /**
-     * @param VatInterface $vat
-     */
-    public function __construct(VatInterface $vat)
-    {
-        $this->vat = $vat;
-    }
 
     /**
      * Add an price to total
      *
-     * @param float $total
-     * @param float $price
-     * @return float
+     * @param Price $total
+     * @param Price $price
+     * @return Price
      */
-    public function addPrice(float $total, float $price): float
+    public function addPrice(Price $total, Price $price): Price
     {
-        return (float)bcadd($total, $price,2);
+        $total->setPrice($total->getPrice() + $price->getPrice());
+
+        return $total;
     }
 
     /**
      * Sub an price from total
      *
-     * @param float $total
-     * @param float $price
-     * @return float
+     * @param Price $total
+     * @param Price $price
+     * @return Price
      */
-    public function subPrice(float $total, float $price): float
+    public function subPrice(Price $total, Price $price): Price
     {
-        $total = (float)bcsub($total, $price, 2);
-        return ($total < 0) ? 0 : $total;
+        $total->setPrice($total->getPrice() - $price->getPrice());
+
+        if ($total->getPrice() < 0) {
+            $total->setPrice(0);
+        }
+
+        return $total;
     }
 
     /**
      * Mul an price with amount
      *
-     * @param float $amount
-     * @param float $price
-     * @return float
+     * @param int $amount
+     * @param Price $price
+     * @return Price
      */
-    public function mulPrice(float $amount, float $price): float
+    public function mulPrice(int $amount, Price $price): Price
     {
-        return (float)bcmul($price, $amount, 2);
+        $price->setPrice($price->getPrice() * $amount);
+
+        return $price;
     }
 
     /**
-     * Calculates the gross price
-     *
-     * @param float $netPrice
-     * @return float
+     * @param int $amount
+     * @param Price $price
+     * @return Price
      */
-    public function calculatePriceWithSalesTax(float $netPrice): float
+    public function divPrice(int $amount, Price $price): Price
     {
-        $vat = (float)round((float)bcmul($netPrice, bcdiv($this->vat->getVat(), 100, 2), 4), 2);
-        return (float)bcadd($netPrice, $vat, 2);
-    }
+        if ($price->getPrice() <= 0) {
+            $price->setPrice(0);
 
-    /**
-     * Calculates the value added tax from the current total price
-     *
-     * @param float $total
-     * @return float
-     */
-    public function calculateSalesTaxFromTotalPrice(float $total) : float
-    {
-        return round(
-            (float)bcsub($total, (float)bcdiv($total, $this->vat->getVatToCalculate(), 12), 12),
-            2
-        );
-    }
+            return $price;
+        }
 
-    /**
-     * Calculates the net price from the gross price
-     *
-     * @param float $total
-     * @return float
-     */
-    public function calculateNetPriceFromGrossPrice(float $total) : float
-    {
-        $vatPrice = $this->calculateSalesTaxFromTotalPrice($total);
-        return $this->subPrice($total, $vatPrice);
-    }
+        $price->setPrice($price->getPrice() / $amount);
 
-    /**
-     * @param DiscountInterface $discount
-     * @param float $total
-     * @return float
-     */
-    public function calculateDiscountFromTotal(DiscountInterface $discount, float $total): float
-    {
-        return bcsub($total, $this->calculateDiscountPriceFromTotal($discount, $total));
-    }
-
-    /**
-     * @param DiscountInterface $discount
-     * @param float $total
-     * @return float
-     */
-    public function calculateDiscountPriceFromTotal(DiscountInterface $discount, float $total): float
-    {
-        $total = bcdiv($total, 100, 12);
-        return (int)bcmul($total, $discount->getDiscount(), 2);
-    }
-
-    /**
-     * @param float $vat
-     * @return void
-     */
-    public function setVat(float $vat): void
-    {
-        $this->vat->setVat($vat);
+        return $price;
     }
 }

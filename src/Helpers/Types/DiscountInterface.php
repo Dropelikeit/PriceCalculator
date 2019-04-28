@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Helpers\Types;
 
 /**
@@ -10,7 +12,7 @@ namespace MarcelStrahl\PriceCalculator\Helpers\Types;
 interface DiscountInterface
 {
     /**
-     * @return float
+     * @return int
      */
-    public function getDiscount(): float;
+    public function getDiscount(): int;
 }

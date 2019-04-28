@@ -2,9 +2,9 @@
 
 namespace MarcelStrahl\PriceCalculator\Tests\Facade;
 
+use MarcelStrahl\PriceCalculator\Facade\UnitConverter as UnitConverterFacade;
 use MarcelStrahl\PriceCalculator\UnitConverterInterface;
 use PHPUnit\Framework\TestCase;
-use MarcelStrahl\PriceCalculator\Facade\UnitConverter as UnitConverterFacade;
 
 /**
  * Class UnitConverterTest

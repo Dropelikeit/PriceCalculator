@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Helpers\Entity;
 
-use MarcelStrahl\PriceCalculator\Helpers\Types\PercentInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
 
 /**
@@ -10,40 +11,27 @@ use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
  * @author Marcel Strahl <info@marcel-strahl.de>
  * @package MarcelStrahl\PriceCalculator\Helpers\Entity
  */
-class Vat implements VatInterface, PercentInterface
+class Vat implements VatInterface
 {
     /**
-     * @var float
+     * @var int
      */
-    private $vat = .00;
+    private $vat = 0;
 
     /**
-     * @var float
+     * @return int
      */
-    private $vatToCalculate = .00;
-
-    /**
-     * @return float
-     */
-    public function getVat(): float
+    public function getVat(): int
     {
         return $this->vat;
     }
 
     /**
-     * @param float $vat
+     * @param int $vat
+     * @return void
      */
-    public function setVat(float $vat): void
+    public function setVat(int $vat): void
     {
         $this->vat = $vat;
-        $this->vatToCalculate = (float)bcadd(1, bcdiv($vat, 100, 2), 2);
-    }
-
-    /**
-     * @return float
-     */
-    public function getVatToCalculate(): float
-    {
-        return $this->vatToCalculate;
     }
 }

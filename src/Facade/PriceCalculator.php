@@ -2,7 +2,6 @@
 
 namespace MarcelStrahl\PriceCalculator\Facade;
 
-use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
 use MarcelStrahl\PriceCalculator\PriceCalculator as PriceCalculatorService;
 
 /**
@@ -12,32 +11,13 @@ use MarcelStrahl\PriceCalculator\PriceCalculator as PriceCalculatorService;
  */
 class PriceCalculator
 {
-    /**
-     * @var Vat
-     */
-    private $vat;
-
-    public function __construct()
+    public static function getPriceCalculator(): PriceCalculatorService
     {
-        $this->vat = new Vat();
+        return (new self())->createPriceCalculator();
     }
 
-    /**
-     * @param int $vat
-     * @return PriceCalculatorService
-     */
-    public static function getPriceCalculator(int $vat)
+    private function createPriceCalculator(): PriceCalculatorService
     {
-        return (new self())->createPriceCalculator($vat);
-    }
-
-    /**
-     * @param int $vat
-     * @return PriceCalculatorService
-     */
-    private function createPriceCalculator(int $vat): PriceCalculatorService
-    {
-        $this->vat->setVat($vat);
-        return new PriceCalculatorService($this->vat);
+        return new PriceCalculatorService();
     }
 }

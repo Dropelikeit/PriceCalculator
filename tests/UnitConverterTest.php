@@ -5,9 +5,9 @@ namespace MarcelStrahl\PriceCalculator\Tests;
 use MarcelStrahl\PriceCalculator\Factory\Converter;
 use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
+use MarcelStrahl\PriceCalculator\UnitConverter;
 use MarcelStrahl\PriceCalculator\UnitConverterInterface;
 use PHPUnit\Framework\TestCase;
-use MarcelStrahl\PriceCalculator\UnitConverter;
 
 /**
  * Class UnitConverterTest
@@ -31,12 +31,12 @@ class UnitConverterTest extends TestCase
      */
     public function testConvert(): void
     {
-        $unitConveter = new UnitConverter(new Converter());
+        $unitConverter = new UnitConverter(new Converter());
 
-        $converter = $unitConveter->convert(ConverterFactoryInterface::EURO_TO_CENT);
+        $converter = $unitConverter->convert(ConverterFactoryInterface::EURO_TO_CENT);
         $this->assertInstanceOf(ConverterInterface::class, $converter);
 
-        $converter = $unitConveter->convert(ConverterFactoryInterface::CENT_TO_EURO);
+        $converter = $unitConverter->convert(ConverterFactoryInterface::CENT_TO_EURO);
         $this->assertInstanceOf(ConverterInterface::class, $converter);
     }
 }

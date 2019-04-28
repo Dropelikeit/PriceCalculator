@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Helpers\Types;
 
 /**
@@ -10,18 +12,13 @@ namespace MarcelStrahl\PriceCalculator\Helpers\Types;
 interface VatInterface
 {
     /**
-     * @param float $vat
+     * @param int $vat
      * @return void
      */
-    public function setVat(float $vat): void;
+    public function setVat(int $vat): void;
 
     /**
-     * @return float
+     * @return int
      */
-    public function getVat(): float;
-
-    /**
-     * @return float
-     */
-    public function getVatToCalculate(): float;
+    public function getVat(): int;
 }

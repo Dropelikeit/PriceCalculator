@@ -2,7 +2,6 @@
 
 namespace MarcelStrahl\PriceCalculator\Factory;
 
-use MarcelStrahl\PriceCalculator\Exceptions\PriceCalculatorFactoryException;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
 
 /**
