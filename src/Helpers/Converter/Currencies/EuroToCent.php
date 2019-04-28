@@ -12,16 +12,17 @@ use MarcelStrahl\PriceCalculator\Exceptions\ConverterException;
 class EuroToCent implements ConverterInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function convert(float $amount): float
     {
         $this->isZeroAmount($amount);
-        return (float)bcmul($amount, 100);
+
+        return (float) bcmul($amount, 100);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function isZeroAmount(float $amount): void
     {

@@ -2,9 +2,10 @@
 
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\View;
 
-use PHPUnit\Framework\TestCase;
 use MarcelStrahl\PriceCalculator\Helpers\View\Formatter;
 use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
+use PHPUnit\Framework\TestCase;
+use TypeError;
 
 /**
  * Class PriceFormatterTest
@@ -134,11 +135,10 @@ class PriceFormatterTest extends TestCase
         ];
     }
 
-    /**
-     * @expectedException \TypeError
-     */
     public function testThrowExceptionByNonNumeric(): void
     {
+        $this->expectException(TypeError::class);
+
         $priceFormatter = $this->getPriceFormatter(2, ',', '.', '€');
         $priceFormatter->formatPrice('Hello World');
     }

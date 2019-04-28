@@ -44,7 +44,7 @@ class PriceFormatter implements Formatter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function formatPrice(float $price): string
     {

@@ -3,7 +3,6 @@
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Entity;
 
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
-use MarcelStrahl\PriceCalculator\Helpers\Types\PercentInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -15,24 +14,24 @@ use PHPUnit\Framework\TestCase;
 class VatTest extends TestCase
 {
     /**
+     * @test
      * @return void
      */
-    public function testImplements(): void
+    public function canCreateVat(): void
     {
         $vat = new Vat();
         $this->assertInstanceOf(VatInterface::class, $vat);
         $this->assertInstanceOf(Vat::class, $vat);
-        $this->assertInstanceOf(PercentInterface::class, $vat);
     }
 
     /**
+     * @test
      * @return void
      */
-    public function testGetter(): void
+    public function canCreateVatAndGetRightValue(): void
     {
         $vat = new Vat();
-        $vat->setVat($testVat = 19.00);
+        $vat->setVat($testVat = 19);
         $this->assertSame($testVat, $vat->getVat());
-        $this->assertSame(1.19, $vat->getVatToCalculate());
     }
 }

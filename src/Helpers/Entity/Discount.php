@@ -1,34 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Helpers\Entity;
 
 use MarcelStrahl\PriceCalculator\Helpers\Types\DiscountInterface;
-use MarcelStrahl\PriceCalculator\Helpers\Types\PercentInterface;
 
 /**
  * Class Discount
  * @author Marcel Strahl <info@marcel-strahl.de>
  * @package MarcelStrahl\PriceCalculator\Helpers\Entity
  */
-class Discount implements DiscountInterface, PercentInterface
+class Discount implements DiscountInterface
 {
     /**
-     * @var float
+     * @var int
      */
-    private $percent = .0;
+    private $percent;
 
     /**
-     * @param float $percent
+     * @param int $percent
      */
-    public function __construct(float $percent)
+    public function __construct(int $percent)
     {
         $this->percent = $percent;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
-    public function getDiscount(): float
+    public function getDiscount(): int
     {
         return $this->percent;
     }

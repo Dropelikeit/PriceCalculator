@@ -12,16 +12,17 @@ use MarcelStrahl\PriceCalculator\Exceptions\ConverterException;
 class CentToEuro implements ConverterInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function convert(float $amount): float
     {
         $this->isZeroAmount($amount);
-        return (float)bcdiv($amount, 100, 2);
+
+        return (float) bcdiv($amount, 100, 2);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function isZeroAmount(float $amount): void
     {

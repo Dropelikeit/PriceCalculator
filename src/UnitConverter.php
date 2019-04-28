@@ -27,7 +27,7 @@ class UnitConverter implements UnitConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function convert(string $destinationUnit): ConverterInterface
     {
