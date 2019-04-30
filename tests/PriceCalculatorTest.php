@@ -132,11 +132,11 @@ class PriceCalculatorTest extends TestCase
     /**
      * @dataProvider dataProviderMulPrice
      * @param Price $price
-     * @param int $amount
+     * @param Price $amount
      * @param Price $total
      * @return void
      */
-    public function testCanMul(Price $price, int $amount, Price $total): void
+    public function testCanMul(Price $price, Price $amount, Price $total): void
     {
         $priceCalculator = $this->getPriceCalculator();
         $calculatedPrice = $priceCalculator->mulPrice($amount, $price);
@@ -151,13 +151,15 @@ class PriceCalculatorTest extends TestCase
     {
         $priceWithBigNumber = new Price();
         $priceWithBigNumber->setPrice(100);
-        $amountForMulWithBigNumber = 5;
+        $amountForMulWithBigNumber = new Price();
+        $amountForMulWithBigNumber->setPrice(5);
         $expectedPriceWithBigNumber = new Price();
         $expectedPriceWithBigNumber->setPrice(500);
 
         $priceWithLowNumbers = new Price();
         $priceWithLowNumbers->setPrice(15);
-        $amountForMulWithLowNumbers = 2;
+        $amountForMulWithLowNumbers = new Price();
+        $amountForMulWithLowNumbers->setPrice(2);
         $expectedPriceWithLowNumbers = new Price();
         $expectedPriceWithLowNumbers->setPrice(30);
 

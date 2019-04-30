@@ -47,13 +47,13 @@ class PriceCalculator implements PriceCalculatorInterface
     /**
      * Mul an price with amount
      *
-     * @param int $amount
+     * @param Price $amount
      * @param Price $price
      * @return Price
      */
-    public function mulPrice(int $amount, Price $price): Price
+    public function mulPrice(Price $amount, Price $price): Price
     {
-        $price->setPrice($price->getPrice() * $amount);
+        $price->setPrice($price->getPrice() * $amount->getPrice());
 
         return $price;
     }

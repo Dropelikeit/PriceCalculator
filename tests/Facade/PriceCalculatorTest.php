@@ -7,9 +7,7 @@ use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class PriceCalculatorTest
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package MarcelStrahl\PriceCalculator\Tests\Facade
  */
 class PriceCalculatorTest extends TestCase
 {
@@ -25,10 +23,10 @@ class PriceCalculatorTest extends TestCase
     /**
      * @return void
      */
-    public function testGetPriceCalculaltor(): void
+    public function testGetPriceCalculator(): void
     {
         $facade = new PriceCalculatorFacade();
-        $priceCalculator = $facade::getPriceCalculator(19);
+        $priceCalculator = $facade::getPriceCalculator();
 
         $this->assertInstanceOf(PriceCalculatorInterface::class, $priceCalculator);
     }
