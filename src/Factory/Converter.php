@@ -3,14 +3,12 @@
 namespace MarcelStrahl\PriceCalculator\Factory;
 
 use MarcelStrahl\PriceCalculator\Exceptions\PriceCalculatorFactoryException;
-use MarcelStrahl\PriceCalculator\Helpers\Converter\CentToEuro;
+use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
-use MarcelStrahl\PriceCalculator\Helpers\Converter\EuroToCent;
+use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\EuroToCent;
 
 /**
- * Class ConverterFactory
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package MarcelStrahl\PriceCalculator\Factory
  */
 class Converter implements ConverterFactoryInterface
 {
