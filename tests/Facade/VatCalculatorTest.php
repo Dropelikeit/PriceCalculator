@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace MarcelStrahl\PriceCalculator\Tests\Facade;
 
 use MarcelStrahl\PriceCalculator\Facade\VatCalculator as VatCalculatorFacade;
@@ -18,9 +16,11 @@ class VatCalculatorTest extends TestCase
      */
     public function testCanInitVatCalculatorFacade(): void
     {
+        $vatCalculator = VatCalculatorFacade::getVatCalculator(19);
+
         $this->assertInstanceOf(
             VatCalculator::class,
-            VatCalculatorFacade::getVatCalculator(19)
+            $vatCalculator
         );
     }
 }

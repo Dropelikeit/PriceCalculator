@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace MarcelStrahl\PriceCalculator;
 
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
@@ -13,11 +11,7 @@ class PriceCalculator implements PriceCalculatorInterface
 {
 
     /**
-     * Add an price to total
-     *
-     * @param Price $total
-     * @param Price $price
-     * @return Price
+     * {@inheritdoc}
      */
     public function addPrice(Price $total, Price $price): Price
     {
@@ -27,11 +21,7 @@ class PriceCalculator implements PriceCalculatorInterface
     }
 
     /**
-     * Sub an price from total
-     *
-     * @param Price $total
-     * @param Price $price
-     * @return Price
+     * {@inheritdoc}
      */
     public function subPrice(Price $total, Price $price): Price
     {
@@ -45,11 +35,7 @@ class PriceCalculator implements PriceCalculatorInterface
     }
 
     /**
-     * Mul an price with amount
-     *
-     * @param Price $amount
-     * @param Price $price
-     * @return Price
+     * {@inheritdoc}
      */
     public function mulPrice(Price $amount, Price $price): Price
     {
@@ -59,9 +45,7 @@ class PriceCalculator implements PriceCalculatorInterface
     }
 
     /**
-     * @param int $amount
-     * @param Price $price
-     * @return Price
+     * {@inheritdoc}
      */
     public function divPrice(int $amount, Price $price): Price
     {
