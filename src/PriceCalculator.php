@@ -11,7 +11,7 @@ class PriceCalculator implements PriceCalculatorInterface
 {
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function addPrice(Price $total, Price $price): Price
     {
@@ -21,7 +21,7 @@ class PriceCalculator implements PriceCalculatorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function subPrice(Price $total, Price $price): Price
     {
@@ -35,7 +35,7 @@ class PriceCalculator implements PriceCalculatorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function mulPrice(Price $amount, Price $price): Price
     {
@@ -45,7 +45,7 @@ class PriceCalculator implements PriceCalculatorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function divPrice(int $amount, Price $price): Price
     {

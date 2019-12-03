@@ -5,7 +5,6 @@ namespace MarcelStrahl\PriceCalculator\Tests\Helpers\View;
 use MarcelStrahl\PriceCalculator\Helpers\View\Formatter;
 use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
 use PHPUnit\Framework\TestCase;
-use TypeError;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>

@@ -18,7 +18,7 @@ class CentToEuro implements ConverterInterface
             return 0;
         }
 
-        return (float) bcdiv((string)$amount, '100', 2);
+        return (float) bcdiv((string) $amount, '100', 2);
     }
 
     /**

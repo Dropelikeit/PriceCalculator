@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace MarcelStrahl\PriceCalculator\Facade;
 
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
@@ -34,7 +32,7 @@ class VatCalculator
         $instance = new self();
         $instance->vat->setVat($vat);
 
-        return (new self())->createVatCalculator();
+        return $instance->createVatCalculator();
     }
 
     private function createVatCalculator()

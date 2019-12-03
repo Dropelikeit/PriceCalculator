@@ -96,14 +96,15 @@ class DivPriceTest extends TestCase
         int $amount,
         float $total,
         int $expectedPrice,
-        string $expectedFormattedPrice): void
+        string $expectedFormattedPrice
+    ): void
     {
         $euroToCent = new EuroToCent();
 
         $totalInCent = $euroToCent->convert($total);
 
         $totalPrice = new Price();
-        $totalPrice->setPrice((int)$totalInCent);
+        $totalPrice->setPrice((int) $totalInCent);
 
         $calculatedPrice = $this->priceCalculator->divPrice($amount, $totalPrice);
 

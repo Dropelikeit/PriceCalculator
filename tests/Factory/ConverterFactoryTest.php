@@ -5,8 +5,8 @@ namespace MarcelStrahl\PriceCalculator\Tests\Factory;
 use MarcelStrahl\PriceCalculator\Exceptions\PriceCalculatorFactoryException;
 use MarcelStrahl\PriceCalculator\Factory\Converter;
 use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
-use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
+use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\EuroToCent;
 use PHPUnit\Framework\TestCase;
 

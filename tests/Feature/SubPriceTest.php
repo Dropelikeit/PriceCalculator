@@ -72,7 +72,6 @@ class SubPriceTest extends TestCase
         $secondPriceIsLowerThanZero = new Price();
         $secondPriceIsLowerThanZero->setPrice(200);
 
-
         return [
             'same_price' => [
                 $samePrice,
@@ -111,10 +110,10 @@ class SubPriceTest extends TestCase
         $subPriceInCent = $euroToCent->convert($subPrice);
 
         $totalPrice = new Price();
-        $totalPrice->setPrice((int)$totalInCent);
+        $totalPrice->setPrice((int) $totalInCent);
 
         $sub = new Price();
-        $sub->setPrice((int)$subPriceInCent);
+        $sub->setPrice((int) $subPriceInCent);
 
         $calculatedPrice = $this->priceCalculator->subPrice($totalPrice, $sub);
 

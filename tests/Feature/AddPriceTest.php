@@ -99,10 +99,10 @@ class AddPriceTest extends TestCase
         $addPriceInCent = $euroToCentConverter->convert($addPrice);
 
         $totalPrice = new Price();
-        $totalPrice->setPrice((int)$totalPriceInCent);
+        $totalPrice->setPrice((int) $totalPriceInCent);
 
         $addPrice = new Price();
-        $addPrice->setPrice((int)$addPriceInCent);
+        $addPrice->setPrice((int) $addPriceInCent);
 
         $calculatedPrice = $this->priceCalculator->addPrice($totalPrice, $addPrice);
 

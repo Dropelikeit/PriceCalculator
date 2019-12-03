@@ -18,11 +18,11 @@ class EuroToCent implements ConverterInterface
             return 0;
         }
 
-        return (float) bcmul((string)$amount, '100');
+        return (float) bcmul((string) $amount, '100');
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isEmpty(float $amount): bool
     {

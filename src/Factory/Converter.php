@@ -3,8 +3,8 @@
 namespace MarcelStrahl\PriceCalculator\Factory;
 
 use MarcelStrahl\PriceCalculator\Exceptions\PriceCalculatorFactoryException;
-use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
+use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\EuroToCent;
 
 /**

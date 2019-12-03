@@ -42,7 +42,7 @@ class DiscountCalculator
         $totalPrice = $total->getPrice() / 100;
 
         $calculated = new Price();
-        $calculated->setPrice((int)$totalPrice * $discount->getDiscount());
+        $calculated->setPrice((int) $totalPrice * $discount->getDiscount());
 
         return $calculated;
     }
