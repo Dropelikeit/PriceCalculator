@@ -15,6 +15,11 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
             <exclude>
+                <file>./src/Helpers/Converter/ConverterInterface.php</file>
+                <file>./src/Factory/ConverterFactoryInterface.php</file>
+                <file>./src/PriceCalculatorInterface.php</file>
+                <file>./src/UnitConverterInterface.php</file>
+                <directory>./src/Helpers/Types</directory>
                 <directory>./tests</directory>
                 <directory>./vendor</directory>
             </exclude>

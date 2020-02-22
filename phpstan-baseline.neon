@@ -1,0 +1,147 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Facade\\\\VatCalculator\\:\\:createVatCalculator\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Facade/VatCalculator.php
+
+		-
+			message: "#^Parameter \\#1 \\$expected of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) expects class\\-string\\<object\\>, string given\\.$#"
+			count: 1
+			path: tests/Factory/ConverterFactoryTest.php
+
+		-
+			message: "#^Unable to resolve the template type ExpectedType in call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\)$#"
+			count: 1
+			path: tests/Factory/ConverterFactoryTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Factory\\\\ConverterFactoryTest\\:\\:dataProviderGetConverter\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Factory/ConverterFactoryTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Feature\\\\AddPriceTest\\:\\:canAddCentPrices\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/Feature/AddPriceTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Feature\\\\AddPriceTest\\:\\:dataProviderCanAddCentPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Feature/AddPriceTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Feature\\\\AddPriceTest\\:\\:dataProviderCanAddEuroPrice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Feature/AddPriceTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Feature\\\\DiscountCalculationTest\\:\\:dataProviderCanCalculateDiscountPrice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Feature/DiscountCalculationTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Feature\\\\DiscountCalculationTest\\:\\:dataProviderCanCalculateDiscountedTotal\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Feature/DiscountCalculationTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Feature\\\\DivPriceTest\\:\\:dataProviderCanDivCentPrice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Feature/DivPriceTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Feature\\\\DivPriceTest\\:\\:dataProviderCanDivEuroPrice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Feature/DivPriceTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Feature\\\\MulPriceTest\\:\\:dataProviderCanMulCentPrice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Feature/MulPriceTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Feature\\\\SubPriceTest\\:\\:dataProviderCanSubCentPrice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Feature/SubPriceTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Feature\\\\SubPriceTest\\:\\:dataProviderCanSubEuroPrice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Feature/SubPriceTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Helpers\\\\Converter\\\\Currencies\\\\CentToEuroTest\\:\\:dataProviderConvert\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Helpers/Converter/Currencies/CentToEuroTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Helpers\\\\Converter\\\\Currencies\\\\EuroToCentTest\\:\\:dataProviderConvert\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Helpers/Converter/Currencies/EuroToCentTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Helpers\\\\Entity\\\\DiscountTest\\:\\:dataProviderCreateDiscount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Helpers/Entity/DiscountTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Helpers\\\\Entity\\\\DiscountTest\\:\\:dataProviderCannotCreateDiscount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Helpers/Entity/DiscountTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Helpers\\\\View\\\\PriceFormatterTest\\:\\:dataProviderFormatPriceWithNoDefaults\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Helpers/View/PriceFormatterTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Helpers\\\\View\\\\PriceFormatterTest\\:\\:dataProviderFormatPriceForView\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Helpers/View/PriceFormatterTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\PriceCalculatorTest\\:\\:dataProviderAddPrice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/PriceCalculatorTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\PriceCalculatorTest\\:\\:dataProviderSubPrice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/PriceCalculatorTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\PriceCalculatorTest\\:\\:dataProviderMulPrice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/PriceCalculatorTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\PriceCalculatorTest\\:\\:dataProviderDivPrice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/PriceCalculatorTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Service\\\\DiscountCalculatorTest\\:\\:dataProviderCalculateDiscountPriceFromTotal\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Service/DiscountCalculatorTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Service\\\\DiscountCalculatorTest\\:\\:dataProviderCalculateDiscountFromTotal\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Service/DiscountCalculatorTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Service\\\\VatCalculatorTest\\:\\:dataProviderSalesTaxOfTotal\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Service/VatCalculatorTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Service\\\\VatCalculatorTest\\:\\:dataProviderPriceWithSalesTax\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Service/VatCalculatorTest.php
+
+		-
+			message: "#^Method MarcelStrahl\\\\PriceCalculator\\\\Tests\\\\Service\\\\VatCalculatorTest\\:\\:dataProviderCalculateNetPriceFromGrossPrice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/Service/VatCalculatorTest.php
+
