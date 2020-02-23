@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Tests\Facade;
 
 use MarcelStrahl\PriceCalculator\Facade\VatCalculator as VatCalculatorFacade;

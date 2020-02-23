@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator;
 
 use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
@@ -15,7 +17,7 @@ class UnitConverter implements UnitConverterInterface
     /**
      * @var ConverterFactoryInterface
      */
-    private $factory;
+    private ConverterFactoryInterface $factory;
 
     /**
      * UnitConverter constructor.

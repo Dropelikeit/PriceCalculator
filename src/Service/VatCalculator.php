@@ -7,6 +7,7 @@ namespace MarcelStrahl\PriceCalculator\Service;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
 use MarcelStrahl\PriceCalculator\PriceCalculator;
+use function round;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
@@ -16,12 +17,12 @@ class VatCalculator
     /**
      * @var Vat
      */
-    private $vat;
+    private Vat $vat;
 
     /**
      * @var PriceCalculator
      */
-    private $priceCalculator;
+    private PriceCalculator $priceCalculator;
 
     public function __construct(Vat $vat, PriceCalculator $priceCalculator)
     {

@@ -12,7 +12,7 @@ class Price
     /**
      * @var int
      */
-    private $price = 0;
+    private int $price = 0;
 
     public function setPrice(int $price): void
     {

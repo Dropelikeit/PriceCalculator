@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies;
 
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
@@ -15,7 +17,7 @@ class EuroToCent implements ConverterInterface
     public function convert(float $amount): float
     {
         if ($this->isEmpty($amount)) {
-            return 0;
+            return .0;
         }
 
         return (float) bcmul((string) $amount, '100');

@@ -16,7 +16,7 @@ class Vat implements VatInterface
     /**
      * @var int
      */
-    private $vat = 0;
+    private int $vat = 0;
 
     /**
      * @return int

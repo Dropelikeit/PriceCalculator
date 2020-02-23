@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Factory;
 
 use MarcelStrahl\PriceCalculator\Exceptions\PriceCalculatorFactoryException;

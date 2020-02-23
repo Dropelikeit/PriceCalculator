@@ -16,7 +16,7 @@ class Discount implements DiscountInterface
     /**
      * @var int
      */
-    private $percent;
+    private int $percent;
 
     /**
      * @param int $percent

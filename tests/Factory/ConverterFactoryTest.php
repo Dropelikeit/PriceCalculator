@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Tests\Factory;
 
 use MarcelStrahl\PriceCalculator\Exceptions\PriceCalculatorFactoryException;
@@ -20,7 +22,8 @@ class ConverterFactoryTest extends TestCase
      */
     public function testImplements(): void
     {
-        $converterFactory = new Converter();
+        $converterFactory = new Converter()
+        ;
         $this->assertInstanceOf(ConverterFactoryInterface::class, $converterFactory);
         $this->assertInstanceOf(Converter::class, $converterFactory);
     }

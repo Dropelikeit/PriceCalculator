@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Converter\Currencies;
 
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
@@ -23,6 +25,8 @@ class CentToEuroTest extends TestCase
 
     /**
      * @dataProvider dataProviderConvert
+     * @param float $amount
+     * @param float $expected
      */
     public function testConvert(float $amount, float $expected): void
     {

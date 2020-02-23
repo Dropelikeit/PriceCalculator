@@ -18,6 +18,9 @@ class DiscountCalculationTest extends TestCase
     /**
      * @test
      * @dataProvider dataProviderCanCalculateDiscountedTotal
+     * @param int $priceAmount
+     * @param int $discountAmount
+     * @param int $expectedPrice
      */
     public function canCalculateDiscountedTotal(int $priceAmount, int $discountAmount, int $expectedPrice): void
     {
@@ -36,6 +39,9 @@ class DiscountCalculationTest extends TestCase
     /**
      * @test
      * @dataProvider dataProviderCanCalculateDiscountPrice
+     * @param int $priceAmount
+     * @param int $discountAmount
+     * @param int $expectedPrice
      */
     public function canCalculateDiscountPrice(int $priceAmount, int $discountAmount, int $expectedPrice): void
     {

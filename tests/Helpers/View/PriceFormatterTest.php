@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\View;
 
 use MarcelStrahl\PriceCalculator\Helpers\View\Formatter;
