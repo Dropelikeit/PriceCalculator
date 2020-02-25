@@ -1,6 +1,11 @@
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
+    - phpstan-baseline.neon
 parameters:
     paths:
         - src
         - tests
     level: max
     inferPrivatePropertyTypeFromConstructor: true
+    checkMissingIterableValueType: false

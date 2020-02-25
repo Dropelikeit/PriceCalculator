@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Tests\Feature;
 
 use MarcelStrahl\PriceCalculator\Facade\PriceCalculator;
@@ -19,12 +21,12 @@ class DivPriceTest extends TestCase
     /**
      * @var PriceCalculatorInterface
      */
-    private $priceCalculator;
+    private PriceCalculatorInterface $priceCalculator;
 
     /**
      * @var Formatter
      */
-    private $formatter;
+    private Formatter $formatter;
 
     public function setUp(): void
     {
@@ -36,6 +38,10 @@ class DivPriceTest extends TestCase
     /**
      * @test
      * @dataProvider dataProviderCanDivCentPrice
+     * @param int $amount
+     * @param Price $total
+     * @param int $expectedPrice
+     * @param string $expectedFormattedPrice
      */
     public function canDivCentPrice(
         int $amount,
@@ -91,6 +97,10 @@ class DivPriceTest extends TestCase
     /**
      * @test
      * @dataProvider dataProviderCanDivEuroPrice
+     * @param int $amount
+     * @param float $total
+     * @param int $expectedPrice
+     * @param string $expectedFormattedPrice
      */
     public function canDivEuroPrice(
         int $amount,

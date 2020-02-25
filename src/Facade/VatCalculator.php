@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Facade;
 
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
@@ -11,15 +13,9 @@ use MarcelStrahl\PriceCalculator\Service\VatCalculator as VatCalculatorService;
  */
 class VatCalculator
 {
-    /**
-     * @var Vat
-     */
-    private $vat;
+    private Vat $vat;
 
-    /**
-     * @var PriceCalculatorService
-     */
-    private $priceCalculator;
+    private PriceCalculatorService $priceCalculator;
 
     private function __construct()
     {
@@ -35,7 +31,7 @@ class VatCalculator
         return $instance->createVatCalculator();
     }
 
-    private function createVatCalculator()
+    private function createVatCalculator(): VatCalculatorService
     {
         return new VatCalculatorService($this->vat, $this->priceCalculator);
     }

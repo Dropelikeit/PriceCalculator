@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator;
 
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;

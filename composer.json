@@ -12,14 +12,15 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=7.4",
     "ext-bcmath": "*"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.14",
-    "phpstan/phpstan": "^0.11.19",
-    "phpstan/phpstan-phpunit": "^0.11.2",
-    "phpunit/phpunit": "8.0.6"
+    "friendsofphp/php-cs-fixer": "^2.16",
+    "phpstan/phpstan": "^0.12.9",
+    "phpstan/phpstan-phpunit": "^0.12.6",
+    "phpstan/phpstan-webmozart-assert": "^0.12.2",
+    "phpunit/phpunit": "^9.0"
   },
   "autoload": {
     "psr-4": {
@@ -29,7 +30,7 @@
   },
   "config": {
     "platform": {
-      "php": "7.3"
+      "php": "7.4"
     },
     "sort-packages": true
   },
@@ -37,8 +38,9 @@
   "scripts": {
     "cs-check": "php-cs-fixer -v --dry-run --using-cache=no fix",
     "cs-fix": "php-cs-fixer --using-cache=no fix",
-    "test": "phpunit --configuration ~/PriceCalculator/phpunit.xml",
-    "analyze": "vendor/bin/phpstan analyse -c phpstan.neon.dist src tests",
+    "test": "vendor/bin/phpunit --configuration phpunit.xml",
+    "analyze": "vendor/bin/phpstan analyse --configuration phpstan.neon.dist",
+    "analyze-add": "vendor/bin/phpstan analyse --configuration phpstan.neon.dist --error-format baselineNeon  src/ tests/ > phpstan-baseline.neon",
     "check": [
       "@cs-check",
       "@analyze",

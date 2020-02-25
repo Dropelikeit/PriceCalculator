@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Tests\Feature;
 
 use MarcelStrahl\PriceCalculator\Facade\PriceCalculator;
@@ -18,12 +20,12 @@ class MulPriceTest extends TestCase
     /**
      * @var PriceCalculatorInterface
      */
-    private $priceCalculator;
+    private PriceCalculatorInterface $priceCalculator;
 
     /**
      * @var Formatter
      */
-    private $formatter;
+    private Formatter $formatter;
 
     public function setUp(): void
     {
@@ -35,6 +37,10 @@ class MulPriceTest extends TestCase
     /**
      * @test
      * @dataProvider dataProviderCanMulCentPrice
+     * @param Price $amount
+     * @param Price $total
+     * @param int $expectedPrice
+     * @param string $expectedFormattedPrice
      */
     public function canMulCentPrice(
         Price $amount,

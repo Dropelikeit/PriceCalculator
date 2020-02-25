@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Tests\Feature;
 
 use MarcelStrahl\PriceCalculator\Facade\PriceCalculator;
@@ -19,12 +21,12 @@ class AddPriceTest extends TestCase
     /**
      * @var PriceCalculatorInterface
      */
-    private $priceCalculator;
+    private PriceCalculatorInterface $priceCalculator;
 
     /**
      * @var Formatter
      */
-    private $formatter;
+    private Formatter $formatter;
 
     public function setUp(): void
     {
@@ -37,8 +39,17 @@ class AddPriceTest extends TestCase
     /**
      * @test
      * @dataProvider dataProviderCanAddCentPrices
+     * @param Price $total
+     * @param Price $addPrice
+     * @param int $expectedPrice
+     * @param string $expectedFormattedPrice
      */
-    public function canAddCentPrices(Price $total, Price $addPrice, int $expectedPrice, string $expectedFormattedPrice)
+    public function canAddCentPrices(
+        Price $total,
+        Price $addPrice,
+        int $expectedPrice,
+        string $expectedFormattedPrice
+    ): void
     {
         $priceCalculator = PriceCalculator::getPriceCalculator();
 
@@ -57,6 +68,9 @@ class AddPriceTest extends TestCase
         $this->assertEquals($expectedFormattedPrice, $formattedPrice);
     }
 
+    /**
+     * @return array<int, array<int, Price|int|string>>
+     */
     public function dataProviderCanAddCentPrices(): array
     {
         $samePrice = new Price();
@@ -87,6 +101,10 @@ class AddPriceTest extends TestCase
     /**
      * @test
      * @dataProvider dataProviderCanAddEuroPrice
+     * @param float $total
+     * @param float $addPrice
+     * @param int $expectedCalculatedPrice
+     * @param string $expectedFormattedPrice
      */
     public function canAddEuroPrice(
         float $total,

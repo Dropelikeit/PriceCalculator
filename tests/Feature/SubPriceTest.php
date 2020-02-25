@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Tests\Feature;
 
 use MarcelStrahl\PriceCalculator\Facade\PriceCalculator;
@@ -19,12 +21,12 @@ class SubPriceTest extends TestCase
     /**
      * @var PriceCalculatorInterface
      */
-    private $priceCalculator;
+    private PriceCalculatorInterface $priceCalculator;
 
     /**
      * @var Formatter
      */
-    private $formatter;
+    private Formatter $formatter;
 
     public function setUp(): void
     {
@@ -36,6 +38,10 @@ class SubPriceTest extends TestCase
     /**
      * @test
      * @dataProvider dataProviderCanSubCentPrice
+     * @param Price $total
+     * @param Price $subPrice
+     * @param int $expectedPrice
+     * @param string $expectedFormattedPrice
      */
     public function canSubCentPrice(
         Price $total,
@@ -97,6 +103,10 @@ class SubPriceTest extends TestCase
     /**
      * @test
      * @dataProvider dataProviderCanSubEuroPrice
+     * @param float $total
+     * @param float $subPrice
+     * @param int $expectedPrice
+     * @param string $expectedFormattedPrice
      */
     public function canSubEuroPrice(
         float $total,

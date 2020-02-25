@@ -18,7 +18,13 @@ You are also welcome to use the Issue Tracker to set bugs, improvements or upgra
 
 ### Installation
 
-``` composer require marcel-strahl/price-calculator ```
+```
+composer require marcel-strahl/price-calculator 
+```
+
+**The current version >= 4.0 can only be used with PHP 7.4 and higher, because the TypeHint for class properties was added.**
+
+*If 7.4 is not or cannot be used, you need a version <= 4.0.*
 
 ### How to use
 

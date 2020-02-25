@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Entity;
 
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Discount;

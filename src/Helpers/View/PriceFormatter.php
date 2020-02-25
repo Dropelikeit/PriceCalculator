@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcelStrahl\PriceCalculator\Helpers\View;
 
 /**
@@ -12,22 +14,22 @@ class PriceFormatter implements Formatter
     /**
      * @var int
      */
-    private $decimals;
+    private int $decimals;
 
     /**
      * @var string
      */
-    private $decPoint;
+    private string $decPoint;
 
     /**
      * @var string
      */
-    private $thousandsSep;
+    private string $thousandsSep;
 
     /**
      * @var string
      */
-    private $currency;
+    private string $currency;
 
     /**
      * @param int $decimals
@@ -48,7 +50,6 @@ class PriceFormatter implements Formatter
      */
     public function formatPrice(float $price): string
     {
-        // @Todo Maybe we use money_format
         return number_format($price, $this->decimals, $this->decPoint, $this->thousandsSep) . ' ' . $this->currency;
     }
 }
