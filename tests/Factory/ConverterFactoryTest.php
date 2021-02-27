@@ -22,8 +22,7 @@ class ConverterFactoryTest extends TestCase
      */
     public function testImplements(): void
     {
-        $converterFactory = new Converter()
-        ;
+        $converterFactory = new Converter();
         $this->assertInstanceOf(ConverterFactoryInterface::class, $converterFactory);
         $this->assertInstanceOf(Converter::class, $converterFactory);
     }
@@ -31,7 +30,7 @@ class ConverterFactoryTest extends TestCase
     /**
      * @dataProvider dataProviderGetConverter
      * @param string $destinationUnit
-     * @param string $expectedClass
+     * @param class-string<CentToEuro|EuroToCent> $expectedClass
      * @return void
      */
     public function testGetConverter(string $destinationUnit, string $expectedClass): void
@@ -43,7 +42,6 @@ class ConverterFactoryTest extends TestCase
         }
         $converter = $factory->factorize($destinationUnit);
 
-        $this->assertInstanceOf(ConverterInterface::class, $converter);
         $this->assertInstanceOf($expectedClass, $converter);
     }
 

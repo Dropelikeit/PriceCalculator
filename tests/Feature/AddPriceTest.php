@@ -69,7 +69,7 @@ class AddPriceTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int, Price|int|string>>
+     * @return array<string, array<int, Price|int|string>>
      */
     public function dataProviderCanAddCentPrices(): array
     {
