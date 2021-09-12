@@ -12,7 +12,7 @@ use function round;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class VatCalculator
+class VatCalculator implements VatCalculatorInterface
 {
     /**
      * @var Vat

@@ -10,7 +10,7 @@ use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class DiscountCalculator
+class DiscountCalculator implements DiscountCalculatorInterface
 {
     /**
      * @param Price $total

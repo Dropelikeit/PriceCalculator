@@ -12,13 +12,13 @@ namespace MarcelStrahl\PriceCalculator\Helpers\Types;
 interface VatInterface
 {
     /**
-     * @param int $vat
+     * @param float $vat
      * @return void
      */
-    public function setVat(int $vat): void;
+    public function setVat(float $vat): void;
 
     /**
-     * @return int
+     * @return float
      */
-    public function getVat(): int;
+    public function getVat(): float;
 }

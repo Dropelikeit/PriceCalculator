@@ -29,7 +29,7 @@ class ConverterFactoryTest extends TestCase
     /**
      * @dataProvider dataProviderGetConverter
      * @param string $destinationUnit
-     * @param class-string<CentToEuro|EuroToCent> $expectedClass
+     * @param class-string $expectedClass
      * @return void
      */
     public function testGetConverter(string $destinationUnit, string $expectedClass): void

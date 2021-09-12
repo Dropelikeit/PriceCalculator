@@ -14,23 +14,23 @@ use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
 class Vat implements VatInterface
 {
     /**
-     * @var int
+     * @var float
      */
-    private int $vat = 0;
+    private float $vat = 0;
 
     /**
-     * @return int
+     * @return float
      */
-    public function getVat(): int
+    public function getVat(): float
     {
         return $this->vat;
     }
 
     /**
-     * @param int $vat
+     * @param float $vat
      * @return void
      */
-    public function setVat(int $vat): void
+    public function setVat(float $vat): void
     {
         $this->vat = $vat;
     }
