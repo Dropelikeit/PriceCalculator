@@ -23,7 +23,7 @@ class VatCalculator
         $this->priceCalculator = PriceCalculator::getPriceCalculator();
     }
 
-    public static function getVatCalculator(int $vat): VatCalculatorService
+    public static function getVatCalculator(float $vat): VatCalculatorService
     {
         $instance = new self();
         $instance->vat->setVat($vat);

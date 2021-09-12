@@ -5,7 +5,8 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
 ;
 
-return PhpCsFixer\Config::create()
+$config = new PhpCsFixer\Config();
+return $config
     ->setRiskyAllowed(true)
     ->setRules([
     '@PSR2' => true,
@@ -14,7 +15,7 @@ return PhpCsFixer\Config::create()
     'array_syntax' => [
         'syntax' => 'short',
     ],
-    'blank_line_after_opening_tag' => true,
+    'blank_line_after_opening_tag' => false,
     'blank_line_before_statement' => true,
     'cast_spaces' => true,
     'concat_space' => [
@@ -57,7 +58,6 @@ return PhpCsFixer\Config::create()
     'ordered_imports' => true,
     'phpdoc_annotation_without_dot' => true,
     'phpdoc_indent' => true,
-    'phpdoc_inline_tag' => true,
     'phpdoc_no_access' => true,
     'return_type_declaration' => true,
     'short_scalar_cast' => true,
@@ -67,15 +67,13 @@ return PhpCsFixer\Config::create()
     'standardize_not_equals' => true,
     'ternary_operator_spaces' => true,
     'ternary_to_null_coalescing' => true,
-    'trailing_comma_in_multiline_array' => true,
     'trim_array_spaces' => true,
     'unary_operator_spaces' => true,
     'visibility_required' => true,
-    'whitespace_after_comma_in_array' => true,
+    'trailing_comma_in_multiline' => true,
     'yoda_style' => false,
 
     /** @risky */
     'strict_comparison' => true,
     'dir_constant' => true,
-    'psr4' => true,
 ])->setFinder($finder);
