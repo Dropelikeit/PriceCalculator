@@ -53,6 +53,7 @@ script:
   - phpunit --coverage-clover build/logs/clover.xml
   - composer cs-check
   - composer analyze
+  - composer psalm
 
 after_success:
   - travis_retry php php-coveralls.phar -v
