@@ -7,30 +7,18 @@ namespace MarcelStrahl\PriceCalculator\Helpers\Entity;
 use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
 
 /**
- * Class Vat
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package MarcelStrahl\PriceCalculator\Helpers\Entity
  */
 class Vat implements VatInterface
 {
-    /**
-     * @var float
-     */
-    private float $vat = 0;
+    private int $vat = 0;
 
-    /**
-     * @return float
-     */
-    public function getVat(): float
+    public function getVat(): int
     {
         return $this->vat;
     }
 
-    /**
-     * @param float $vat
-     * @return void
-     */
-    public function setVat(float $vat): void
+    public function setVat(int $vat): void
     {
         $this->vat = $vat;
     }
