@@ -6,8 +6,8 @@ namespace MarcelStrahl\PriceCalculator\Service;
 
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Discount;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
-use function strstr;
 use function round;
+use function strstr;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>

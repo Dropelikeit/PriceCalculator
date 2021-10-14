@@ -40,7 +40,6 @@
     "test": "vendor/bin/phpunit --configuration phpunit.xml",
     "psalm": "vendor/bin/psalm --no-cache",
     "analyze": "vendor/bin/phpstan analyse --configuration phpstan.neon.dist",
-    "analyze-add": "vendor/bin/phpstan analyse --configuration phpstan.neon.dist --error-format baselineNeon  src/ tests/ > phpstan-baseline.neon",
     "check": [
       "@cs-check",
       "@psalm",
