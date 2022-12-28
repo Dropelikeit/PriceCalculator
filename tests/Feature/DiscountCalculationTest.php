@@ -14,15 +14,14 @@ use PHPUnit\Framework\TestCase;
  */
 class DiscountCalculationTest extends TestCase
 {
-
     /**
      * @test
      * @dataProvider dataProviderCanCalculateDiscountedTotal
      * @param int $priceAmount
-     * @param int $discountAmount
+     * @param float $discountAmount
      * @param int $expectedPrice
      */
-    public function canCalculateDiscountedTotal(int $priceAmount, int $discountAmount, int $expectedPrice): void
+    public function canCalculateDiscountedTotal(int $priceAmount, float $discountAmount, int $expectedPrice): void
     {
         $discountCalculator = new DiscountCalculator();
 
@@ -40,10 +39,10 @@ class DiscountCalculationTest extends TestCase
      * @test
      * @dataProvider dataProviderCanCalculateDiscountPrice
      * @param int $priceAmount
-     * @param int $discountAmount
+     * @param float $discountAmount
      * @param int $expectedPrice
      */
-    public function canCalculateDiscountPrice(int $priceAmount, int $discountAmount, int $expectedPrice): void
+    public function canCalculateDiscountPrice(int $priceAmount, float $discountAmount, int $expectedPrice): void
     {
         $discountCalculator = new DiscountCalculator();
 
@@ -75,6 +74,11 @@ class DiscountCalculationTest extends TestCase
                 99,
                 49500,
             ],
+            [
+                500,
+                18.31,
+                92,
+            ],
         ];
     }
 
@@ -95,6 +99,11 @@ class DiscountCalculationTest extends TestCase
                 50000,
                 99,
                 500,
+            ],
+            [
+                500,
+                18.31,
+                408,
             ],
         ];
     }

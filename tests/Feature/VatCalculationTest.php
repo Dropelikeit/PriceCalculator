@@ -56,6 +56,11 @@ class VatCalculationTest extends TestCase
         $expectedSecondGrossPrice = new Price();
         $expectedSecondGrossPrice->setPrice(12613); // 126,13 €
 
+        $thirdTestCase = new Price();
+        $thirdTestCase->setPrice(411); // 4,11 €
+        $expectedThirdGrossPrice = new Price();
+        $expectedThirdGrossPrice->setPrice(489); // 4,89 €
+
         return [
             [
                 $firstTestCase,
@@ -64,6 +69,10 @@ class VatCalculationTest extends TestCase
             [
                 $secondTestCase,
                 $expectedSecondGrossPrice,
+            ],
+            [
+                $thirdTestCase,
+                $expectedThirdGrossPrice,
             ],
         ];
     }

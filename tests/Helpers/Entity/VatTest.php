@@ -32,7 +32,7 @@ class VatTest extends TestCase
     public function canCreateVatAndGetRightValue(): void
     {
         $vat = new Vat();
-        $vat->setVat($testVat = 19.0);
+        $vat->setVat($testVat = 19);
         $this->assertSame($testVat, $vat->getVat());
     }
 }

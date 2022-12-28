@@ -11,8 +11,5 @@ namespace MarcelStrahl\PriceCalculator\Helpers\Types;
  */
 interface DiscountInterface
 {
-    /**
-     * @return int
-     */
-    public function getDiscount(): int;
+    public function getDiscount(): float;
 }

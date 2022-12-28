@@ -6,6 +6,8 @@ namespace MarcelStrahl\PriceCalculator\Service;
 
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Discount;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
+use function round;
+use function strstr;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
@@ -41,8 +43,17 @@ class DiscountCalculator implements DiscountCalculatorInterface
 
         $totalPrice = $total->getPrice() / 100;
 
+        $calculatedAmount = $totalPrice * $discount->getDiscount();
+
+        $foundAmount = strstr((string) $calculatedAmount, '.');
+        if ($foundAmount !== false) {
+            $calculatedAmount /= 100;
+            $calculatedAmount = round($calculatedAmount, 2);
+            $calculatedAmount *= 100;
+        }
+
         $calculated = new Price();
-        $calculated->setPrice((int) $totalPrice * $discount->getDiscount());
+        $calculated->setPrice((int) $calculatedAmount);
 
         return $calculated;
     }

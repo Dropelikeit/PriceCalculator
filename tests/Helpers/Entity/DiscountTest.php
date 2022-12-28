@@ -21,10 +21,10 @@ class DiscountTest extends TestCase
      * @test
      * @dataProvider dataProviderCreateDiscount
      * @param int $discount
-     * @param int $expectedDiscount
+     * @param float $expectedDiscount
      * @return void
      */
-    public function canSetDiscount(int $discount, int $expectedDiscount): void
+    public function canSetDiscount(int $discount, float $expectedDiscount): void
     {
         $discount = new Discount($discount);
         $this->assertInstanceOf(DiscountInterface::class, $discount);
