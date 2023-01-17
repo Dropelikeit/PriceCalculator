@@ -63,35 +63,17 @@ class MulPriceTest extends TestCase
 
     public function dataProviderCanMulCentPrice(): array
     {
-        $easyMulCalculation = new Price();
-        $easyMulCalculation->setPrice(9);
+        $easyMulCalculation = Price::create(9);
+        $easyMulCalculationAmount = Price::create(9);
+        $differentTotalPrice = Price::create(5);
+        $differentAmount = Price::create(15);
+        $totalPriceIsLowerThanZero = Price::create(0);
+        $amountOfIsLowerThanZero = Price::create(9);
+        $highTotalPrice = Price::create(5000);
+        $highAmount = Price::create(50000);
+        $highFloatPriceAmount = Price::create(500);
 
-        $easyMulCalculationAmount = new Price();
-        $easyMulCalculationAmount->setPrice(9);
-
-        $differentTotalPrice = new Price();
-        $differentTotalPrice->setPrice(5);
-
-        $differentAmount = new Price();
-        $differentAmount->setPrice(15);
-
-        $totalPriceIsLowerThanZero = new Price();
-        $totalPriceIsLowerThanZero->setPrice(0);
-
-        $amountOfIsLowerThanZero = new Price();
-        $amountOfIsLowerThanZero->setPrice(9);
-
-        $highTotalPrice = new Price();
-        $highTotalPrice->setPrice(5000);
-
-        $highAmount = new Price();
-        $highAmount->setPrice(50000);
-
-        $highFloatPriceAmount = new Price();
-        $highFloatPriceAmount->setPrice(500);
-
-        $highFloatPriceTotal = new Price();
-        $highFloatPriceTotal->setPrice(59596);
+        $highFloatPriceTotal = Price::create(59596);
 
         return [
             'easy_div_calculation' => [

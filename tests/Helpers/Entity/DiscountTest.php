@@ -12,10 +12,8 @@ use TypeError;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
- * Class DiscountTest
- * @package MarcelStrahl\PriceCalculator\Tests\Helpers\Entity
  */
-class DiscountTest extends TestCase
+final class DiscountTest extends TestCase
 {
     /**
      * @test
@@ -53,6 +51,7 @@ class DiscountTest extends TestCase
             $this->expectException(TypeError::class);
         }
 
+        /** @phpstan-ignore-next-line */
         new Discount($discount);
     }
 

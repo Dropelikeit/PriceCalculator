@@ -63,20 +63,15 @@ class SubPriceTest extends TestCase
 
     public function dataProviderCanSubCentPrice(): array
     {
-        $samePrice = new Price();
-        $samePrice->setPrice(12);
+        $samePrice = Price::create(12);
 
-        $differentTotalPrice = new Price();
-        $differentTotalPrice->setPrice(1500);
+        $differentTotalPrice = Price::create(1500);
 
-        $differentSubPrice = new Price();
-        $differentSubPrice->setPrice(1000);
+        $differentSubPrice = Price::create(1000);
 
-        $totalPriceIsLowerThanZero = new Price();
-        $totalPriceIsLowerThanZero->setPrice(100);
+        $totalPriceIsLowerThanZero = Price::create(100);
 
-        $secondPriceIsLowerThanZero = new Price();
-        $secondPriceIsLowerThanZero->setPrice(200);
+        $secondPriceIsLowerThanZero = Price::create(200);
 
         return [
             'same_price' => [
@@ -119,11 +114,9 @@ class SubPriceTest extends TestCase
         $totalInCent = $euroToCent->convert($total);
         $subPriceInCent = $euroToCent->convert($subPrice);
 
-        $totalPrice = new Price();
-        $totalPrice->setPrice((int) $totalInCent);
+        $totalPrice = Price::create((int) $totalInCent);
 
-        $sub = new Price();
-        $sub->setPrice((int) $subPriceInCent);
+        $sub = Price::create((int) $subPriceInCent);
 
         $calculatedPrice = $this->priceCalculator->subPrice($totalPrice, $sub);
 

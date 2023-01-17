@@ -11,15 +11,15 @@ use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
  */
 class Vat implements VatInterface
 {
-    private int $vat = 0;
+    private function __construct(private int $vat) {}
+
+    public static function create(int $vat): self
+    {
+        return new self($vat);
+    }
 
     public function getVat(): int
     {
         return $this->vat;
-    }
-
-    public function setVat(int $vat): void
-    {
-        $this->vat = $vat;
     }
 }

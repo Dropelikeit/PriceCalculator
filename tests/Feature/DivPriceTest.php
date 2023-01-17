@@ -63,14 +63,9 @@ class DivPriceTest extends TestCase
 
     public function dataProviderCanDivCentPrice(): array
     {
-        $easyDivCalculation = new Price();
-        $easyDivCalculation->setPrice(9);
-
-        $differentTotalPrice = new Price();
-        $differentTotalPrice->setPrice(5);
-
-        $totalPriceIsLowerThanZero = new Price();
-        $totalPriceIsLowerThanZero->setPrice(0);
+        $easyDivCalculation = Price::create(9);
+        $differentTotalPrice = Price::create(5);
+        $totalPriceIsLowerThanZero = Price::create(0);
 
         return [
             'easy_div_calculation' => [
@@ -113,8 +108,7 @@ class DivPriceTest extends TestCase
 
         $totalInCent = $euroToCent->convert($total);
 
-        $totalPrice = new Price();
-        $totalPrice->setPrice((int) $totalInCent);
+        $totalPrice = Price::create((int) $totalInCent);
 
         $calculatedPrice = $this->priceCalculator->divPrice($amount, $totalPrice);
 
@@ -130,14 +124,9 @@ class DivPriceTest extends TestCase
 
     public function dataProviderCanDivEuroPrice(): array
     {
-        $easyDivCalculation = new Price();
-        $easyDivCalculation->setPrice(9);
-
-        $differentTotalPrice = new Price();
-        $differentTotalPrice->setPrice(5);
-
-        $totalPriceIsLowerThanZero = new Price();
-        $totalPriceIsLowerThanZero->setPrice(0);
+        $easyDivCalculation = Price::create(9);
+        $differentTotalPrice = Price::create(5);
+        $totalPriceIsLowerThanZero = Price::create(0);
 
         return [
             'easy_div_calculation' => [

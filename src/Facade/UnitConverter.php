@@ -8,9 +8,7 @@ use MarcelStrahl\PriceCalculator\Factory\Converter as ConverterFactory;
 use MarcelStrahl\PriceCalculator\UnitConverter as UnitConverterService;
 
 /**
- * Class UnitConverter
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package MarcelStrahl\PriceCalculator\Facade
  */
 class UnitConverter
 {

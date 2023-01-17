@@ -9,7 +9,7 @@ namespace MarcelStrahl\PriceCalculator\Helpers\Types;
  */
 interface VatInterface
 {
-    public function setVat(int $vat): void;
+    public static function create(int $vat): self;
 
     public function getVat(): int;
 }

@@ -2,6 +2,25 @@
 <ruleset name="pcsg-generated-ruleset">
  <description>Created with the PHP Coding Standard Generator. http://edorian.github.com/php-coding-standard-generator/
  </description>
+
+<file>src</file>
+<file>tests</file>
+
+<arg name="basepath" value="."/>
+<arg name="colors"/>
+<arg name="parallel" value="75"/>
+<arg value="np"/>
+
+<!-- Don't hide tokenizer exceptions -->
+<rule ref="Internal.Tokenizer.Exception">
+    <type>error</type>
+</rule>
+<rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="120"/>
+        </properties>
+ </rule>
  <rule ref="Generic.Classes.DuplicateClassName"/>
  <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
  <rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
@@ -11,11 +30,7 @@
  <rule ref="Generic.Commenting.Todo"/>
  <rule ref="Generic.Commenting.Fixme"/>
  <rule ref="Generic.ControlStructures.InlineControlStructure"/>
- <rule ref="Generic.Files.LineLength">
-  <properties>
-   <property name="lineLimit" value="120"/>
-  </properties>
- </rule>
+
  <rule ref="Generic.Formatting.SpaceAfterCast"/>
  <rule ref="Generic.Metrics.CyclomaticComplexity"/>
  <rule ref="Generic.Metrics.NestingLevel"/>

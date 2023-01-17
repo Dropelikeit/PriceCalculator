@@ -15,23 +15,14 @@ use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\EuroToCent;
 class Converter implements ConverterFactoryInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function factorize(string $destinationUnit): ConverterInterface
     {
-        switch ($destinationUnit) {
-            case ConverterFactoryInterface::CENT_TO_EURO:
-                $converter = new CentToEuro();
-
-                break;
-            case ConverterFactoryInterface::EURO_TO_CENT:
-                $converter = new EuroToCent();
-
-                break;
-            default:
-                throw PriceCalculatorFactoryException::fromUnsupportedArgument($destinationUnit);
-        }
-
-        return $converter;
+        return match ($destinationUnit) {
+            ConverterFactoryInterface::CENT_TO_EURO => new CentToEuro(),
+            ConverterFactoryInterface::EURO_TO_CENT => new EuroToCent(),
+            default => throw PriceCalculatorFactoryException::fromUnsupportedArgument($destinationUnit),
+        };
     }
 }

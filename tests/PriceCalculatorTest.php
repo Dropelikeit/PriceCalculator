@@ -51,26 +51,24 @@ class PriceCalculatorTest extends TestCase
      */
     public function dataProviderAddPrice(): array
     {
-        $price = new Price();
-        $price->setPrice(100);
-        $amount = new Price();
-        $amount->setPrice(200);
-        $expectedPrice = new Price();
-        $expectedPrice->setPrice(300);
+        $price = Price::create(100);
 
-        $priceUnderHundred = new Price();
-        $priceUnderHundred->setPrice(13);
-        $amountUnterHundred = new Price();
-        $amountUnterHundred->setPrice(2);
-        $expectedPriceUnderHundred = new Price();
-        $expectedPriceUnderHundred->setPrice(15);
+        $amount = Price::create(200);
+
+        $expectedPrice = Price::create(300);
+
+        $priceUnderHundred = Price::create(13);
+
+        $amountUnderHundred = Price::create(2);
+
+        $expectedPriceUnderHundred = Price::create(15);
 
         return [
             'add_price_about_hundred' => [
                 $price, $amount, $expectedPrice,
             ],
             'add_price_under_hundred' => [
-                $priceUnderHundred, $amountUnterHundred, $expectedPriceUnderHundred,
+                $priceUnderHundred, $amountUnderHundred, $expectedPriceUnderHundred,
             ],
         ];
     }
@@ -95,26 +93,23 @@ class PriceCalculatorTest extends TestCase
      */
     public function dataProviderSubPrice(): array
     {
-        $price = new Price();
-        $price->setPrice(300);
-        $amount = new Price();
-        $amount->setPrice(200);
-        $expectedPrice = new Price();
-        $expectedPrice->setPrice(100);
+        $price = Price::create(300);
 
-        $priceUnderHundred = new Price();
-        $priceUnderHundred->setPrice(15);
-        $amountUnderHundred = new Price();
-        $amountUnderHundred->setPrice(2);
-        $expectedPriceUnderHundred = new Price();
-        $expectedPriceUnderHundred->setPrice(13);
+        $amount = Price::create(200);
 
-        $priceForZeroResult = new Price();
-        $priceForZeroResult->setPrice(5);
-        $amountForZeroResult = new Price();
-        $amountForZeroResult->setPrice(6);
-        $expectedPriceForZeroResult = new Price();
-        $expectedPriceForZeroResult->setPrice(0);
+        $expectedPrice = Price::create(100);
+
+        $priceUnderHundred = Price::create(15);
+
+        $amountUnderHundred = Price::create(2);
+
+        $expectedPriceUnderHundred = Price::create(13);
+
+        $priceForZeroResult = Price::create(5);
+
+        $amountForZeroResult = Price::create(6);
+
+        $expectedPriceForZeroResult = Price::create(0);
 
         return [
             'sub_price_about_hundred' => [
@@ -149,19 +144,17 @@ class PriceCalculatorTest extends TestCase
      */
     public function dataProviderMulPrice(): array
     {
-        $priceWithBigNumber = new Price();
-        $priceWithBigNumber->setPrice(100);
-        $amountForMulWithBigNumber = new Price();
-        $amountForMulWithBigNumber->setPrice(5);
-        $expectedPriceWithBigNumber = new Price();
-        $expectedPriceWithBigNumber->setPrice(500);
+        $priceWithBigNumber = Price::create(100);
 
-        $priceWithLowNumbers = new Price();
-        $priceWithLowNumbers->setPrice(15);
-        $amountForMulWithLowNumbers = new Price();
-        $amountForMulWithLowNumbers->setPrice(2);
-        $expectedPriceWithLowNumbers = new Price();
-        $expectedPriceWithLowNumbers->setPrice(30);
+        $amountForMulWithBigNumber = Price::create(5);
+
+        $expectedPriceWithBigNumber = Price::create(500);
+
+        $priceWithLowNumbers = Price::create(15);
+
+        $amountForMulWithLowNumbers = Price::create(2);
+
+        $expectedPriceWithLowNumbers = Price::create(30);
 
         return [
             'mul_with_big_numbers' => [
@@ -193,23 +186,20 @@ class PriceCalculatorTest extends TestCase
      */
     public function dataProviderDivPrice(): array
     {
-        $priceWithBigNumber = new Price();
-        $priceWithBigNumber->setPrice(500);
+        $priceWithBigNumber = Price::create(500);
+
         $amountForMulWithBigNumber = 5;
-        $expectedPriceWithBigNumber = new Price();
-        $expectedPriceWithBigNumber->setPrice(100);
+        $expectedPriceWithBigNumber = Price::create(100);
 
-        $priceWithLowNumbers = new Price();
-        $priceWithLowNumbers->setPrice(30);
+        $priceWithLowNumbers = Price::create(30);
+
         $amountForMulWithLowNumbers = 2;
-        $expectedPriceWithLowNumbers = new Price();
-        $expectedPriceWithLowNumbers->setPrice(15);
+        $expectedPriceWithLowNumbers = Price::create(15);
 
-        $priceForZeroResult = new Price();
-        $priceForZeroResult->setPrice(0);
+        $priceForZeroResult = Price::create(0);
+
         $amountForZeroResult = 6;
-        $expectedPriceForZeroResult = new Price();
-        $expectedPriceForZeroResult->setPrice(0);
+        $expectedPriceForZeroResult = Price::create(0);
 
         return [
             'div_with_big_numbers' => [

@@ -8,9 +8,7 @@ use MarcelStrahl\PriceCalculator\Exceptions\PriceCalculatorFactoryException;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
 
 /**
- * Interface FactoryInterface
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package MarcelStrahl\PriceCalculator\Factory
  */
 interface ConverterFactoryInterface
 {

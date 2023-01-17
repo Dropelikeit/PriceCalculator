@@ -8,9 +8,7 @@ use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
 
 /**
- * Class UnitConverter
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package MarcelStrahl\PriceCalculator
  */
 class UnitConverter implements UnitConverterInterface
 {
@@ -20,7 +18,6 @@ class UnitConverter implements UnitConverterInterface
     private ConverterFactoryInterface $factory;
 
     /**
-     * UnitConverter constructor.
      * @param ConverterFactoryInterface $factory
      */
     public function __construct(ConverterFactoryInterface $factory)

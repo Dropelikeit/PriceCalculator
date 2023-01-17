@@ -9,14 +9,11 @@ namespace MarcelStrahl\PriceCalculator\Helpers\Entity;
  */
 class Price
 {
-    /**
-     * @var int
-     */
-    private int $price = 0;
+    private function __construct(private int $price) {}
 
-    public function setPrice(int $price): void
+    public static function create(int $price): self
     {
-        $this->price = $price;
+        return new self(price: $price);
     }
 
     public function getPrice(): int

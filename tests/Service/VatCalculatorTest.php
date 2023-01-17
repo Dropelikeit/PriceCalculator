@@ -20,7 +20,7 @@ class VatCalculatorTest extends TestCase
      */
     public function canCreateVatCalculator(): void
     {
-        $vatCalculator = new VatCalculator(new Vat(), new PriceCalculator());
+        $vatCalculator = new VatCalculator(Vat::create(0), new PriceCalculator());
         $this->assertInstanceOf(VatCalculator::class, $vatCalculator);
     }
 
@@ -32,8 +32,12 @@ class VatCalculatorTest extends TestCase
      * @param Price $expectedVat
      * @return void
      */
-    public function testCanCalculateSalesTaxOfTotal(Price $grossPrice, Vat $vat, Price $netPrice, Price $expectedVat): void
-    {
+    public function testCanCalculateSalesTaxOfTotal(
+        Price $grossPrice,
+        Vat $vat,
+        Price $netPrice,
+        Price $expectedVat
+    ): void {
         $vatCalculator = new VatCalculator($vat, new PriceCalculator());
         $vatPrice = $vatCalculator->calculateSalesTaxFromTotalPrice($grossPrice);
         $this->assertSame($expectedVat->getPrice(), $vatPrice->getPrice());
@@ -46,28 +50,24 @@ class VatCalculatorTest extends TestCase
      */
     public function dataProviderSalesTaxOfTotal(): array
     {
-        $firstGrossPrice = new Price();
-        $firstGrossPrice->setPrice(24);
-        $vat = new Vat();
-        $vat->setVat(19);
-        $firstNetPrice = new Price();
-        $firstNetPrice->setPrice(20);
-        $expectedVatPrice = new Price();
-        $expectedVatPrice->setPrice(4);
+        $firstGrossPrice = Price::create(24);
 
-        $secondGrossPrice = new Price();
-        $secondGrossPrice->setPrice(30000);
-        $secondNetPrice = new Price();
-        $secondNetPrice->setPrice(25210);
-        $expectedSecondVatPrice = new Price();
-        $expectedSecondVatPrice->setPrice(4790);
+        $vat = Vat::create(19);
+        $firstNetPrice = Price::create(20);
 
-        $thirdGrossPrice = new Price();
-        $thirdGrossPrice->setPrice(1500);
-        $thirdNetPrice = new Price();
-        $thirdNetPrice->setPrice(1261);
-        $expectedThirdVatPrice = new Price();
-        $expectedThirdVatPrice->setPrice(239);
+        $expectedVatPrice = Price::create(4);
+
+        $secondGrossPrice = Price::create(30000);
+
+        $secondNetPrice = Price::create(25210);
+
+        $expectedSecondVatPrice = Price::create(4790);
+
+        $thirdGrossPrice = Price::create(1500);
+
+        $thirdNetPrice = Price::create(1261);
+
+        $expectedThirdVatPrice = Price::create(239);
 
         return [
             [
@@ -104,22 +104,17 @@ class VatCalculatorTest extends TestCase
      */
     public function dataProviderPriceWithSalesTax(): array
     {
-        $lowPrice = new Price();
-        $lowPrice->setPrice(3151);
-        $vat = new Vat();
-        $vat->setVat(19);
-        $expectedLowPrice = new Price();
-        $expectedLowPrice->setPrice(3750);
+        $lowPrice = Price::create(3151);
+        $vat = Vat::create(19);
+        $expectedLowPrice = Price::create(3750);
 
-        $secondPrice = new Price();
-        $secondPrice->setPrice(25200);
-        $expectedSecondPrice = new Price();
-        $expectedSecondPrice->setPrice(29988);
+        $secondPrice = Price::create(25200);
 
-        $thirdPrice = new Price();
-        $thirdPrice->setPrice(15);
-        $expectedThirdPrice = new Price();
-        $expectedThirdPrice->setPrice(18);
+        $expectedSecondPrice = Price::create(29988);
+
+        $thirdPrice = Price::create(15);
+
+        $expectedThirdPrice = Price::create(18);
 
         return [
             [
@@ -155,22 +150,18 @@ class VatCalculatorTest extends TestCase
      */
     public function dataProviderCalculateNetPriceFromGrossPrice(): array
     {
-        $lowPrice = new Price();
-        $lowPrice->setPrice(3750);
-        $vat = new Vat();
-        $vat->setVat(19);
-        $expectedLowPrice = new Price();
-        $expectedLowPrice->setPrice(3151);
+        $lowPrice = Price::create(3750);
+        $vat = Vat::create(19);
 
-        $secondPrice = new Price();
-        $secondPrice->setPrice(29988);
-        $expectedSecondPrice = new Price();
-        $expectedSecondPrice->setPrice(25200);
+        $expectedLowPrice = Price::create(3151);
 
-        $thirdPrice = new Price();
-        $thirdPrice->setPrice(18);
-        $expectedThirdPrice = new Price();
-        $expectedThirdPrice->setPrice(15);
+        $secondPrice = Price::create(29988);
+
+        $expectedSecondPrice = Price::create(25200);
+
+        $thirdPrice = Price::create(18);
+
+        $expectedThirdPrice = Price::create(15);
 
         return [
             [

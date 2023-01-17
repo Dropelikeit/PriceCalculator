@@ -73,14 +73,11 @@ class AddPriceTest extends TestCase
      */
     public function dataProviderCanAddCentPrices(): array
     {
-        $samePrice = new Price();
-        $samePrice->setPrice(300);
+        $samePrice = Price::create(300);
 
-        $firstDifferentPrice = new Price();
-        $firstDifferentPrice->setPrice(149);
+        $firstDifferentPrice = Price::create(149);
 
-        $secondDifferentPrice = new Price();
-        $secondDifferentPrice->setPrice(1034);
+        $secondDifferentPrice = Price::create(1034);
 
         return [
             'same_first_and_second_price' => [
@@ -116,11 +113,8 @@ class AddPriceTest extends TestCase
         $totalPriceInCent = $euroToCentConverter->convert($total);
         $addPriceInCent = $euroToCentConverter->convert($addPrice);
 
-        $totalPrice = new Price();
-        $totalPrice->setPrice((int) $totalPriceInCent);
-
-        $addPrice = new Price();
-        $addPrice->setPrice((int) $addPriceInCent);
+        $totalPrice = Price::create((int) $totalPriceInCent);
+        $addPrice = Price::create((int) $addPriceInCent);
 
         $calculatedPrice = $this->priceCalculator->addPrice($totalPrice, $addPrice);
 

@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace MarcelStrahl\PriceCalculator\Helpers\View;
 
 /**
- * Class PriceFormatter
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package Src\Helpers\View
  */
 class PriceFormatter implements Formatter
 {
