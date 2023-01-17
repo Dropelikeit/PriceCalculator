@@ -105,7 +105,7 @@ jobs:
           run: "composer test"
 
         - name: "Run PHP CS Check"
-          run: "composer cs-check"
+          run: "PHP_CS_FIXER_IGNORE_ENV=1 composer cs-check"
 
         - name: "Run PHPStan"
           run: "composer analyze"
