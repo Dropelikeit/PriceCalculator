@@ -9,21 +9,20 @@ use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class VatTest
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package MarcelStrahl\PriceCalculator\Tests\Helpers\Entity
  */
-class VatTest extends TestCase
+final class VatTest extends TestCase
 {
     /**
      * @test
-     * @return void
      */
     public function canCreateVat(): void
     {
-        $vat = new Vat();
+        $vat = Vat::create(0);
         $this->assertInstanceOf(VatInterface::class, $vat);
         $this->assertInstanceOf(Vat::class, $vat);
+
+        $this->assertSame(0, $vat->getVat());
     }
 
     /**
@@ -31,8 +30,7 @@ class VatTest extends TestCase
      */
     public function canCreateVatAndGetRightValue(): void
     {
-        $vat = new Vat();
-        $vat->setVat($testVat = 19);
-        $this->assertSame($testVat, $vat->getVat());
+        $vat = Vat::create(19);
+        $this->assertSame(19, $vat->getVat());
     }
 }

@@ -25,9 +25,7 @@ class DiscountCalculator implements DiscountCalculatorInterface
             return $discountPrice;
         }
 
-        $total->setPrice($total->getPrice() - $discountPrice->getPrice());
-
-        return $total;
+        return Price::create($total->getPrice() - $discountPrice->getPrice());
     }
 
     /**
@@ -38,7 +36,7 @@ class DiscountCalculator implements DiscountCalculatorInterface
     public function calculateDiscountPriceFromTotal(Price $total, Discount $discount): Price
     {
         if ($total->getPrice() === 0) {
-            return $total;
+            return Price::create(0);
         }
 
         $totalPrice = $total->getPrice() / 100;
@@ -52,9 +50,6 @@ class DiscountCalculator implements DiscountCalculatorInterface
             $calculatedAmount *= 100;
         }
 
-        $calculated = new Price();
-        $calculated->setPrice((int) $calculatedAmount);
-
-        return $calculated;
+        return Price::create((int) $calculatedAmount);
     }
 }

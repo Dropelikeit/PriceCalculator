@@ -11,15 +11,12 @@ use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
  */
 class PriceCalculator implements PriceCalculatorInterface
 {
-
     /**
      * {@inheritdoc}
      */
     public function addPrice(Price $total, Price $price): Price
     {
-        $total->setPrice($total->getPrice() + $price->getPrice());
-
-        return $total;
+        return Price::create($total->getPrice() + $price->getPrice());
     }
 
     /**
@@ -27,13 +24,13 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function subPrice(Price $total, Price $price): Price
     {
-        $total->setPrice($total->getPrice() - $price->getPrice());
+        $calculated = Price::create($total->getPrice() - $price->getPrice());
 
-        if ($total->getPrice() < 0) {
-            $total->setPrice(0);
+        if ($calculated->getPrice() < 0) {
+            return Price::create(0);
         }
 
-        return $total;
+        return $calculated;
     }
 
     /**
@@ -41,9 +38,7 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function mulPrice(Price $amount, Price $price): Price
     {
-        $price->setPrice($price->getPrice() * $amount->getPrice());
-
-        return $price;
+        return Price::create($price->getPrice() * $amount->getPrice());
     }
 
     /**
@@ -52,13 +47,9 @@ class PriceCalculator implements PriceCalculatorInterface
     public function divPrice(int $amount, Price $price): Price
     {
         if ($price->getPrice() <= 0) {
-            $price->setPrice(0);
-
-            return $price;
+            return Price::create(0);
         }
 
-        $price->setPrice((int) ($price->getPrice() / $amount));
-
-        return $price;
+        return Price::create((int) ($price->getPrice() / $amount));
     }
 }

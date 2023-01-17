@@ -1,6 +1,6 @@
 {
   "name": "marcel-strahl/price-calculator",
-  "description": "An service to calculate prices",
+  "description": "A service to calculate prices",
   "keywords": ["price", "calculator"],
   "type": "library",
   "minimum-stability": "stable",
@@ -12,17 +12,18 @@
     }
   ],
   "require": {
-    "php": "^7.4|^8.0",
+    "php": "^8.0",
     "ext-bcmath": "*"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^3.1",
-    "phpstan/phpstan": "^0.12.98",
-    "phpstan/phpstan-phpunit": "^0.12.22",
-    "phpstan/phpstan-webmozart-assert": "^0.12.16",
+    "friendsofphp/php-cs-fixer": "^3.13",
+    "phpstan/phpstan": "^1.9",
+    "phpstan/phpstan-phpunit": "^1.3",
+    "phpstan/phpstan-webmozart-assert": "^1.2",
     "phpunit/phpunit": "^9.5",
-    "psalm/plugin-phpunit": "^0.16.1",
-    "vimeo/psalm": "^4.10"
+    "psalm/plugin-phpunit": "^0.18",
+    "squizlabs/php_codesniffer": "^3.7",
+    "vimeo/psalm": "^5.4"
   },
   "autoload": {
     "psr-4": {
@@ -35,12 +36,14 @@
   },
   "prefer-stable": true,
   "scripts": {
+    "phpcs": "phpcs --standard=phpcs.xml.dist",
     "cs-check": "php-cs-fixer -v --dry-run --using-cache=no fix",
     "cs-fix": "php-cs-fixer --using-cache=no fix",
-    "test": "vendor/bin/phpunit --configuration phpunit.xml",
+    "test": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --configuration phpunit.xml",
     "psalm": "vendor/bin/psalm --no-cache",
-    "analyze": "vendor/bin/phpstan analyse --configuration phpstan.neon.dist",
+    "analyze": "vendor/bin/phpstan analyse --xdebug --configuration phpstan.neon.dist",
     "check": [
+      "@phpcs",
       "@cs-check",
       "@psalm",
       "@analyze",

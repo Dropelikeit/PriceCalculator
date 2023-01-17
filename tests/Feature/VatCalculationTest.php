@@ -25,8 +25,7 @@ class VatCalculationTest extends TestCase
     {
         parent::setUp();
 
-        $vat = new Vat();
-        $vat->setVat(19);
+        $vat = Vat::create(19);
 
         $this->vatCalculator = new VatCalculator($vat, new PriceCalculator());
     }
@@ -46,20 +45,17 @@ class VatCalculationTest extends TestCase
 
     public function dataProviderCanCalculatePriceWithSalesTax(): array
     {
-        $firstTestCase = new Price();
-        $firstTestCase->setPrice(1200); // 12,00 €
-        $expectedFirstGrossPrice = new Price();
-        $expectedFirstGrossPrice->setPrice(1428); // 14,28 €
+        $firstTestCase = Price::create(1200); // 12,00 €
 
-        $secondTestCase = new Price();
-        $secondTestCase->setPrice(10599); // 105,99 €
-        $expectedSecondGrossPrice = new Price();
-        $expectedSecondGrossPrice->setPrice(12613); // 126,13 €
+        $expectedFirstGrossPrice = Price::create(1428); // 14,28 €
 
-        $thirdTestCase = new Price();
-        $thirdTestCase->setPrice(411); // 4,11 €
-        $expectedThirdGrossPrice = new Price();
-        $expectedThirdGrossPrice->setPrice(489); // 4,89 €
+        $secondTestCase = Price::create(10599); // 105,99 €
+
+        $expectedSecondGrossPrice = Price::create(12613); // 126,13 €
+
+        $thirdTestCase = Price::create(411); // 4,11 €
+
+        $expectedThirdGrossPrice = Price::create(489); // 4,89 €
 
         return [
             [
@@ -92,15 +88,13 @@ class VatCalculationTest extends TestCase
 
     public function dataProviderCanCalculateSalesTaxFromTotalPrice(): array
     {
-        $firstGrossPrice = new Price();
-        $firstGrossPrice->setPrice(1428); // 14,28 €
-        $salesTaxFromFirstGrossPrice = new Price();
-        $salesTaxFromFirstGrossPrice->setPrice(228);
+        $firstGrossPrice = Price::create(1428); // 14,28 €
 
-        $secondGrossPrice = new Price();
-        $secondGrossPrice->setPrice(12613); // 126,13 €
-        $salesTaxFromSecondGrossPrice = new Price();
-        $salesTaxFromSecondGrossPrice->setPrice(2014);
+        $salesTaxFromFirstGrossPrice = Price::create(228); // 2,28 €
+
+        $secondGrossPrice = Price::create(12613); // 126,13 €
+
+        $salesTaxFromSecondGrossPrice = Price::create(2014); // 20,14 €
 
         return [
             [
@@ -129,15 +123,13 @@ class VatCalculationTest extends TestCase
 
     public function dataProviderCanCalculateNetPriceFromGrossPrice(): array
     {
-        $firstTestCase = new Price();
-        $firstTestCase->setPrice(1428); // 14,28 €
-        $expectedFirstNetPrice = new Price();
-        $expectedFirstNetPrice->setPrice(1200); // 12,00 €
+        $firstTestCase = Price::create(1428); // 14,28 €
 
-        $secondTestCase = new Price();
-        $secondTestCase->setPrice(12613); // 126,13 €
-        $expectedSecondNetPrice = new Price();
-        $expectedSecondNetPrice->setPrice(10599); // 105,99 €
+        $expectedFirstNetPrice = Price::create(1200); // 12,00 €
+
+        $secondTestCase = Price::create(12613); // 126,13 €
+
+        $expectedSecondNetPrice = Price::create(10599); // 105,99 €
 
         return [
             [

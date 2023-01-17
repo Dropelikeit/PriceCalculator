@@ -6,7 +6,7 @@ namespace MarcelStrahl\PriceCalculator\Service;
 
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
-use MarcelStrahl\PriceCalculator\PriceCalculator;
+use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 use function round;
 
 /**
@@ -14,17 +14,10 @@ use function round;
  */
 class VatCalculator implements VatCalculatorInterface
 {
-    /**
-     * @var Vat
-     */
     private Vat $vat;
+    private PriceCalculatorInterface $priceCalculator;
 
-    /**
-     * @var PriceCalculator
-     */
-    private PriceCalculator $priceCalculator;
-
-    public function __construct(Vat $vat, PriceCalculator $priceCalculator)
+    public function __construct(Vat $vat, PriceCalculatorInterface $priceCalculator)
     {
         $this->vat = $vat;
         $this->priceCalculator = $priceCalculator;
@@ -38,8 +31,6 @@ class VatCalculator implements VatCalculatorInterface
      */
     public function calculatePriceWithSalesTax(Price $netPrice): Price
     {
-        $calculatedPrice = new Price();
-
         $vatPrice = $netPrice->getPrice() * ($this->vat->getVat() / 100);
         $grossPrice = $netPrice->getPrice() + $vatPrice;
         // Calculate to Euro for round the number if necessary
@@ -56,9 +47,7 @@ class VatCalculator implements VatCalculatorInterface
          */
         $grossPrice = (int) round($grossPrice);
 
-        $calculatedPrice->setPrice($grossPrice);
-
-        return $calculatedPrice;
+        return Price::create($grossPrice);
     }
 
     /**
@@ -69,20 +58,15 @@ class VatCalculator implements VatCalculatorInterface
      */
     public function calculateSalesTaxFromTotalPrice(Price $total): Price
     {
-        $toCalculatingVatPrice = new Price();
-        $toCalculatingVatPrice->setPrice($total->getPrice());
+        $toCalculatingVatPrice = Price::create($total->getPrice());
 
         $vatToCalculate = 1 + ($this->vat->getVat() / 100);
 
         $calculatedPrice = (int) (round($toCalculatingVatPrice->getPrice() / $vatToCalculate, 0));
 
-        $calculatedTotal = new Price();
-
         $calculatedPrice = $total->getPrice() - $calculatedPrice;
 
-        $calculatedTotal->setPrice($calculatedPrice);
-
-        return $calculatedTotal;
+        return Price::create($calculatedPrice);
     }
 
     /**

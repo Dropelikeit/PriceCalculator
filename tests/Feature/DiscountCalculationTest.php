@@ -25,8 +25,7 @@ class DiscountCalculationTest extends TestCase
     {
         $discountCalculator = new DiscountCalculator();
 
-        $price = new Price();
-        $price->setPrice($priceAmount);
+        $price = Price::create($priceAmount);
 
         $discount = new Discount($discountAmount);
 
@@ -46,8 +45,7 @@ class DiscountCalculationTest extends TestCase
     {
         $discountCalculator = new DiscountCalculator();
 
-        $price = new Price();
-        $price->setPrice($priceAmount);
+        $price = Price::create($priceAmount);
 
         $discount = new Discount($discountAmount);
 

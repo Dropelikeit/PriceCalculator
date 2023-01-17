@@ -37,15 +37,13 @@ class DiscountCalculatorTest extends TestCase
     public function dataProviderCalculateDiscountPriceFromTotal(): array
     {
         $discount = new Discount(45);
-        $totalPrice = new Price();
-        $totalPrice->setPrice(100);
-        $expectedDiscountPrice = new Price();
-        $expectedDiscountPrice->setPrice(45);
+        $totalPrice = Price::create(100);
 
-        $totalPriceIsZero = new Price();
-        $totalPriceIsZero->setPrice(0);
-        $expectedDiscountPriceIsZero = new Price();
-        $expectedDiscountPriceIsZero->setPrice(0);
+        $expectedDiscountPrice = Price::create(45);
+
+        $totalPriceIsZero = Price::create(0);
+
+        $expectedDiscountPriceIsZero = Price::create(0);
 
         return [
             'can_calculate_discount' => [
@@ -80,16 +78,14 @@ class DiscountCalculatorTest extends TestCase
     public function dataProviderCalculateDiscountFromTotal(): array
     {
         $discount = new Discount(45);
-        $totalPrice = new Price();
-        $totalPrice->setPrice(100);
-        $expectedDiscountPrice = new Price();
-        $expectedDiscountPrice->setPrice(55);
+        $totalPrice = Price::create(100);
+
+        $expectedDiscountPrice = Price::create(55);
 
         $discountForZeroTotalPrice = new Discount(30);
-        $totalPriceForZeroTotalPrice = new Price();
-        $totalPriceForZeroTotalPrice->setPrice(0);
-        $expectedDiscountPriceForZeroTest = new Price();
-        $expectedDiscountPriceForZeroTest->setPrice(0);
+        $totalPriceForZeroTotalPrice = Price::create(0);
+
+        $expectedDiscountPriceForZeroTest = Price::create(0);
 
         return [
             'can_calculate_total_price_after_discount' => [
