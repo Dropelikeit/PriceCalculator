@@ -1,6 +1,5 @@
 ### Documentation
 * [Back To Root](../readme.md)
-* [Price Calculator](price-calculator.md)
 * [VAT Calculator](vat-calculator.md)
 * [Discount Calculator](discount-calculator.md)
 * [Unit Converter](unit-converter.md)
