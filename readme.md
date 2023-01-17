@@ -1,11 +1,3 @@
-<style>
-    red { background: red; padding: 1%; }
-    green { background-color: green; padding: 1%; }
-
-    tr:nth-child(1) { background: green; }
-    tr:nth-child(2), tr:nth-child(3)  { background: red; }
-</style>
-
 ### Price calculator
 
 [![Build Status](https://travis-ci.org/Dropelikeit/PriceCalculator.svg?branch=master)](https://travis-ci.org/Dropelikeit/PriceCalculator)
@@ -30,14 +22,11 @@ You are also welcome to use the Issue Tracker to set bugs, improvements or upgra
 composer require marcel-strahl/price-calculator 
 ```
 ### Supported PHP Versions
-|  PHP  | Package Version |
-|:-----:|:---------------:|
-| ^8.0  |      v5.x.x     |
-| ^7.4  |     v4.x.x      |
-| <^7.4 |    <=v3.x.x     | 
-
-<green>&nbsp;</green> = Current supported version.
-<red>&nbsp;</red> = No longer supported.
+|  PHP  | Package Version |    Status     |
+|:-----:|:---------------:|:-------------:|
+| ^8.0  |      v5.x.x     |    Support    |
+| ^7.4  |     v4.x.x      | Not supported |
+| <^7.4 |    <=v3.x.x     | Not supported |
 
 ### Documentation
 
@@ -47,7 +36,3 @@ composer require marcel-strahl/price-calculator
 * [Unit Converter](docs/unit-converter.md)
 * [Entities](docs/entities.md)
 * [Price Formatter](docs/price-formatter.md)
-
-**The current version >= 4.0 can only be used with PHP 7.4 and higher, because the TypeHint for class properties was added.**
-
-*If 7.4 is not or cannot be used, you need a version <= 4.0.*
