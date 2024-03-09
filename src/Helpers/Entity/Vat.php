@@ -11,7 +11,9 @@ use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
  */
 class Vat implements VatInterface
 {
-    private function __construct(private int $vat) {}
+    private function __construct(private int $vat)
+    {
+    }
 
     public static function create(int $vat): self
     {

@@ -7,39 +7,35 @@ namespace MarcelStrahl\PriceCalculator\Tests;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 use MarcelStrahl\PriceCalculator\PriceCalculator;
 use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class PriceCalculatorTest extends TestCase
+#[CoversClass(className: PriceCalculator::class)]
+#[UsesClass(className: Price::class)]
+final class PriceCalculatorTest extends TestCase
 {
-    /**
-     * @return PriceCalculator
-     */
     private function getPriceCalculator(): PriceCalculator
     {
         return new PriceCalculator();
     }
 
-    /**
-     * @return void
-     */
-    public function testCanInitPriceCalculator(): void
+    #[Test]
+    public function canInitPriceCalculator(): void
     {
         $priceCalculator = $this->getPriceCalculator();
         $this->assertInstanceOf(PriceCalculator::class, $priceCalculator);
         $this->assertInstanceOf(PriceCalculatorInterface::class, $priceCalculator);
     }
 
-    /**
-     * @dataProvider dataProviderAddPrice
-     * @param Price $price
-     * @param Price $amount
-     * @param Price $expected
-     * @return void
-     */
-    public function testCanAdd(Price $price, Price $amount, Price $expected): void
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderAddPrice')]
+    public function canAdd(Price $price, Price $amount, Price $expected): void
     {
         $priceCalculator = $this->getPriceCalculator();
         $calculatedPrice = $priceCalculator->addPrice($price, $amount);
@@ -47,9 +43,12 @@ class PriceCalculatorTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array{
+     *     add_price_about_hundred: array<int, Price>,
+     *     add_price_under_hundred: array<int. Price>
+     * }
      */
-    public function dataProviderAddPrice(): array
+    public static function dataProviderAddPrice(): array
     {
         $price = Price::create(100);
 
@@ -73,14 +72,9 @@ class PriceCalculatorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataProviderSubPrice
-     * @param Price $price
-     * @param Price $amount
-     * @param Price $total
-     * @return void
-     */
-    public function testCanSub(Price $price, Price $amount, Price $total): void
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderSubPrice')]
+    public function canSub(Price $price, Price $amount, Price $total): void
     {
         $priceCalculator = $this->getPriceCalculator();
         $calculatedPrice = $priceCalculator->subPrice($price, $amount);
@@ -89,9 +83,13 @@ class PriceCalculatorTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array{
+     *     sub_price_about_hundred: array<int, Price>,
+     *     sub_price_under_hundred: array<int, Price>,
+     *     sub_price_and_calculate_zero_price: array<int, Price>
+     * }
      */
-    public function dataProviderSubPrice(): array
+    public static function dataProviderSubPrice(): array
     {
         $price = Price::create(300);
 
@@ -124,14 +122,9 @@ class PriceCalculatorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataProviderMulPrice
-     * @param Price $price
-     * @param Price $amount
-     * @param Price $total
-     * @return void
-     */
-    public function testCanMul(Price $price, Price $amount, Price $total): void
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderMulPrice')]
+    public function canMul(Price $price, Price $amount, Price $total): void
     {
         $priceCalculator = $this->getPriceCalculator();
         $calculatedPrice = $priceCalculator->mulPrice($amount, $price);
@@ -140,9 +133,12 @@ class PriceCalculatorTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array{
+     *     mul_with_big_numbers: array<int<0,2>, Price>,
+     *     mul_with_low_numbers: array<int<0,2>, Price>
+     * }
      */
-    public function dataProviderMulPrice(): array
+    public static function dataProviderMulPrice(): array
     {
         $priceWithBigNumber = Price::create(100);
 
@@ -166,13 +162,8 @@ class PriceCalculatorTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderDivPrice
-     * @param Price $price
-     * @param int $amount
-     * @param Price $total
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderDivPrice')]
     public function canDiv(Price $price, int $amount, Price $total): void
     {
         $priceCalculator = $this->getPriceCalculator();
@@ -182,9 +173,12 @@ class PriceCalculatorTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array{
+     *     div_with_big_numbers: list{Price, 5, Price},
+     *     div_with_low_numbers: list{Price, 2, Price},
+     *     sub_price_and_calculate_zero_price: list{Price, 6,Price}}
      */
-    public function dataProviderDivPrice(): array
+    public static function dataProviderDivPrice(): array
     {
         $priceWithBigNumber = Price::create(500);
 

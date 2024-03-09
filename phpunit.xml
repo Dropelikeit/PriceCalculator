@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" bootstrap="vendor/autoload.php" backupGlobals="false" beStrictAboutCoversAnnotation="true" beStrictAboutOutputDuringTests="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutTodoAnnotatedTests="true" verbose="true">
-  <coverage processUncoveredFiles="true">
-    <include>
-      <directory suffix=".php">src</directory>
-    </include>
-    <exclude>
-      <directory>./tests</directory>
-      <directory>./vendor</directory>
-    </exclude>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd" bootstrap="vendor/autoload.php" backupGlobals="false" beStrictAboutOutputDuringTests="true" beStrictAboutTestsThatDoNotTestAnything="true" cacheDirectory=".phpunit.cache" beStrictAboutCoverageMetadata="true">
+  <coverage>
     <report>
       <clover outputFile="build/output/tests/coverage.xml"/>
       <html outputDirectory="build/output/tests/report" lowUpperBound="35" highLowerBound="70"/>
@@ -23,4 +16,13 @@
     <testdoxHtml outputFile="build/output/tests/testdox.html"/>
     <testdoxText outputFile="build/output/tests/testdox.txt"/>
   </logging>
+  <source>
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+    <exclude>
+      <directory>./tests</directory>
+      <directory>./vendor</directory>
+    </exclude>
+  </source>
 </phpunit>

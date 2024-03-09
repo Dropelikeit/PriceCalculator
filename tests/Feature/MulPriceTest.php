@@ -10,22 +10,17 @@ use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 use MarcelStrahl\PriceCalculator\Helpers\View\Formatter;
 use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
 use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class MulPriceTest extends TestCase
+final class MulPriceTest extends TestCase
 {
-    /**
-     * @var PriceCalculatorInterface
-     */
-    private PriceCalculatorInterface $priceCalculator;
-
-    /**
-     * @var Formatter
-     */
-    private Formatter $formatter;
+    private readonly PriceCalculatorInterface $priceCalculator;
+    private readonly Formatter $formatter;
 
     public function setUp(): void
     {
@@ -34,21 +29,14 @@ class MulPriceTest extends TestCase
         $this->formatter = new PriceFormatter(2, ',', '.', '€');
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderCanMulCentPrice
-     * @param Price $amount
-     * @param Price $total
-     * @param int $expectedPrice
-     * @param string $expectedFormattedPrice
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCanMulCentPrice')]
     public function canMulCentPrice(
         Price $amount,
         Price $total,
         int $expectedPrice,
         string $expectedFormattedPrice
-    ): void
-    {
+    ): void {
         $calculatedPrice = $this->priceCalculator->mulPrice($amount, $total);
 
         $this->assertEquals($expectedPrice, $calculatedPrice->getPrice());
@@ -61,7 +49,16 @@ class MulPriceTest extends TestCase
         $this->assertEquals($expectedFormattedPrice, $formattedPrice);
     }
 
-    public function dataProviderCanMulCentPrice(): array
+    /**
+     * @return array{
+     *     easy_div_calculation: array{0: Price, 1: Price, 2: 81, 3: '0,81 €'},
+     *     different_prices: array{0: Price, 1: Price, 2: 75, 3: '0,75 €'},
+     *     result_is_lower_than_zero: array{0: Price, 1: Price, 2: 0, 3: '0,00 €'},
+     *     use_high_numbers: array{0: Price, 1: Price, 2: 250000000, 3: '2.500.000,00 €'},
+     *     use_high_float_price: array{0: Price, 1: Price, 2: 29798000, 3: '297.980,00 €'},
+     * }
+     */
+    public static function dataProviderCanMulCentPrice(): array
     {
         $easyMulCalculation = Price::create(9);
         $easyMulCalculationAmount = Price::create(9);

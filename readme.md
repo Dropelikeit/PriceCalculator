@@ -24,7 +24,7 @@ composer require marcel-strahl/price-calculator
 ### Supported PHP Versions
 |  PHP  | Package Version |    Status     |
 |:-----:|:---------------:|:-------------:|
-| ^8.0  |      v5.x.x     |    Support    |
+| ^8.0  |     v5.x.x      |    Support    |
 | ^7.4  |     v4.x.x      | Not supported |
 | <^7.4 |    <=v3.x.x     | Not supported |
 

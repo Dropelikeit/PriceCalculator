@@ -11,22 +11,17 @@ use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 use MarcelStrahl\PriceCalculator\Helpers\View\Formatter;
 use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
 use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class AddPriceTest extends TestCase
+final class AddPriceTest extends TestCase
 {
-    /**
-     * @var PriceCalculatorInterface
-     */
-    private PriceCalculatorInterface $priceCalculator;
-
-    /**
-     * @var Formatter
-     */
-    private Formatter $formatter;
+    private readonly PriceCalculatorInterface $priceCalculator;
+    private readonly Formatter $formatter;
 
     public function setUp(): void
     {
@@ -36,21 +31,14 @@ class AddPriceTest extends TestCase
         $this->formatter = new PriceFormatter(2, ',', '.', '€');
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderCanAddCentPrices
-     * @param Price $total
-     * @param Price $addPrice
-     * @param int $expectedPrice
-     * @param string $expectedFormattedPrice
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCanAddCentPrices')]
     public function canAddCentPrices(
         Price $total,
         Price $addPrice,
         int $expectedPrice,
         string $expectedFormattedPrice
-    ): void
-    {
+    ): void {
         $priceCalculator = PriceCalculator::getPriceCalculator();
 
         $this->assertInstanceOf(PriceCalculatorInterface::class, $priceCalculator);
@@ -71,7 +59,7 @@ class AddPriceTest extends TestCase
     /**
      * @return array<string, array<int, Price|int|string>>
      */
-    public function dataProviderCanAddCentPrices(): array
+    public static function dataProviderCanAddCentPrices(): array
     {
         $samePrice = Price::create(300);
 
@@ -95,14 +83,8 @@ class AddPriceTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderCanAddEuroPrice
-     * @param float $total
-     * @param float $addPrice
-     * @param int $expectedCalculatedPrice
-     * @param string $expectedFormattedPrice
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCanAddEuroPrice')]
     public function canAddEuroPrice(
         float $total,
         float $addPrice,
@@ -128,7 +110,13 @@ class AddPriceTest extends TestCase
         $this->assertEquals($expectedFormattedPrice, $formattedPrice);
     }
 
-    public function dataProviderCanAddEuroPrice(): array
+    /**
+     * @return array{
+     *     same_price: array{0: float, 1: float, 2: int, 3: string},
+     *     first_and_second_price_are_different: array{0: float, 1: float, 2: int, 3: string}
+     * }
+     */
+    public static function dataProviderCanAddEuroPrice(): array
     {
         return [
             'same_price' => [
