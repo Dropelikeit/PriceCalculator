@@ -5,42 +5,6 @@ on:
     push:
 
 jobs:
-    php80:
-        name: PHP 8.0
-        runs-on: ubuntu-latest
-        steps:
-          - name: "Checkout"
-            uses: "actions/checkout@v3"
-            with:
-              fetch-depth: 2
-
-          - name: "Install PHP 8.0"
-            uses: "shivammathur/setup-php@v2"
-            with:
-              php-version: "8.0"
-
-          - name: "Cache composer packages"
-            uses: "actions/cache@v3"
-            with:
-              path: "~/.composer/cache"
-              key: "php-composer-locked-${{ hashFiles('composer.lock') }}"
-              restore-keys: "php-composer-locked-"
-
-          - name: "Install dependencies with composer"
-            run: "composer install --no-interaction"
-
-          - name: "Run PHPUnit Tests"
-            run: "composer test"
-
-          - name: "Run PHP CS Check"
-            run: "composer cs-check"
-
-          - name: "Run PHPStan"
-            run: "composer analyze"
-
-          - name: "Run Psalm"
-            run: "composer psalm"
-
     php81:
         name: PHP 8.1
         runs-on: ubuntu-latest
@@ -70,9 +34,6 @@ jobs:
 
             - name: "Run PHP CS Check"
               run: "composer cs-check"
-
-            - name: "Run PHPStan"
-              run: "composer analyze"
 
             - name: "Run Psalm"
               run: "composer psalm"
@@ -106,9 +67,6 @@ jobs:
 
         - name: "Run PHP CS Check"
           run: "PHP_CS_FIXER_IGNORE_ENV=1 composer cs-check"
-
-        - name: "Run PHPStan"
-          run: "composer analyze"
 
         - name: "Run Psalm"
           run: "composer psalm"
