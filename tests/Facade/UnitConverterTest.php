@@ -5,29 +5,29 @@ declare(strict_types=1);
 namespace MarcelStrahl\PriceCalculator\Tests\Facade;
 
 use MarcelStrahl\PriceCalculator\Facade\UnitConverter as UnitConverterFacade;
+use MarcelStrahl\PriceCalculator\UnitConverter;
 use MarcelStrahl\PriceCalculator\UnitConverterInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class UnitConverterTest
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package MarcelStrahl\PriceCalculator\Tests\Facade
  */
-class UnitConverterTest extends TestCase
+#[CoversClass(className: UnitConverterFacade::class)]
+#[UsesClass(className: UnitConverter::class)]
+final class UnitConverterTest extends TestCase
 {
-    /**
-     * @return void
-     */
-    public function testCanInitPriceCalculatorFacade(): void
+    #[Test]
+    public function canInitPriceCalculatorFacade(): void
     {
         $facade = new UnitConverterFacade();
         $this->assertInstanceOf(UnitConverterFacade::class, $facade);
     }
 
-    /**
-     * @return void
-     */
-    public function testCanGetUnitConverter(): void
+    #[Test]
+    public function canGetUnitConverter(): void
     {
         $facade = new UnitConverterFacade();
         $unitConverter = $facade::getConverter();

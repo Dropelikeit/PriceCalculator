@@ -9,7 +9,9 @@ namespace MarcelStrahl\PriceCalculator\Helpers\Entity;
  */
 class Price
 {
-    private function __construct(private int $price) {}
+    private function __construct(private int $price)
+    {
+    }
 
     public static function create(int $price): self
     {

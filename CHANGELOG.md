@@ -10,3 +10,7 @@ This Changelog refers to all changes since v5.0.0
 * Vat and Price entity now has a private constructor and is initialized by a new `static` create method.
 * The `ConverterFactory` class uses `match` instead of `switch`.
 * Fixed unwanted forced order in the VAT calculation (for more details see [Upgrade to 5.0 Guide](UPGRADE-5.0.md))
+
+# v5.x.x
++ Upgrade of dependencies, removal of PHPStan as I focused more on Psalm.
++ All test classes are now final and use attributes instead of annotations.

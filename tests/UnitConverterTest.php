@@ -9,29 +9,28 @@ use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
 use MarcelStrahl\PriceCalculator\UnitConverter;
 use MarcelStrahl\PriceCalculator\UnitConverterInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class UnitConverterTest
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package MarcelStrahl\PriceCalculator\Tests
  */
-class UnitConverterTest extends TestCase
+#[CoversClass(className: UnitConverter::class)]
+#[UsesClass(className: Converter::class)]
+final class UnitConverterTest extends TestCase
 {
-    /**
-     * @return void
-     */
-    public function testImplements(): void
+    #[Test]
+    public function hasImplemented(): void
     {
         $unitConverter = new UnitConverter(new Converter());
         $this->assertInstanceOf(UnitConverterInterface::class, $unitConverter);
         $this->assertInstanceOf(UnitConverter::class, $unitConverter);
     }
 
-    /**
-     * @return void
-     */
-    public function testConvert(): void
+    #[Test]
+    public function canConvert(): void
     {
         $unitConverter = new UnitConverter(new Converter());
 

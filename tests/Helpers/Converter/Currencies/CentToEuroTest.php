@@ -6,28 +6,27 @@ namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Converter\Currencies;
 
 use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\CentToEuro;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class CentToEuroTest extends TestCase
+#[CoversClass(className: CentToEuro::class)]
+final class CentToEuroTest extends TestCase
 {
-    /**
-     * @return void
-     */
-    public function testImplements(): void
+    #[Test]
+    public function hasImplemented(): void
     {
         $converter = new CentToEuro();
         $this->assertInstanceOf(ConverterInterface::class, $converter);
         $this->assertInstanceOf(CentToEuro::class, $converter);
     }
 
-    /**
-     * @dataProvider dataProviderConvert
-     * @param float $amount
-     * @param float $expected
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderConvert')]
     public function testConvert(float $amount, float $expected): void
     {
         $converter = new CentToEuro();
@@ -36,9 +35,14 @@ class CentToEuroTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array{
+     *     0: array{0: 100.00, 1: 1.00},
+     *     1: array{0: 250.00, 1: 2.50},
+     *     2: array{0: 178, 1: 1.78},
+     *     3: array{0: .00, 1: 0}
+     * }
      */
-    public function dataProviderConvert(): array
+    public static function dataProviderConvert(): array
     {
         return [
             [100.00, 1.00],

@@ -8,31 +8,31 @@ use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
 use MarcelStrahl\PriceCalculator\PriceCalculator;
 use MarcelStrahl\PriceCalculator\Service\VatCalculator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class VatCalculatorTest extends TestCase
+#[CoversClass(className: VatCalculator::class)]
+#[UsesClass(className: Vat::class)]
+#[UsesClass(className: Price::class)]
+#[UsesClass(className: PriceCalculator::class)]
+final class VatCalculatorTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function canCreateVatCalculator(): void
     {
         $vatCalculator = new VatCalculator(Vat::create(0), new PriceCalculator());
         $this->assertInstanceOf(VatCalculator::class, $vatCalculator);
     }
 
-    /**
-     * @dataProvider dataProviderSalesTaxOfTotal
-     * @param Price $grossPrice
-     * @param Vat $vat
-     * @param Price $netPrice
-     * @param Price $expectedVat
-     * @return void
-     */
-    public function testCanCalculateSalesTaxOfTotal(
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderSalesTaxOfTotal')]
+    public function canCalculateSalesTaxOfTotal(
         Price $grossPrice,
         Vat $vat,
         Price $netPrice,
@@ -48,7 +48,7 @@ class VatCalculatorTest extends TestCase
     /**
      * @return array
      */
-    public function dataProviderSalesTaxOfTotal(): array
+    public static function dataProviderSalesTaxOfTotal(): array
     {
         $firstGrossPrice = Price::create(24);
 
@@ -82,14 +82,8 @@ class VatCalculatorTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderPriceWithSalesTax
-     * @param Price $netPrice
-     * @param Vat $vat
-     * @param Price $expectedPrice
-     * @return void
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderPriceWithSalesTax')]
     public function canCalculatePriceWithSalesTax(Price $netPrice, Vat $vat, Price $expectedPrice): void
     {
         $vatCalculator = new VatCalculator($vat, new PriceCalculator());
@@ -102,7 +96,7 @@ class VatCalculatorTest extends TestCase
     /**
      * @return array
      */
-    public function dataProviderPriceWithSalesTax(): array
+    public static function dataProviderPriceWithSalesTax(): array
     {
         $lowPrice = Price::create(3151);
         $vat = Vat::create(19);
@@ -129,14 +123,8 @@ class VatCalculatorTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderCalculateNetPriceFromGrossPrice
-     * @param Price $grossPrice
-     * @param Vat $vat
-     * @param Price $expectedNetPrice
-     * @return void
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCalculateNetPriceFromGrossPrice')]
     public function canCalculateNetPriceFromGrossPrice(Price $grossPrice, Vat $vat, Price $expectedNetPrice): void
     {
         $vatCalculator = new VatCalculator($vat, new PriceCalculator());
@@ -148,7 +136,7 @@ class VatCalculatorTest extends TestCase
     /**
      * @return array
      */
-    public function dataProviderCalculateNetPriceFromGrossPrice(): array
+    public static function dataProviderCalculateNetPriceFromGrossPrice(): array
     {
         $lowPrice = Price::create(3750);
         $vat = Vat::create(19);

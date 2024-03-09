@@ -11,22 +11,17 @@ use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 use MarcelStrahl\PriceCalculator\Helpers\View\Formatter;
 use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
 use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class DivPriceTest extends TestCase
+final class DivPriceTest extends TestCase
 {
-    /**
-     * @var PriceCalculatorInterface
-     */
-    private PriceCalculatorInterface $priceCalculator;
-
-    /**
-     * @var Formatter
-     */
-    private Formatter $formatter;
+    private readonly PriceCalculatorInterface $priceCalculator;
+    private readonly Formatter $formatter;
 
     public function setUp(): void
     {
@@ -35,14 +30,8 @@ class DivPriceTest extends TestCase
         $this->formatter = new PriceFormatter(2, ',', '.', '€');
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderCanDivCentPrice
-     * @param int $amount
-     * @param Price $total
-     * @param int $expectedPrice
-     * @param string $expectedFormattedPrice
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCanDivCentPrice')]
     public function canDivCentPrice(
         int $amount,
         Price $total,
@@ -61,7 +50,14 @@ class DivPriceTest extends TestCase
         $this->assertEquals($expectedFormattedPrice, $formattedPrice);
     }
 
-    public function dataProviderCanDivCentPrice(): array
+    /**
+     * @return array{
+     *     easy_div_calculation: array{0: 9, 1: Price, 2: 1, 3: '0,01 €'},
+     *     different_prices: array{0: 15, 1: Price, 2: 0, 3: '0,00 €'},
+     *     result_is_lower_than_zero: array{0: 9, 1: Price, 2: 0, 3: '0,00 €'}
+     * }
+     */
+    public static function dataProviderCanDivCentPrice(): array
     {
         $easyDivCalculation = Price::create(9);
         $differentTotalPrice = Price::create(5);
@@ -89,21 +85,14 @@ class DivPriceTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderCanDivEuroPrice
-     * @param int $amount
-     * @param float $total
-     * @param int $expectedPrice
-     * @param string $expectedFormattedPrice
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCanDivEuroPrice')]
     public function canDivEuroPrice(
         int $amount,
         float $total,
         int $expectedPrice,
         string $expectedFormattedPrice
-    ): void
-    {
+    ): void {
         $euroToCent = new EuroToCent();
 
         $totalInCent = $euroToCent->convert($total);
@@ -122,12 +111,15 @@ class DivPriceTest extends TestCase
         $this->assertEquals($expectedFormattedPrice, $formattedPrice);
     }
 
-    public function dataProviderCanDivEuroPrice(): array
+    /**
+     * @return array{
+     *     easy_div_calculation: array{0: 9, 1: 0.09, 2: 1, 3: '0,01 €'},
+     *     different_prices: array{0: 15, 1: 0.05, 2: 0, 3: '0,00 €'},
+     *     result_is_lower_than_zero: array{0: 9, 1: 0.00, 2: 0, 3: '0,00 €'}
+     * }
+     */
+    public static function dataProviderCanDivEuroPrice(): array
     {
-        $easyDivCalculation = Price::create(9);
-        $differentTotalPrice = Price::create(5);
-        $totalPriceIsLowerThanZero = Price::create(0);
-
         return [
             'easy_div_calculation' => [
                 9,

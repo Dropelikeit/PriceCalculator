@@ -13,7 +13,9 @@ use MarcelStrahl\PriceCalculator\Service\VatCalculator as VatCalculatorService;
  */
 class VatCalculator
 {
-    private function __construct(private Vat $vat, private PriceCalculatorInterface $priceCalculator) {}
+    private function __construct(private Vat $vat, private PriceCalculatorInterface $priceCalculator)
+    {
+    }
 
     public static function getVatCalculator(int $vat): VatCalculatorService
     {
