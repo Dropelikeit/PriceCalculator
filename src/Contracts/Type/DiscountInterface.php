@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MarcelStrahl\PriceCalculator\Helpers\Types;
+namespace MarcelStrahl\PriceCalculator\Contracts\Type;
 
 /**
  * Interface Discount

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MarcelStrahl\PriceCalculator\Helpers\Converter;
+namespace MarcelStrahl\PriceCalculator\Contracts\Converter;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>

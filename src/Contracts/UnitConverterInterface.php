@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MarcelStrahl\PriceCalculator;
+namespace MarcelStrahl\PriceCalculator\Contracts;
 
-use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
+use MarcelStrahl\PriceCalculator\Contracts\Converter\ConverterInterface;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>

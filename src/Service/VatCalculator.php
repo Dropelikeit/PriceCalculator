@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Service;
 
+use MarcelStrahl\PriceCalculator\Contracts\PriceCalculatorInterface;
+use MarcelStrahl\PriceCalculator\Contracts\Service\VatCalculatorInterface;
+use MarcelStrahl\PriceCalculator\Contracts\Type\FiguresInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
-use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 use function round;
 
 /**
@@ -31,13 +33,13 @@ class VatCalculator implements VatCalculatorInterface
      */
     public function calculatePriceWithSalesTax(Price $netPrice): Price
     {
-        $vatPrice = $netPrice->getPrice() * ($this->vat->getVat() / 100);
+        $vatPrice = $netPrice->getPrice() * ($this->vat->getVat() / FiguresInterface::INTEGER_HUNDRED);
         $grossPrice = $netPrice->getPrice() + $vatPrice;
         // Calculate to Euro for round the number if necessary
-        $grossPrice /= 100;
-        $grossPrice = round($grossPrice, 2);
+        $grossPrice /= FiguresInterface::INTEGER_HUNDRED;
+        $grossPrice = round($grossPrice, FiguresInterface::INTEGER_TWO);
         // Calculate to cent to be had an int
-        $grossPrice *= 100;
+        $grossPrice *= FiguresInterface::INTEGER_HUNDRED;
 
         /*
          * We calculate the value of "grossPrice" in cents again, but for PHP the value remains a float.
@@ -45,6 +47,7 @@ class VatCalculator implements VatCalculatorInterface
          * an integer using "(int)" the result is 488 because PHP rounds down on int-carst.
          * A workaround here is to use round again with precision 0 and then use a safe carst to integer.
          */
+        /** @infection-ignore-all */
         $grossPrice = (int) round($grossPrice);
 
         return Price::create($grossPrice);
@@ -60,9 +63,9 @@ class VatCalculator implements VatCalculatorInterface
     {
         $toCalculatingVatPrice = Price::create($total->getPrice());
 
-        $vatToCalculate = 1 + ($this->vat->getVat() / 100);
+        $vatToCalculate = FiguresInterface::INTEGER_ONE + ($this->vat->getVat() / FiguresInterface::INTEGER_HUNDRED);
 
-        $calculatedPrice = (int) (round($toCalculatingVatPrice->getPrice() / $vatToCalculate, 0));
+        $calculatedPrice = (int) (round($toCalculatingVatPrice->getPrice() / $vatToCalculate, FiguresInterface::INTEGER_ZERO));
 
         $calculatedPrice = $total->getPrice() - $calculatedPrice;
 

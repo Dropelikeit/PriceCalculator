@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MarcelStrahl\PriceCalculator\Helpers\View;
+namespace MarcelStrahl\PriceCalculator\Contracts\View;
 
 /**
- * Interface Formatter
  * @author Marcel Strahl <info@marcel-strahl.de>
- * @package Src\Helpers\View
  */
 interface Formatter
 {

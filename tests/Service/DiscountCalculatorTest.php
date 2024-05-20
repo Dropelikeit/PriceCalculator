@@ -7,21 +7,22 @@ namespace MarcelStrahl\PriceCalculator\Tests\Service;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Discount;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 use MarcelStrahl\PriceCalculator\Service\DiscountCalculator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class DiscountCalculatorTest extends TestCase
+#[CoversClass(className: DiscountCalculator::class)]
+#[UsesClass(className: Price::class)]
+#[UsesClass(className: Discount::class)]
+final class DiscountCalculatorTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider dataProviderCalculateDiscountPriceFromTotal
-     * @param Price $total
-     * @param Discount $percent
-     * @param Price $expectedPrice
-     * @return void
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCalculateDiscountPriceFromTotal')]
     public function canCalculateDiscountPriceFromTotal(Price $total, Discount $percent, Price $expectedPrice): void
     {
         $discountCalculator = new DiscountCalculator();
@@ -32,9 +33,12 @@ class DiscountCalculatorTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array{
+     *     can_calculate_discount: array<int, Discount|Price>,
+     *     can_handle_if_price_is_zero: array<int, Discount|Price>
+     * }
      */
-    public function dataProviderCalculateDiscountPriceFromTotal(): array
+    public static function dataProviderCalculateDiscountPriceFromTotal(): array
     {
         $discount = new Discount(45);
         $totalPrice = Price::create(100);
@@ -55,14 +59,8 @@ class DiscountCalculatorTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderCalculateDiscountFromTotal
-     * @param Price $total
-     * @param Discount $percent
-     * @param Price $expectedPrice
-     * @return void
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCalculateDiscountFromTotal')]
     public function canCalculateDiscountFromTotal(Price $total, Discount $percent, Price $expectedPrice): void
     {
         $discountCalculator = new DiscountCalculator();
@@ -73,9 +71,12 @@ class DiscountCalculatorTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array{
+     *   can_calculate_total_price_after_discount: array<int, Price|Discount>,
+     *   can_handle_zero_total_price_without_error: array<int, Price|Discount>
+     * }
      */
-    public function dataProviderCalculateDiscountFromTotal(): array
+    public static function dataProviderCalculateDiscountFromTotal(): array
     {
         $discount = new Discount(45);
         $totalPrice = Price::create(100);

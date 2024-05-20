@@ -1,52 +1,18 @@
 name: "CI Tests"
 
 on:
-    pull_request:
-    push:
+  pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
-    php80:
-        name: PHP 8.0
-        runs-on: ubuntu-latest
-        steps:
-          - name: "Checkout"
-            uses: "actions/checkout@v3"
-            with:
-              fetch-depth: 2
-
-          - name: "Install PHP 8.0"
-            uses: "shivammathur/setup-php@v2"
-            with:
-              php-version: "8.0"
-
-          - name: "Cache composer packages"
-            uses: "actions/cache@v3"
-            with:
-              path: "~/.composer/cache"
-              key: "php-composer-locked-${{ hashFiles('composer.lock') }}"
-              restore-keys: "php-composer-locked-"
-
-          - name: "Install dependencies with composer"
-            run: "composer install --no-interaction"
-
-          - name: "Run PHPUnit Tests"
-            run: "composer test"
-
-          - name: "Run PHP CS Check"
-            run: "composer cs-check"
-
-          - name: "Run PHPStan"
-            run: "composer analyze"
-
-          - name: "Run Psalm"
-            run: "composer psalm"
-
     php81:
         name: PHP 8.1
         runs-on: ubuntu-latest
         steps:
             - name: "Checkout"
-              uses: "actions/checkout@v3"
+              uses: "actions/checkout@v4"
               with:
                   fetch-depth: 2
 
@@ -56,7 +22,7 @@ jobs:
                   php-version: "8.1"
 
             - name: "Cache composer packages"
-              uses: "actions/cache@v3"
+              uses: "actions/cache@v4"
               with:
                   path: "~/.composer/cache"
                   key: "php-composer-locked-${{ hashFiles('composer.lock') }}"
@@ -71,18 +37,18 @@ jobs:
             - name: "Run PHP CS Check"
               run: "composer cs-check"
 
-            - name: "Run PHPStan"
-              run: "composer analyze"
-
             - name: "Run Psalm"
               run: "composer psalm"
+
+            - name: "Run infection"
+              run: "composer infection-ci"
 
     php82:
       name: PHP 8.2
       runs-on: ubuntu-latest
       steps:
         - name: "Checkout"
-          uses: "actions/checkout@v3"
+          uses: "actions/checkout@v4"
           with:
             fetch-depth: 2
 
@@ -92,7 +58,7 @@ jobs:
             php-version: "8.2"
 
         - name: "Cache composer packages"
-          uses: "actions/cache@v3"
+          uses: "actions/cache@v4"
           with:
             path: "~/.composer/cache"
             key: "php-composer-locked-${{ hashFiles('composer.lock') }}"
@@ -107,8 +73,46 @@ jobs:
         - name: "Run PHP CS Check"
           run: "PHP_CS_FIXER_IGNORE_ENV=1 composer cs-check"
 
-        - name: "Run PHPStan"
-          run: "composer analyze"
+        - name: "Run Psalm"
+          run: "composer psalm"
+
+        - name: "Run infection"
+          run: "composer infection-ci"
+
+    php83:
+      name: PHP 8.3
+      runs-on: ubuntu-latest
+      steps:
+        - name: "Checkout"
+          uses: "actions/checkout@v4"
+          with:
+            fetch-depth: 2
+
+        - name: "Install PHP 8.3"
+          uses: "shivammathur/setup-php@v2"
+          with:
+            php-version: "8.3"
+
+        - name: "Cache composer packages"
+          uses: "actions/cache@v4"
+          with:
+            path: "~/.composer/cache"
+            key: "php-composer-locked-${{ hashFiles('composer.lock') }}"
+            restore-keys: "php-composer-locked-"
+
+        - name: "Install dependencies with composer"
+          run: "composer install --no-interaction"
+
+        - name: "Run PHPUnit Tests"
+          run: "composer test"
+
+        - name: "Run PHP CS Check"
+          run: "PHP_CS_FIXER_IGNORE_ENV=1 composer cs-check"
 
         - name: "Run Psalm"
           run: "composer psalm"
+
+        - name: "Run infection"
+          env:
+            INFECTION_BADGE_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+          run: "composer infection-ci"

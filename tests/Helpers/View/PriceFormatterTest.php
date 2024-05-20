@@ -4,32 +4,27 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\View;
 
-use MarcelStrahl\PriceCalculator\Helpers\View\Formatter;
+use MarcelStrahl\PriceCalculator\Contracts\View\Formatter;
 use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class PriceFormatterTest extends TestCase
+#[CoversClass(className: PriceFormatter::class)]
+final class PriceFormatterTest extends TestCase
 {
-    /**
-     * @return void
-     */
-    public function testInitPriceFormatter(): void
+    #[Test]
+    public function canInitPriceFormatter(): void
     {
         $priceFormatter = $this->getPriceFormatter(0, '', '', '€');
         $this->assertInstanceOf(PriceFormatter::class, $priceFormatter);
         $this->assertInstanceOf(Formatter::class, $priceFormatter);
     }
 
-    /**
-     * @param int $decimals
-     * @param string $decPoint
-     * @param string $thousandsSep
-     * @param string $currency
-     * @return PriceFormatter
-     */
     private function getPriceFormatter(
         int $decimals,
         string $decPoint,
@@ -39,17 +34,9 @@ class PriceFormatterTest extends TestCase
         return new PriceFormatter($decimals, $decPoint, $thousandsSep, $currency);
     }
 
-    /**
-     * @dataProvider dataProviderFormatPriceForView
-     * @param float $price
-     * @param string $expected
-     * @param int $decimals
-     * @param string $decPoint
-     * @param string $thousandsSep
-     * @param string $currency
-     * @return void
-     */
-    public function testCanFormatPriceForView(
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderFormatPriceForView')]
+    public function canFormatPriceForView(
         float $price,
         string $expected,
         int $decimals,
@@ -68,17 +55,9 @@ class PriceFormatterTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider dataProviderFormatPriceWithNoDefaults
-     * @param float $price
-     * @param string $expected
-     * @param int $decimals
-     * @param string $decSep
-     * @param string $thousandsSep
-     * @param string $currency
-     * @return void
-     */
-    public function testCanFormatPrice(
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderFormatPriceWithNoDefaults')]
+    public function canFormatPrice(
         float $price,
         string $expected,
         int $decimals,
@@ -93,9 +72,14 @@ class PriceFormatterTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array{
+     *     0: array<int, string|int>,
+     *     1: array<int, string|int>,
+     *     2: array<int, string|int>,
+     *     3: array<int, string|int>
+     * }
      */
-    public function dataProviderFormatPriceWithNoDefaults(): array
+    public static function dataProviderFormatPriceWithNoDefaults(): array
     {
         return [
             [
@@ -114,9 +98,14 @@ class PriceFormatterTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array{
+     *     0: array<int, int|string>,
+     *     1: array<int, int|string>,
+     *     2: array<int, int|string>,
+     *     3: array<int, int|string>
+     * }
      */
-    public function dataProviderFormatPriceForView(): array
+    public static function dataProviderFormatPriceForView(): array
     {
         return [
             [

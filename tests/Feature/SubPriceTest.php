@@ -4,29 +4,24 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests\Feature;
 
+use MarcelStrahl\PriceCalculator\Contracts\PriceCalculatorInterface;
+use MarcelStrahl\PriceCalculator\Contracts\View\Formatter;
 use MarcelStrahl\PriceCalculator\Facade\PriceCalculator;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\EuroToCent;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
-use MarcelStrahl\PriceCalculator\Helpers\View\Formatter;
 use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
-use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class SubPriceTest extends TestCase
+final class SubPriceTest extends TestCase
 {
-    /**
-     * @var PriceCalculatorInterface
-     */
-    private PriceCalculatorInterface $priceCalculator;
-
-    /**
-     * @var Formatter
-     */
-    private Formatter $formatter;
+    private readonly PriceCalculatorInterface $priceCalculator;
+    private readonly Formatter $formatter;
 
     public function setUp(): void
     {
@@ -35,14 +30,8 @@ class SubPriceTest extends TestCase
         $this->formatter = new PriceFormatter(2, ',', '.', '€');
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderCanSubCentPrice
-     * @param Price $total
-     * @param Price $subPrice
-     * @param int $expectedPrice
-     * @param string $expectedFormattedPrice
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCanSubCentPrice')]
     public function canSubCentPrice(
         Price $total,
         Price $subPrice,
@@ -61,7 +50,14 @@ class SubPriceTest extends TestCase
         $this->assertEquals($expectedFormattedPrice, $formattedPrice);
     }
 
-    public function dataProviderCanSubCentPrice(): array
+    /**
+     * @return array{
+     *     same_price: array{0: Price, 1: Price, 2: 0, 3: '0,00 €'},
+     *     different_prices: array{0: Price, 1: Price, 2: 500, 3: '5,00 €'},
+     *     result_is_lower_than_zero: array{0: Price, 1: Price, 2: 0, 3: '0,00 €'},
+     * }
+     */
+    public static function dataProviderCanSubCentPrice(): array
     {
         $samePrice = Price::create(12);
 
@@ -95,14 +91,8 @@ class SubPriceTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderCanSubEuroPrice
-     * @param float $total
-     * @param float $subPrice
-     * @param int $expectedPrice
-     * @param string $expectedFormattedPrice
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCanSubEuroPrice')]
     public function canSubEuroPrice(
         float $total,
         float $subPrice,
@@ -130,7 +120,14 @@ class SubPriceTest extends TestCase
         $this->assertEquals($expectedFormattedPrice, $formattedPrice);
     }
 
-    public function dataProviderCanSubEuroPrice(): array
+    /**
+     * @return array{
+     *     same_price: array{0: 15.51, 1: 15.51, 2: 0, 3: '0,00 €'},
+     *     different_prices: array{0: 20.85, 1: 19.99, 2: 86, 3: '0,86 €'},
+     *     result_is_lower_than_zero: array{0: 1.00, 1: 2.85, 2: 0, 3: '0,00 €'},
+     * }
+     */
+    public static function dataProviderCanSubEuroPrice(): array
     {
         return [
             'same_price' => [

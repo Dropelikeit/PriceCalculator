@@ -1,6 +1,6 @@
 ### Price calculator
 
-[![Build Status](https://travis-ci.org/Dropelikeit/PriceCalculator.svg?branch=master)](https://travis-ci.org/Dropelikeit/PriceCalculator)
+![Workflow status](https://github.com/Dropelikeit/PriceCalculator/actions/workflows/ci.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/Dropelikeit/PriceCalculator/badge.svg?branch=master)](https://coveralls.io/github/Dropelikeit/PriceCalculator?branch=master)
 [![Monthly Downloads](https://poser.pugx.org/marcel-strahl/price-calculator/d/monthly)](https://packagist.org/packages/marcel-strahl/price-calculator)
 [![Daily Downloads](https://poser.pugx.org/marcel-strahl/price-calculator/d/daily)](https://packagist.org/packages/marcel-strahl/price-calculator)
@@ -24,7 +24,7 @@ composer require marcel-strahl/price-calculator
 ### Supported PHP Versions
 |  PHP  | Package Version |    Status     |
 |:-----:|:---------------:|:-------------:|
-| ^8.0  |      v5.x.x     |    Support    |
+| ^8.0  |     v5.x.x      |    Support    |
 | ^7.4  |     v4.x.x      | Not supported |
 | <^7.4 |    <=v3.x.x     | Not supported |
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Helpers\View;
 
+use MarcelStrahl\PriceCalculator\Contracts\View\Formatter;
+
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */

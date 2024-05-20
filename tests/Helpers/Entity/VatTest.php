@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Entity;
 
+use MarcelStrahl\PriceCalculator\Contracts\Type\VatInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Vat;
-use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
+#[CoversClass(className: Vat::class)]
 final class VatTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function canCreateVat(): void
     {
         $vat = Vat::create(0);
@@ -25,9 +26,7 @@ final class VatTest extends TestCase
         $this->assertSame(0, $vat->getVat());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canCreateVatAndGetRightValue(): void
     {
         $vat = Vat::create(19);

@@ -7,20 +7,17 @@ namespace MarcelStrahl\PriceCalculator\Tests\Feature;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Discount;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 use MarcelStrahl\PriceCalculator\Service\DiscountCalculator;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class DiscountCalculationTest extends TestCase
+final class DiscountCalculationTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider dataProviderCanCalculateDiscountedTotal
-     * @param int $priceAmount
-     * @param float $discountAmount
-     * @param int $expectedPrice
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCanCalculateDiscountedTotal')]
     public function canCalculateDiscountedTotal(int $priceAmount, float $discountAmount, int $expectedPrice): void
     {
         $discountCalculator = new DiscountCalculator();
@@ -34,13 +31,8 @@ class DiscountCalculationTest extends TestCase
         $this->assertEquals($expectedPrice, $total->getPrice());
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderCanCalculateDiscountPrice
-     * @param int $priceAmount
-     * @param float $discountAmount
-     * @param int $expectedPrice
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCanCalculateDiscountPrice')]
     public function canCalculateDiscountPrice(int $priceAmount, float $discountAmount, int $expectedPrice): void
     {
         $discountCalculator = new DiscountCalculator();
@@ -54,7 +46,15 @@ class DiscountCalculationTest extends TestCase
         $this->assertEquals($expectedPrice, $discountPrice->getPrice());
     }
 
-    public function dataProviderCanCalculateDiscountPrice(): array
+    /**
+     * @return array{
+     *     0: array{0: 1500, 1: 15, 2: 225},
+     *     1: array{0: 2700, 1: 50, 2: 1350},
+     *     2: array{0: 50000, 1: 99, 2: 49500},
+     *     3: array{0: 500, 1: 18.31, 2: 92}
+     * }
+     */
+    public static function dataProviderCanCalculateDiscountPrice(): array
     {
         return [
             [
@@ -80,7 +80,15 @@ class DiscountCalculationTest extends TestCase
         ];
     }
 
-    public function dataProviderCanCalculateDiscountedTotal(): array
+    /**
+     * @return array{
+     *     0: array{0: 1500, 1: 15, 2: 1275},
+     *     1: array{0: 2700, 1: 50, 2: 1350},
+     *     2: array{0: 50000, 1: 99, 2: 500},
+     *     3: array{0: 500, 1: 18.31, 2: 408}
+     * }
+     */
+    public static function dataProviderCanCalculateDiscountedTotal(): array
     {
         return [
             [
@@ -104,5 +112,19 @@ class DiscountCalculationTest extends TestCase
                 408,
             ],
         ];
+    }
+
+    #[Test]
+    public function canCalculateDiscountedTotalPriceWhenDiscountIsHundred(): void
+    {
+        $discountCalculator = new DiscountCalculator();
+
+        $price = Price::create(5034);
+
+        $discount = new Discount(100);
+
+        $discountPrice = $discountCalculator->calculateDiscountPriceFromTotal($price, $discount);
+
+        $this->assertSame(5034, $discountPrice->getPrice());
     }
 }

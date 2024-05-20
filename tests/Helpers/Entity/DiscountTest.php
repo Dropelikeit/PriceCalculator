@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Entity;
 
+use MarcelStrahl\PriceCalculator\Contracts\Type\DiscountInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Discount;
-use MarcelStrahl\PriceCalculator\Helpers\Types\DiscountInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,15 +16,11 @@ use TypeError;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
+#[CoversClass(className: Discount::class)]
 final class DiscountTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider dataProviderCreateDiscount
-     * @param int $discount
-     * @param float $expectedDiscount
-     * @return void
-     */
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCreateDiscount')]
     public function canSetDiscount(int $discount, float $expectedDiscount): void
     {
         $discount = new Discount($discount);
@@ -29,7 +28,12 @@ final class DiscountTest extends TestCase
         $this->assertSame($expectedDiscount, $discount->getDiscount());
     }
 
-    public function dataProviderCreateDiscount(): array
+    /**
+     * @return array{
+     *     create_discount_successfully: array{0: 100, 1: 100}
+     * }
+     */
+    public static function dataProviderCreateDiscount(): array
     {
         return [
             'create_discount_successfully' => [
@@ -39,13 +43,9 @@ final class DiscountTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider dataProviderCannotCreateDiscount
-     * @param mixed $discount
-     * @param bool $expectedException
-     */
-    public function canNotSetDiscount($discount, bool $expectedException): void
+    #[Test]
+    #[DataProvider(methodName: 'dataProviderCannotCreateDiscount')]
+    public function canNotSetDiscount(mixed $discount, bool $expectedException): void
     {
         if ($expectedException) {
             $this->expectException(TypeError::class);
@@ -55,7 +55,13 @@ final class DiscountTest extends TestCase
         new Discount($discount);
     }
 
-    public function dataProviderCannotCreateDiscount(): array
+    /**
+     * @return array{
+     *     failed_by_string: array{0: non-empty-string, 1: true},
+     *     failed_by_object: array{0: stdClass, 1: true}
+     * }
+     */
+    public static function dataProviderCannotCreateDiscount(): array
     {
         return [
             'failed_by_string' => [
