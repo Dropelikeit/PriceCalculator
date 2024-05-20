@@ -12,8 +12,6 @@
         <directory name="src"/>
         <ignoreFiles>
             <directory name="vendor"/>
-            <file name="src/Helpers/Mathematics.php"/>
-            <file name="src/Contracts/MathematicsInterface.php"/>
         </ignoreFiles>
     </projectFiles>
     <plugins>

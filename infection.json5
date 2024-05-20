@@ -4,9 +4,6 @@
         "directories": [
             "src"
         ],
-        "excludes": [
-            "src/Helpers/Mathematics.php"
-        ]
     },
     "mutators": {
         "@default": true,
@@ -20,14 +17,14 @@
         },
     },
     "logs": {
-        "html": "infection.html",
-        "summary": "summary.log",
-        "json": "infection-log.json",
-        "perMutator": "per-mutator.md",
+        "html": "build/infection/infection.html",
+        "summary": "build/infection/summary.log",
+        "json": "build/infection/infection-log.json",
+        "perMutator": "build/infection/per-mutator.md",
         "github": true,
         "stryker": {
             "badge": "master"
         },
-        "summaryJson": "summary.json"
+        "summaryJson": "build/infection/summary.json"
     },
 }

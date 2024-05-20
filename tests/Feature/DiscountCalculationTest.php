@@ -113,4 +113,18 @@ final class DiscountCalculationTest extends TestCase
             ],
         ];
     }
+
+    #[Test]
+    public function canCalculateDiscountedTotalPriceWhenDiscountIsHundred(): void
+    {
+        $discountCalculator = new DiscountCalculator();
+
+        $price = Price::create(5034);
+
+        $discount = new Discount(100);
+
+        $discountPrice = $discountCalculator->calculateDiscountPriceFromTotal($price, $discount);
+
+        $this->assertSame(5034, $discountPrice->getPrice());
+    }
 }

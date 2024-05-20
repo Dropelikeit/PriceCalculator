@@ -42,9 +42,10 @@
     "phpcs": "phpcs --standard=phpcs.xml.dist",
     "cs-check": "php-cs-fixer -v --dry-run --using-cache=no fix",
     "cs-fix": "php-cs-fixer --using-cache=no fix",
-    "test": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --configuration phpunit.xml",
+    "test": "export XDEBUG_MODE=coverage && phpunit -c phpunit.xml --coverage-xml build/logs --coverage-clover build/logs/clover.xml --coverage-html build/logs/clover.html --log-junit build/logs/junit.xml",
     "psalm": "vendor/bin/psalm --no-cache",
     "infection": "infection --threads=4",
+    "infection-ci": "infection --coverage=build/logs --threads=4",
     "check": [
       "@phpcs",
       "@cs-check",

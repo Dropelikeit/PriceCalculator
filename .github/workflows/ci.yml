@@ -40,6 +40,9 @@ jobs:
             - name: "Run Psalm"
               run: "composer psalm"
 
+            - name: "Run infection"
+              run: "composer infection-ci"
+
     php82:
       name: PHP 8.2
       runs-on: ubuntu-latest
@@ -73,6 +76,9 @@ jobs:
         - name: "Run Psalm"
           run: "composer psalm"
 
+        - name: "Run infection"
+          run: "composer infection-ci"
+
     php83:
       name: PHP 8.3
       runs-on: ubuntu-latest
@@ -105,3 +111,8 @@ jobs:
 
         - name: "Run Psalm"
           run: "composer psalm"
+
+        - name: "Run infection"
+          env:
+            INFECTION_BADGE_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+          run: "composer infection-ci"

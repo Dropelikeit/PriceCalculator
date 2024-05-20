@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Service;
 
+use function is_string;
 use MarcelStrahl\PriceCalculator\Contracts\Service\DiscountCalculatorInterface;
 use MarcelStrahl\PriceCalculator\Contracts\Type\FiguresInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Discount;
@@ -46,7 +47,8 @@ class DiscountCalculator implements DiscountCalculatorInterface
         $calculatedAmount = $totalPrice * $discount->getDiscount();
 
         $foundAmount = strstr((string) $calculatedAmount, '.');
-        if (!$foundAmount) {
+
+        if (!is_string($foundAmount)) {
             return Price::create((int) $calculatedAmount);
         }
 
