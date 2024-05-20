@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests;
 
+use MarcelStrahl\PriceCalculator\Contracts\Converter\ConverterInterface;
+use MarcelStrahl\PriceCalculator\Contracts\Factory\ConverterFactoryInterface;
+use MarcelStrahl\PriceCalculator\Contracts\UnitConverterInterface;
 use MarcelStrahl\PriceCalculator\Factory\Converter;
-use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
-use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
 use MarcelStrahl\PriceCalculator\UnitConverter;
-use MarcelStrahl\PriceCalculator\UnitConverterInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;

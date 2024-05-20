@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Helpers\Entity;
 
-use MarcelStrahl\PriceCalculator\Helpers\Types\VatInterface;
+use MarcelStrahl\PriceCalculator\Contracts\Type\VatInterface;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>

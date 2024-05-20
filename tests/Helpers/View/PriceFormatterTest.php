@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\View;
 
-use MarcelStrahl\PriceCalculator\Helpers\View\Formatter;
+use MarcelStrahl\PriceCalculator\Contracts\View\Formatter;
 use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;

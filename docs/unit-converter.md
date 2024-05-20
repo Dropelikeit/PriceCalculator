@@ -17,9 +17,9 @@ The unit converter has a method:
 This class has a facade for easy use of the unit converter.
 
 Use with facade:
+
 ```php
-use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
-use MarcelStrahl\PriceCalculator\Facade\UnitConverter;
+use MarcelStrahl\PriceCalculator\Contracts\Factory\ConverterFactoryInterface;use MarcelStrahl\PriceCalculator\Facade\UnitConverter;
 
 $converter = UnitConverter::getConverter();
 
@@ -28,10 +28,9 @@ $euroToCentConverter = $converter->convert(ConverterFactoryInterface::EURO_TO_CE
 ```
 
 Use without facade:
+
 ```php
-use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
-use MarcelStrahl\PriceCalculator\UnitConverter;
-use MarcelStrahl\PriceCalculator\Factory\Converter;
+use MarcelStrahl\PriceCalculator\Contracts\Factory\ConverterFactoryInterface;use MarcelStrahl\PriceCalculator\Factory\Converter;use MarcelStrahl\PriceCalculator\UnitConverter;
 
 $converter = new UnitConverter(new Converter());
 

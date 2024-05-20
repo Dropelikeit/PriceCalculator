@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests\Factory;
 
+use MarcelStrahl\PriceCalculator\Contracts\Factory\ConverterFactoryInterface;
 use MarcelStrahl\PriceCalculator\Exceptions\PriceCalculatorFactoryException;
 use MarcelStrahl\PriceCalculator\Factory\Converter;
-use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\EuroToCent;
 use PHPUnit\Framework\Attributes\CoversClass;

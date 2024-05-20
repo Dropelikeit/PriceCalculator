@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Entity;
 
+use MarcelStrahl\PriceCalculator\Contracts\Type\DiscountInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Discount;
-use MarcelStrahl\PriceCalculator\Helpers\Types\DiscountInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

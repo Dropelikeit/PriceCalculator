@@ -32,11 +32,7 @@ In order to enter a value from a price object into the price formatter, the Cent
 ```php
 <?php
 
-use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
-use MarcelStrahl\PriceCalculator\Facade\UnitConverter;
-use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
-use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
-use function var_dump;
+use MarcelStrahl\PriceCalculator\Contracts\Factory\ConverterFactoryInterface;use MarcelStrahl\PriceCalculator\Facade\UnitConverter;use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
 
 $calculatedResultInCent = Price::create(1010);
 

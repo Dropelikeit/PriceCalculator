@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace MarcelStrahl\PriceCalculator\Factory;
+namespace MarcelStrahl\PriceCalculator\Contracts\Factory;
 
+use MarcelStrahl\PriceCalculator\Contracts\Converter\ConverterInterface;
 use MarcelStrahl\PriceCalculator\Exceptions\PriceCalculatorFactoryException;
-use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>

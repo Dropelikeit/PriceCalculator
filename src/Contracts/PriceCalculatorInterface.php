@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MarcelStrahl\PriceCalculator;
+namespace MarcelStrahl\PriceCalculator\Contracts;
 
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 

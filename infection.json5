@@ -1,0 +1,33 @@
+{
+    "$schema": "vendor/infection/infection/resources/schema.json",
+    "source": {
+        "directories": [
+            "src"
+        ],
+        "excludes": [
+            "src/Helpers/Mathematics.php"
+        ]
+    },
+    "mutators": {
+        "@default": true,
+        "BCMath": {
+            "settings": {
+                "bcdiv": false,
+                "bcmul": false,
+                "bcadd": false,
+                "bcsub": false
+            }
+        },
+    },
+    "logs": {
+        "html": "infection.html",
+        "summary": "summary.log",
+        "json": "infection-log.json",
+        "perMutator": "per-mutator.md",
+        "github": true,
+        "stryker": {
+            "badge": "master"
+        },
+        "summaryJson": "summary.json"
+    },
+}

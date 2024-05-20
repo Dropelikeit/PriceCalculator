@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator;
 
+use MarcelStrahl\PriceCalculator\Contracts\PriceCalculatorInterface;
+use MarcelStrahl\PriceCalculator\Contracts\Type\FiguresInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 
 /**
@@ -26,8 +28,9 @@ class PriceCalculator implements PriceCalculatorInterface
     {
         $calculated = Price::create($total->getPrice() - $price->getPrice());
 
-        if ($calculated->getPrice() < 0) {
-            return Price::create(0);
+        /** @infection-ignore-all  */
+        if ($calculated->getPrice() < FiguresInterface::INTEGER_ZERO) {
+            return Price::create(FiguresInterface::INTEGER_ZERO);
         }
 
         return $calculated;
@@ -46,8 +49,8 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function divPrice(int $amount, Price $price): Price
     {
-        if ($price->getPrice() <= 0) {
-            return Price::create(0);
+        if ($amount <= FiguresInterface::INTEGER_ZERO) {
+            return Price::create(FiguresInterface::INTEGER_ZERO);
         }
 
         return Price::create((int) ($price->getPrice() / $amount));

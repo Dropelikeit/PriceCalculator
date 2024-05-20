@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Service;
 
+use MarcelStrahl\PriceCalculator\Contracts\Service\DiscountCalculatorInterface;
+use MarcelStrahl\PriceCalculator\Contracts\Type\FiguresInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Discount;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 use function round;
@@ -21,7 +23,7 @@ class DiscountCalculator implements DiscountCalculatorInterface
      */
     public function calculateDiscountFromTotal(Price $total, Discount $discount): Price
     {
-        if (($discountPrice = $this->calculateDiscountPriceFromTotal($total, $discount))->getPrice() === 0) {
+        if (($discountPrice = $this->calculateDiscountPriceFromTotal($total, $discount))->getPrice() === FiguresInterface::INTEGER_ZERO) {
             return $discountPrice;
         }
 
@@ -35,20 +37,22 @@ class DiscountCalculator implements DiscountCalculatorInterface
      */
     public function calculateDiscountPriceFromTotal(Price $total, Discount $discount): Price
     {
-        if ($total->getPrice() === 0) {
-            return Price::create(0);
+        if ($total->getPrice() === FiguresInterface::INTEGER_ZERO) {
+            return Price::create(FiguresInterface::INTEGER_ZERO);
         }
 
-        $totalPrice = $total->getPrice() / 100;
+        $totalPrice = $total->getPrice() / FiguresInterface::INTEGER_HUNDRED;
 
         $calculatedAmount = $totalPrice * $discount->getDiscount();
 
         $foundAmount = strstr((string) $calculatedAmount, '.');
-        if ($foundAmount !== false) {
-            $calculatedAmount /= 100;
-            $calculatedAmount = round($calculatedAmount, 2);
-            $calculatedAmount *= 100;
+        if (!$foundAmount) {
+            return Price::create((int) $calculatedAmount);
         }
+
+        $calculatedAmount /= FiguresInterface::INTEGER_HUNDRED;
+        $calculatedAmount = round($calculatedAmount, FiguresInterface::INTEGER_TWO);
+        $calculatedAmount *= FiguresInterface::INTEGER_HUNDRED;
 
         return Price::create((int) $calculatedAmount);
     }

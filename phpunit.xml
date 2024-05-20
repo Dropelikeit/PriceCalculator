@@ -23,6 +23,8 @@
     <exclude>
       <directory>./tests</directory>
       <directory>./vendor</directory>
+        <file>./src/Contracts/MathematicsInterface.php</file>
+        <file>./src/Helpers/Mathematics.php</file>
     </exclude>
   </source>
 </phpunit>

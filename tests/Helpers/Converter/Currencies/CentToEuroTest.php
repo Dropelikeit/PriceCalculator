@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests\Helpers\Converter\Currencies;
 
-use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
+use MarcelStrahl\PriceCalculator\Contracts\Converter\ConverterInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\CentToEuro;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;

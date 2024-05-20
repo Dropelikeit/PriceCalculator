@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests\Facade;
 
+use MarcelStrahl\PriceCalculator\Contracts\UnitConverterInterface;
 use MarcelStrahl\PriceCalculator\Facade\UnitConverter as UnitConverterFacade;
 use MarcelStrahl\PriceCalculator\UnitConverter;
-use MarcelStrahl\PriceCalculator\UnitConverterInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;

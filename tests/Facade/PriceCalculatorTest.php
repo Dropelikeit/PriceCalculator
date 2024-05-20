@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests\Facade;
 
+use MarcelStrahl\PriceCalculator\Contracts\PriceCalculatorInterface;
 use MarcelStrahl\PriceCalculator\Facade\PriceCalculator as PriceCalculatorFacade;
-use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

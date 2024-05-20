@@ -17,6 +17,8 @@
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.51",
+    "infection/infection": "^0.27.10",
+    "phpstan/extension-installer": "*",
     "phpunit/phpunit": "^10.5 | ^11.0",
     "psalm/plugin-phpunit": "^0.18",
     "squizlabs/php_codesniffer": "^3.9",
@@ -29,7 +31,10 @@
     }
   },
   "config": {
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "infection/extension-installer": true
+    }
   },
   "prefer-stable": true,
   "scripts": {
@@ -38,6 +43,7 @@
     "cs-fix": "php-cs-fixer --using-cache=no fix",
     "test": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --configuration phpunit.xml",
     "psalm": "vendor/bin/psalm --no-cache",
+    "infection": "infection --threads=4",
     "check": [
       "@phpcs",
       "@cs-check",

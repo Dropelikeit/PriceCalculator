@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests\Feature;
 
+use MarcelStrahl\PriceCalculator\Contracts\PriceCalculatorInterface;
+use MarcelStrahl\PriceCalculator\Contracts\View\Formatter;
 use MarcelStrahl\PriceCalculator\Facade\PriceCalculator;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\CentToEuro;
 use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\EuroToCent;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
-use MarcelStrahl\PriceCalculator\Helpers\View\Formatter;
 use MarcelStrahl\PriceCalculator\Helpers\View\PriceFormatter;
-use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

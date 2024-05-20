@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator;
 
-use MarcelStrahl\PriceCalculator\Factory\ConverterFactoryInterface;
-use MarcelStrahl\PriceCalculator\Helpers\Converter\ConverterInterface;
+use MarcelStrahl\PriceCalculator\Contracts\Converter\ConverterInterface;
+use MarcelStrahl\PriceCalculator\Contracts\Factory\ConverterFactoryInterface;
+use MarcelStrahl\PriceCalculator\Contracts\UnitConverterInterface;
 
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>

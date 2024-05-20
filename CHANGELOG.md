@@ -14,3 +14,4 @@ This Changelog refers to all changes since v5.0.0
 # v5.x.x
 + Upgrade of dependencies, removal of PHPStan as I focused more on Psalm.
 + All test classes are now final and use attributes instead of annotations.
++ Using InfectionPHP to check the effectiveness of the test set.

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MarcelStrahl\PriceCalculator\Tests;
 
+use MarcelStrahl\PriceCalculator\Contracts\PriceCalculatorInterface;
 use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 use MarcelStrahl\PriceCalculator\PriceCalculator;
-use MarcelStrahl\PriceCalculator\PriceCalculatorInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -206,5 +206,51 @@ final class PriceCalculatorTest extends TestCase
                 $priceForZeroResult, $amountForZeroResult, $expectedPriceForZeroResult,
             ],
         ];
+    }
+
+    #[Test]
+    public function subResultCannotHaveNegativeAmount(): void
+    {
+        $totalPrice = Price::create(200);
+        $sub = Price::create(300);
+
+        $priceCalculator = $this->getPriceCalculator();
+        $calculatedPrice = $priceCalculator->subPrice($totalPrice, $sub);
+
+        $this->assertSame(0, $calculatedPrice->getPrice());
+    }
+
+    #[Test]
+    public function subResultCannotHaveZeroAmount(): void
+    {
+        $totalPrice = Price::create(200);
+        $sub = Price::create(200);
+
+        $priceCalculator = $this->getPriceCalculator();
+        $calculatedPrice = $priceCalculator->subPrice($totalPrice, $sub);
+
+        $this->assertSame(0, $calculatedPrice->getPrice());
+    }
+
+    #[Test]
+    public function divResultCannotHaveZeroAmount(): void
+    {
+        $totalPrice = Price::create(200);
+
+        $priceCalculator = $this->getPriceCalculator();
+        $calculatedPrice = $priceCalculator->divPrice(0, $totalPrice);
+
+        $this->assertSame(0, $calculatedPrice->getPrice());
+    }
+
+    #[Test]
+    public function divResultCannotHaveNegativeAmount(): void
+    {
+        $totalPrice = Price::create(0);
+
+        $priceCalculator = $this->getPriceCalculator();
+        $calculatedPrice = $priceCalculator->divPrice(-200, $totalPrice);
+
+        $this->assertSame(0, $calculatedPrice->getPrice());
     }
 }
