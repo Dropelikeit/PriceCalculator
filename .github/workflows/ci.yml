@@ -71,7 +71,7 @@ jobs:
           run: "composer test"
 
         - name: "Run PHP CS Check"
-          run: "PHP_CS_FIXER_IGNORE_ENV=1 composer cs-check"
+          run: "composer cs-check"
 
         - name: "Run Psalm"
           run: "composer psalm"
@@ -107,7 +107,7 @@ jobs:
           run: "composer test"
 
         - name: "Run PHP CS Check"
-          run: "PHP_CS_FIXER_IGNORE_ENV=1 composer cs-check"
+          run: "composer cs-check"
 
         - name: "Run Psalm"
           run: "composer psalm"
@@ -115,4 +115,40 @@ jobs:
         - name: "Run infection"
           env:
             INFECTION_BADGE_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+          run: "composer infection-ci"
+
+    php84:
+      name: PHP 8.4
+      runs-on: ubuntu-latest
+      steps:
+        - name: "Checkout"
+          uses: "actions/checkout@v4"
+          with:
+            fetch-depth: 2
+
+        - name: "Install PHP 8.4"
+          uses: "shivammathur/setup-php@v2"
+          with:
+            php-version: "8.4"
+
+        - name: "Cache composer packages"
+          uses: "actions/cache@v4"
+          with:
+            path: "~/.composer/cache"
+            key: "php-composer-locked-${{ hashFiles('composer.lock') }}"
+            restore-keys: "php-composer-locked-"
+
+        - name: "Install dependencies with composer"
+          run: "composer install --no-interaction"
+
+        - name: "Run PHPUnit Tests"
+          run: "composer test"
+
+        - name: "Run PHP CS Check"
+          run: "PHP_CS_FIXER_IGNORE_ENV=1 composer cs-check"
+
+        - name: "Run Psalm"
+          run: "composer psalm"
+
+        - name: "Run infection"
           run: "composer infection-ci"
