@@ -16,13 +16,13 @@
     "ext-bcmath": "*"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^3.51",
-    "infection/infection": "^0.27.10",
+    "friendsofphp/php-cs-fixer": "^3.68",
+    "infection/infection": "^0.29.10",
     "phpstan/extension-installer": "*",
-    "phpunit/phpunit": "^10.5 | ^11.0",
-    "psalm/plugin-phpunit": "^0.18",
-    "squizlabs/php_codesniffer": "^3.9",
-    "vimeo/psalm": "^5.4"
+    "phpunit/phpunit": "^10.5 | ^11.5",
+    "psalm/plugin-phpunit": "^0.19",
+    "squizlabs/php_codesniffer": "^3.11",
+    "vimeo/psalm": "^5.0|^6.0"
   },
   "autoload": {
     "psr-4": {
