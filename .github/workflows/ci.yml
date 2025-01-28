@@ -71,7 +71,7 @@ jobs:
           run: "composer test"
 
         - name: "Run PHP CS Check"
-          run: "PHP_CS_FIXER_IGNORE_ENV=1 composer cs-check"
+          run: "composer cs-check"
 
         - name: "Run Psalm"
           run: "composer psalm"
@@ -107,7 +107,7 @@ jobs:
           run: "composer test"
 
         - name: "Run PHP CS Check"
-          run: "PHP_CS_FIXER_IGNORE_ENV=1 composer cs-check"
+          run: "composer cs-check"
 
         - name: "Run Psalm"
           run: "composer psalm"
@@ -151,6 +151,4 @@ jobs:
           run: "composer psalm"
 
         - name: "Run infection"
-          env:
-            INFECTION_BADGE_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
           run: "composer infection-ci"
