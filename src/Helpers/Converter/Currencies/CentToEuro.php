@@ -10,18 +10,18 @@ use MarcelStrahl\PriceCalculator\Contracts\Type\FiguresInterface;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class CentToEuro implements ConverterInterface
+final class CentToEuro implements ConverterInterface
 {
     /**
      * {@inheritdoc}
      */
     public function convert(float $amount): float
     {
-        if ($this->isEmpty($amount)) {
+        if ($this->isEmpty(amount: $amount)) {
             return FiguresInterface::FLOAT_ZERO;
         }
 
-        return (float) bcdiv((string) $amount, FiguresInterface::STRING_HUNDRED, FiguresInterface::INTEGER_TWO);
+        return (float) bcdiv(num1: (string) $amount, num2: FiguresInterface::STRING_HUNDRED, scale: FiguresInterface::INTEGER_TWO);
     }
 
     /**

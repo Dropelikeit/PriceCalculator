@@ -9,7 +9,7 @@ use MarcelStrahl\PriceCalculator\Contracts\Type\VatInterface;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class Vat implements VatInterface
+final class Vat implements VatInterface
 {
     private function __construct(private int $vat)
     {

@@ -11,7 +11,7 @@ use MarcelStrahl\PriceCalculator\Contracts\UnitConverterInterface;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class UnitConverter implements UnitConverterInterface
+final class UnitConverter implements UnitConverterInterface
 {
     /**
      * @var ConverterFactoryInterface
@@ -31,6 +31,6 @@ class UnitConverter implements UnitConverterInterface
      */
     public function convert(string $destinationUnit): ConverterInterface
     {
-        return $this->factory->factorize($destinationUnit);
+        return $this->factory->factorize(destinationUnit: $destinationUnit);
     }
 }

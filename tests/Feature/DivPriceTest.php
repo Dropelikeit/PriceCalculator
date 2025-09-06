@@ -27,7 +27,7 @@ final class DivPriceTest extends TestCase
     {
         parent::setUp();
         $this->priceCalculator = PriceCalculator::getPriceCalculator();
-        $this->formatter = new PriceFormatter(2, ',', '.', '€');
+        $this->formatter = new PriceFormatter(decimals: 2, decPoint: ',', thousandsSep: '.', currency: '€');
     }
 
     #[Test]
@@ -38,16 +38,16 @@ final class DivPriceTest extends TestCase
         int $expectedPrice,
         string $expectedFormattedPrice
     ): void {
-        $calculatedPrice = $this->priceCalculator->divPrice($amount, $total);
+        $calculatedPrice = $this->priceCalculator->divPrice(amount: $amount, price: $total);
 
-        $this->assertEquals($expectedPrice, $calculatedPrice->getPrice());
+        $this->assertEquals(expected: $expectedPrice, actual: $calculatedPrice->getPrice());
 
         $converter = new CentToEuro();
-        $convertedPrice = $converter->convert($calculatedPrice->getPrice());
+        $convertedPrice = $converter->convert(amount: $calculatedPrice->getPrice());
 
-        $formattedPrice = $this->formatter->formatPrice($convertedPrice);
+        $formattedPrice = $this->formatter->formatPrice(price: $convertedPrice);
 
-        $this->assertEquals($expectedFormattedPrice, $formattedPrice);
+        $this->assertEquals(expected: $expectedFormattedPrice, actual: $formattedPrice);
     }
 
     /**
@@ -64,13 +64,13 @@ final class DivPriceTest extends TestCase
         $totalPriceIsLowerThanZero = Price::create(0);
 
         return [
-            'easy_div_calculation' => [
+            'easy_div_calculation'      => [
                 9,
                 $easyDivCalculation,
                 1,
                 '0,01 €',
             ],
-            'different_prices' => [
+            'different_prices'          => [
                 15,
                 $differentTotalPrice,
                 0,
@@ -95,20 +95,20 @@ final class DivPriceTest extends TestCase
     ): void {
         $euroToCent = new EuroToCent();
 
-        $totalInCent = $euroToCent->convert($total);
+        $totalInCent = $euroToCent->convert(amount: $total);
 
-        $totalPrice = Price::create((int) $totalInCent);
+        $totalPrice = Price::create(price: (int) $totalInCent);
 
-        $calculatedPrice = $this->priceCalculator->divPrice($amount, $totalPrice);
+        $calculatedPrice = $this->priceCalculator->divPrice(amount: $amount, price: $totalPrice);
 
-        $this->assertEquals($expectedPrice, $calculatedPrice->getPrice());
+        $this->assertEquals(expected: $expectedPrice, actual: $calculatedPrice->getPrice());
 
         $centToEuro = new CentToEuro();
-        $convertedPrice = $centToEuro->convert($calculatedPrice->getPrice());
+        $convertedPrice = $centToEuro->convert(amount: $calculatedPrice->getPrice());
 
-        $formattedPrice = $this->formatter->formatPrice($convertedPrice);
+        $formattedPrice = $this->formatter->formatPrice(price: $convertedPrice);
 
-        $this->assertEquals($expectedFormattedPrice, $formattedPrice);
+        $this->assertEquals(expected: $expectedFormattedPrice, actual: $formattedPrice);
     }
 
     /**
@@ -121,13 +121,13 @@ final class DivPriceTest extends TestCase
     public static function dataProviderCanDivEuroPrice(): array
     {
         return [
-            'easy_div_calculation' => [
+            'easy_div_calculation'      => [
                 9,
                 0.09,
                 1,
                 '0,01 €',
             ],
-            'different_prices' => [
+            'different_prices'          => [
                 15,
                 0.05,
                 0,

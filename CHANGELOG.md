@@ -3,6 +3,12 @@
 This Changelog refers to all changes since v5.0.0
 ***
 
+# v6.0.0
++ Upgrade of dependencies, removed PHP 8.0 support.
++ Modernize code
++ Adding PHP mess detector
++ Restructure GitHub workflow actions.
+
 # v5.0.1
 + Upgrade of dependencies, removal of PHPStan as I focused more on Psalm.
 + All test classes are now final and use attributes instead of annotations.

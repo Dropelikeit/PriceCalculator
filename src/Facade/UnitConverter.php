@@ -10,7 +10,7 @@ use MarcelStrahl\PriceCalculator\UnitConverter as UnitConverterService;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class UnitConverter
+final class UnitConverter
 {
     /**
      * @return UnitConverterService
@@ -25,7 +25,7 @@ class UnitConverter
      */
     private function createUnitConverter(): UnitConverterService
     {
-        return new UnitConverterService($this->createFactory());
+        return new UnitConverterService(factory: $this->createFactory());
     }
 
     /**

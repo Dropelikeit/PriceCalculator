@@ -26,8 +26,9 @@ final class VatCalculatorTest extends TestCase
     #[Test]
     public function canCreateVatCalculator(): void
     {
-        $vatCalculator = new VatCalculator(Vat::create(0), new PriceCalculator());
-        $this->assertInstanceOf(VatCalculator::class, $vatCalculator);
+        $vatCalculator = new VatCalculator(vat: Vat::create(vat: 0), priceCalculator: new PriceCalculator());
+
+        $this->assertInstanceOf(expected: VatCalculator::class, actual: $vatCalculator);
     }
 
     #[Test]
@@ -40,9 +41,9 @@ final class VatCalculatorTest extends TestCase
     ): void {
         $vatCalculator = new VatCalculator($vat, new PriceCalculator());
         $vatPrice = $vatCalculator->calculateSalesTaxFromTotalPrice($grossPrice);
-        $this->assertSame($expectedVat->getPrice(), $vatPrice->getPrice());
-        $this->assertSame($netPrice->getPrice(), $grossPrice->getPrice() - $vatPrice->getPrice());
-        $this->assertSame($grossPrice->getPrice(), $netPrice->getPrice() + $vatPrice->getPrice());
+        $this->assertSame(expected: $expectedVat->getPrice(), actual: $vatPrice->getPrice());
+        $this->assertSame(expected: $netPrice->getPrice(), actual: $grossPrice->getPrice() - $vatPrice->getPrice());
+        $this->assertSame(expected: $grossPrice->getPrice(), actual: $netPrice->getPrice() + $vatPrice->getPrice());
     }
 
     /**
@@ -50,34 +51,43 @@ final class VatCalculatorTest extends TestCase
      */
     public static function dataProviderSalesTaxOfTotal(): array
     {
-        $firstGrossPrice = Price::create(24);
+        $firstGrossPrice = Price::create(price: 24);
 
-        $vat = Vat::create(19);
-        $firstNetPrice = Price::create(20);
+        $vat = Vat::create(vat: 19);
+        $firstNetPrice = Price::create(price: 20);
 
-        $expectedVatPrice = Price::create(4);
+        $expectedVatPrice = Price::create(price: 4);
 
-        $secondGrossPrice = Price::create(30000);
+        $secondGrossPrice = Price::create(price: 30000);
 
-        $secondNetPrice = Price::create(25210);
+        $secondNetPrice = Price::create(price: 25210);
 
-        $expectedSecondVatPrice = Price::create(4790);
+        $expectedSecondVatPrice = Price::create(price: 4790);
 
-        $thirdGrossPrice = Price::create(1500);
+        $thirdGrossPrice = Price::create(price: 1500);
 
-        $thirdNetPrice = Price::create(1261);
+        $thirdNetPrice = Price::create(price: 1261);
 
-        $expectedThirdVatPrice = Price::create(239);
+        $expectedThirdVatPrice = Price::create(price: 239);
 
         return [
             [
-                $firstGrossPrice, $vat, $firstNetPrice, $expectedVatPrice,
+                $firstGrossPrice,
+                $vat,
+                $firstNetPrice,
+                $expectedVatPrice,
             ],
             [
-                $secondGrossPrice, $vat, $secondNetPrice, $expectedSecondVatPrice,
+                $secondGrossPrice,
+                $vat,
+                $secondNetPrice,
+                $expectedSecondVatPrice,
             ],
             [
-                $thirdGrossPrice, $vat, $thirdNetPrice, $expectedThirdVatPrice,
+                $thirdGrossPrice,
+                $vat,
+                $thirdNetPrice,
+                $expectedThirdVatPrice,
             ],
         ];
     }
@@ -86,11 +96,11 @@ final class VatCalculatorTest extends TestCase
     #[DataProvider(methodName: 'dataProviderPriceWithSalesTax')]
     public function canCalculatePriceWithSalesTax(Price $netPrice, Vat $vat, Price $expectedPrice): void
     {
-        $vatCalculator = new VatCalculator($vat, new PriceCalculator());
+        $vatCalculator = new VatCalculator(vat: $vat, priceCalculator: new PriceCalculator());
 
-        $calculatedPrice = $vatCalculator->calculatePriceWithSalesTax($netPrice);
+        $calculatedPrice = $vatCalculator->calculatePriceWithSalesTax(netPrice: $netPrice);
 
-        $this->assertSame($expectedPrice->getPrice(), $calculatedPrice->getPrice());
+        $this->assertSame(expected: $expectedPrice->getPrice(), actual: $calculatedPrice->getPrice());
     }
 
     /**
@@ -98,27 +108,33 @@ final class VatCalculatorTest extends TestCase
      */
     public static function dataProviderPriceWithSalesTax(): array
     {
-        $lowPrice = Price::create(3151);
-        $vat = Vat::create(19);
-        $expectedLowPrice = Price::create(3750);
+        $lowPrice = Price::create(price: 3151);
+        $vat = Vat::create(vat: 19);
+        $expectedLowPrice = Price::create(price: 3750);
 
-        $secondPrice = Price::create(25200);
+        $secondPrice = Price::create(price: 25200);
 
-        $expectedSecondPrice = Price::create(29988);
+        $expectedSecondPrice = Price::create(price: 29988);
 
-        $thirdPrice = Price::create(15);
+        $thirdPrice = Price::create(price: 15);
 
-        $expectedThirdPrice = Price::create(18);
+        $expectedThirdPrice = Price::create(price: 18);
 
         return [
             [
-                $lowPrice, $vat, $expectedLowPrice,
+                $lowPrice,
+                $vat,
+                $expectedLowPrice,
             ],
             [
-                $secondPrice, $vat, $expectedSecondPrice,
+                $secondPrice,
+                $vat,
+                $expectedSecondPrice,
             ],
             [
-                $thirdPrice, $vat, $expectedThirdPrice,
+                $thirdPrice,
+                $vat,
+                $expectedThirdPrice,
             ],
         ];
     }
@@ -127,10 +143,10 @@ final class VatCalculatorTest extends TestCase
     #[DataProvider(methodName: 'dataProviderCalculateNetPriceFromGrossPrice')]
     public function canCalculateNetPriceFromGrossPrice(Price $grossPrice, Vat $vat, Price $expectedNetPrice): void
     {
-        $vatCalculator = new VatCalculator($vat, new PriceCalculator());
-        $netPrice = $vatCalculator->calculateNetPriceFromGrossPrice($grossPrice);
+        $vatCalculator = new VatCalculator(vat: $vat, priceCalculator: new PriceCalculator());
+        $netPrice = $vatCalculator->calculateNetPriceFromGrossPrice(total: $grossPrice);
 
-        $this->assertSame($expectedNetPrice->getPrice(), $netPrice->getPrice());
+        $this->assertSame(expected: $expectedNetPrice->getPrice(), actual: $netPrice->getPrice());
     }
 
     /**
@@ -138,28 +154,34 @@ final class VatCalculatorTest extends TestCase
      */
     public static function dataProviderCalculateNetPriceFromGrossPrice(): array
     {
-        $lowPrice = Price::create(3750);
-        $vat = Vat::create(19);
+        $lowPrice = Price::create(price: 3750);
+        $vat = Vat::create(vat: 19);
 
-        $expectedLowPrice = Price::create(3151);
+        $expectedLowPrice = Price::create(price: 3151);
 
-        $secondPrice = Price::create(29988);
+        $secondPrice = Price::create(price: 29988);
 
-        $expectedSecondPrice = Price::create(25200);
+        $expectedSecondPrice = Price::create(price: 25200);
 
-        $thirdPrice = Price::create(18);
+        $thirdPrice = Price::create(price: 18);
 
-        $expectedThirdPrice = Price::create(15);
+        $expectedThirdPrice = Price::create(price: 15);
 
         return [
             [
-                $lowPrice, $vat, $expectedLowPrice,
+                $lowPrice,
+                $vat,
+                $expectedLowPrice,
             ],
             [
-                $secondPrice, $vat, $expectedSecondPrice,
+                $secondPrice,
+                $vat,
+                $expectedSecondPrice,
             ],
             [
-                $thirdPrice, $vat, $expectedThirdPrice,
+                $thirdPrice,
+                $vat,
+                $expectedThirdPrice,
             ],
         ];
     }

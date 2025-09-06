@@ -11,7 +11,7 @@ use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class PriceCalculator implements PriceCalculatorInterface
+final class PriceCalculator implements PriceCalculatorInterface
 {
     /**
      * {@inheritdoc}
@@ -26,11 +26,11 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function subPrice(Price $total, Price $price): Price
     {
-        $calculated = Price::create($total->getPrice() - $price->getPrice());
+        $calculated = Price::create(price: $total->getPrice() - $price->getPrice());
 
         /** @infection-ignore-all  */
         if ($calculated->getPrice() < FiguresInterface::INTEGER_ZERO) {
-            return Price::create(FiguresInterface::INTEGER_ZERO);
+            return Price::create(price: FiguresInterface::INTEGER_ZERO);
         }
 
         return $calculated;
@@ -41,7 +41,7 @@ class PriceCalculator implements PriceCalculatorInterface
      */
     public function mulPrice(Price $amount, Price $price): Price
     {
-        return Price::create($price->getPrice() * $amount->getPrice());
+        return Price::create(price: $price->getPrice() * $amount->getPrice());
     }
 
     /**
@@ -50,9 +50,9 @@ class PriceCalculator implements PriceCalculatorInterface
     public function divPrice(int $amount, Price $price): Price
     {
         if ($amount <= FiguresInterface::INTEGER_ZERO) {
-            return Price::create(FiguresInterface::INTEGER_ZERO);
+            return Price::create(price: FiguresInterface::INTEGER_ZERO);
         }
 
-        return Price::create((int) ($price->getPrice() / $amount));
+        return Price::create(price: (int) ($price->getPrice() / $amount));
     }
 }

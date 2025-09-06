@@ -22,13 +22,13 @@ final class DiscountCalculationTest extends TestCase
     {
         $discountCalculator = new DiscountCalculator();
 
-        $price = Price::create($priceAmount);
+        $price = Price::create(price: $priceAmount);
 
-        $discount = new Discount($discountAmount);
+        $discount = new Discount(percent: $discountAmount);
 
-        $total = $discountCalculator->calculateDiscountFromTotal($price, $discount);
+        $total = $discountCalculator->calculateDiscountFromTotal(total: $price, discount: $discount);
 
-        $this->assertEquals($expectedPrice, $total->getPrice());
+        $this->assertEquals(expected: $expectedPrice, actual: $total->getPrice());
     }
 
     #[Test]
@@ -37,13 +37,13 @@ final class DiscountCalculationTest extends TestCase
     {
         $discountCalculator = new DiscountCalculator();
 
-        $price = Price::create($priceAmount);
+        $price = Price::create(price: $priceAmount);
 
-        $discount = new Discount($discountAmount);
+        $discount = new Discount(percent: $discountAmount);
 
-        $discountPrice = $discountCalculator->calculateDiscountPriceFromTotal($price, $discount);
+        $discountPrice = $discountCalculator->calculateDiscountPriceFromTotal(total: $price, discount: $discount);
 
-        $this->assertEquals($expectedPrice, $discountPrice->getPrice());
+        $this->assertEquals(expected: $expectedPrice, actual: $discountPrice->getPrice());
     }
 
     /**
@@ -119,12 +119,12 @@ final class DiscountCalculationTest extends TestCase
     {
         $discountCalculator = new DiscountCalculator();
 
-        $price = Price::create(5034);
+        $price = Price::create(price: 5034);
 
-        $discount = new Discount(100);
+        $discount = new Discount(percent: 100);
 
-        $discountPrice = $discountCalculator->calculateDiscountPriceFromTotal($price, $discount);
+        $discountPrice = $discountCalculator->calculateDiscountPriceFromTotal(total: $price, discount: $discount);
 
-        $this->assertSame(5034, $discountPrice->getPrice());
+        $this->assertSame(expected: 5034, actual: $discountPrice->getPrice());
     }
 }

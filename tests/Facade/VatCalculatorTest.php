@@ -25,11 +25,11 @@ final class VatCalculatorTest extends TestCase
     #[Test]
     public function canInitVatCalculatorFacade(): void
     {
-        $vatCalculator = VatCalculatorFacade::getVatCalculator(19);
+        $vatCalculator = VatCalculatorFacade::getVatCalculator(vat: 19);
 
         $this->assertInstanceOf(
-            VatCalculator::class,
-            $vatCalculator
+            expected: VatCalculator::class,
+            actual: $vatCalculator,
         );
     }
 }

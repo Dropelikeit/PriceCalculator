@@ -14,7 +14,7 @@ use function round;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class VatCalculator implements VatCalculatorInterface
+final class VatCalculator implements VatCalculatorInterface
 {
     private Vat $vat;
     private PriceCalculatorInterface $priceCalculator;
@@ -37,7 +37,7 @@ class VatCalculator implements VatCalculatorInterface
         $grossPrice = $netPrice->getPrice() + $vatPrice;
         // Calculate to Euro for round the number if necessary
         $grossPrice /= FiguresInterface::INTEGER_HUNDRED;
-        $grossPrice = round($grossPrice, FiguresInterface::INTEGER_TWO);
+        $grossPrice = round(num: $grossPrice, precision: FiguresInterface::INTEGER_TWO);
         // Calculate to cent to be had an int
         $grossPrice *= FiguresInterface::INTEGER_HUNDRED;
 
@@ -48,9 +48,9 @@ class VatCalculator implements VatCalculatorInterface
          * A workaround here is to use round again with precision 0 and then use a safe carst to integer.
          */
         /** @infection-ignore-all */
-        $grossPrice = (int) round($grossPrice);
+        $grossPrice = (int) round(num: $grossPrice);
 
-        return Price::create($grossPrice);
+        return Price::create(price: $grossPrice);
     }
 
     /**
@@ -61,15 +61,15 @@ class VatCalculator implements VatCalculatorInterface
      */
     public function calculateSalesTaxFromTotalPrice(Price $total): Price
     {
-        $toCalculatingVatPrice = Price::create($total->getPrice());
+        $toCalculatingVatPrice = Price::create(price: $total->getPrice());
 
         $vatToCalculate = FiguresInterface::INTEGER_ONE + ($this->vat->getVat() / FiguresInterface::INTEGER_HUNDRED);
 
-        $calculatedPrice = (int) (round($toCalculatingVatPrice->getPrice() / $vatToCalculate, FiguresInterface::INTEGER_ZERO));
+        $calculatedPrice = (int) (round(num: $toCalculatingVatPrice->getPrice() / $vatToCalculate, precision: FiguresInterface::INTEGER_ZERO));
 
         $calculatedPrice = $total->getPrice() - $calculatedPrice;
 
-        return Price::create($calculatedPrice);
+        return Price::create(price: $calculatedPrice);
     }
 
     /**

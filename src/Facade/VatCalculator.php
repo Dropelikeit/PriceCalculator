@@ -11,7 +11,7 @@ use MarcelStrahl\PriceCalculator\Service\VatCalculator as VatCalculatorService;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class VatCalculator
+final class VatCalculator
 {
     private function __construct(private Vat $vat, private PriceCalculatorInterface $priceCalculator)
     {
@@ -19,11 +19,11 @@ class VatCalculator
 
     public static function getVatCalculator(int $vat): VatCalculatorService
     {
-        return (new self(Vat::create($vat), PriceCalculator::getPriceCalculator()))->createVatCalculator();
+        return (new self(vat: Vat::create(vat: $vat), priceCalculator: PriceCalculator::getPriceCalculator()))->createVatCalculator();
     }
 
     private function createVatCalculator(): VatCalculatorService
     {
-        return new VatCalculatorService($this->vat, $this->priceCalculator);
+        return new VatCalculatorService(vat: $this->vat, priceCalculator: $this->priceCalculator);
     }
 }

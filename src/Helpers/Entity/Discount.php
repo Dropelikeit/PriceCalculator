@@ -8,7 +8,7 @@ use MarcelStrahl\PriceCalculator\Contracts\Type\DiscountInterface;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class Discount implements DiscountInterface
+final class Discount implements DiscountInterface
 {
     private float $percent;
 

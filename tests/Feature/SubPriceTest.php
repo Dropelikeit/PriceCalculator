@@ -27,7 +27,7 @@ final class SubPriceTest extends TestCase
     {
         parent::setUp();
         $this->priceCalculator = PriceCalculator::getPriceCalculator();
-        $this->formatter = new PriceFormatter(2, ',', '.', '€');
+        $this->formatter = new PriceFormatter(decimals: 2, decPoint: ',', thousandsSep: '.', currency: '€');
     }
 
     #[Test]
@@ -38,16 +38,16 @@ final class SubPriceTest extends TestCase
         int $expectedPrice,
         string $expectedFormattedPrice
     ): void {
-        $calculatedPrice = $this->priceCalculator->subPrice($total, $subPrice);
+        $calculatedPrice = $this->priceCalculator->subPrice(total: $total, price: $subPrice);
 
-        $this->assertEquals($expectedPrice, $calculatedPrice->getPrice());
+        $this->assertEquals(expected: $expectedPrice, actual: $calculatedPrice->getPrice());
 
         $converter = new CentToEuro();
-        $convertedPrice = $converter->convert($calculatedPrice->getPrice());
+        $convertedPrice = $converter->convert(amount: $calculatedPrice->getPrice());
 
-        $formattedPrice = $this->formatter->formatPrice($convertedPrice);
+        $formattedPrice = $this->formatter->formatPrice(price: $convertedPrice);
 
-        $this->assertEquals($expectedFormattedPrice, $formattedPrice);
+        $this->assertEquals(expected: $expectedFormattedPrice, actual: $formattedPrice);
     }
 
     /**
@@ -59,24 +59,24 @@ final class SubPriceTest extends TestCase
      */
     public static function dataProviderCanSubCentPrice(): array
     {
-        $samePrice = Price::create(12);
+        $samePrice = Price::create(price: 12);
 
-        $differentTotalPrice = Price::create(1500);
+        $differentTotalPrice = Price::create(price: 1500);
 
-        $differentSubPrice = Price::create(1000);
+        $differentSubPrice = Price::create(price: 1000);
 
-        $totalPriceIsLowerThanZero = Price::create(100);
+        $totalPriceIsLowerThanZero = Price::create(price: 100);
 
-        $secondPriceIsLowerThanZero = Price::create(200);
+        $secondPriceIsLowerThanZero = Price::create(price: 200);
 
         return [
-            'same_price' => [
+            'same_price'                => [
                 $samePrice,
                 $samePrice,
                 0,
                 '0,00 €',
             ],
-            'different_prices' => [
+            'different_prices'          => [
                 $differentTotalPrice,
                 $differentSubPrice,
                 500,
@@ -101,23 +101,23 @@ final class SubPriceTest extends TestCase
     ): void {
         $euroToCent = new EuroToCent();
 
-        $totalInCent = $euroToCent->convert($total);
-        $subPriceInCent = $euroToCent->convert($subPrice);
+        $totalInCent = $euroToCent->convert(amount: $total);
+        $subPriceInCent = $euroToCent->convert(amount: $subPrice);
 
-        $totalPrice = Price::create((int) $totalInCent);
+        $totalPrice = Price::create(price: (int) $totalInCent);
 
-        $sub = Price::create((int) $subPriceInCent);
+        $sub = Price::create(price: (int) $subPriceInCent);
 
-        $calculatedPrice = $this->priceCalculator->subPrice($totalPrice, $sub);
+        $calculatedPrice = $this->priceCalculator->subPrice(total: $totalPrice, price: $sub);
 
-        $this->assertEquals($expectedPrice, $calculatedPrice->getPrice());
+        $this->assertEquals(expected: $expectedPrice, actual: $calculatedPrice->getPrice());
 
         $centToEuro = new CentToEuro();
-        $convertedPrice = $centToEuro->convert($calculatedPrice->getPrice());
+        $convertedPrice = $centToEuro->convert(amount: $calculatedPrice->getPrice());
 
-        $formattedPrice = $this->formatter->formatPrice($convertedPrice);
+        $formattedPrice = $this->formatter->formatPrice(price: $convertedPrice);
 
-        $this->assertEquals($expectedFormattedPrice, $formattedPrice);
+        $this->assertEquals(expected: $expectedFormattedPrice, actual: $formattedPrice);
     }
 
     /**
@@ -130,13 +130,13 @@ final class SubPriceTest extends TestCase
     public static function dataProviderCanSubEuroPrice(): array
     {
         return [
-            'same_price' => [
+            'same_price'                => [
                 15.51,
                 15.51,
                 0,
                 '0,00 €',
             ],
-            'different_prices' => [
+            'different_prices'          => [
                 20.85,
                 19.99,
                 86,

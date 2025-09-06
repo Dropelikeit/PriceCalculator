@@ -9,7 +9,7 @@ use MarcelStrahl\PriceCalculator\Contracts\View\Formatter;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class PriceFormatter implements Formatter
+final class PriceFormatter implements Formatter
 {
     /**
      * @var int
