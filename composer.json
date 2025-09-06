@@ -19,10 +19,10 @@
     "friendsofphp/php-cs-fixer": "^3.87",
     "infection/infection": "^0.27|^0.29.14",
     "phpstan/extension-installer": "*",
-    "phpunit/phpunit": "^10.5|^11.5|^12.3",
+    "phpunit/phpunit": "^10.5|^12.3",
     "psalm/plugin-phpunit": "^0.19",
     "phpmd/phpmd": "^2.15",
-    "vimeo/psalm": "^5.26|^6.0|7.*"
+    "vimeo/psalm": "^5.26|^6.0"
   },
   "autoload": {
     "psr-4": {
