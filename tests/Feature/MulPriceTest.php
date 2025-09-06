@@ -26,7 +26,7 @@ final class MulPriceTest extends TestCase
     {
         parent::setUp();
         $this->priceCalculator = PriceCalculator::getPriceCalculator();
-        $this->formatter = new PriceFormatter(2, ',', '.', '€');
+        $this->formatter = new PriceFormatter(decimals: 2, decPoint: ',', thousandsSep: '.', currency: '€');
     }
 
     #[Test]
@@ -37,16 +37,16 @@ final class MulPriceTest extends TestCase
         int $expectedPrice,
         string $expectedFormattedPrice
     ): void {
-        $calculatedPrice = $this->priceCalculator->mulPrice($amount, $total);
+        $calculatedPrice = $this->priceCalculator->mulPrice(amount: $amount, price: $total);
 
-        $this->assertEquals($expectedPrice, $calculatedPrice->getPrice());
+        $this->assertEquals(expected: $expectedPrice, actual: $calculatedPrice->getPrice());
 
         $converter = new CentToEuro();
-        $convertedPrice = $converter->convert($calculatedPrice->getPrice());
+        $convertedPrice = $converter->convert(amount: $calculatedPrice->getPrice());
 
-        $formattedPrice = $this->formatter->formatPrice($convertedPrice);
+        $formattedPrice = $this->formatter->formatPrice(price: $convertedPrice);
 
-        $this->assertEquals($expectedFormattedPrice, $formattedPrice);
+        $this->assertEquals(expected: $expectedFormattedPrice, actual: $formattedPrice);
     }
 
     /**
@@ -60,26 +60,26 @@ final class MulPriceTest extends TestCase
      */
     public static function dataProviderCanMulCentPrice(): array
     {
-        $easyMulCalculation = Price::create(9);
-        $easyMulCalculationAmount = Price::create(9);
-        $differentTotalPrice = Price::create(5);
-        $differentAmount = Price::create(15);
-        $totalPriceIsLowerThanZero = Price::create(0);
-        $amountOfIsLowerThanZero = Price::create(9);
-        $highTotalPrice = Price::create(5000);
-        $highAmount = Price::create(50000);
-        $highFloatPriceAmount = Price::create(500);
+        $easyMulCalculation = Price::create(price: 9);
+        $easyMulCalculationAmount = Price::create(price: 9);
+        $differentTotalPrice = Price::create(price: 5);
+        $differentAmount = Price::create(price: 15);
+        $totalPriceIsLowerThanZero = Price::create(price: 0);
+        $amountOfIsLowerThanZero = Price::create(price: 9);
+        $highTotalPrice = Price::create(price: 5000);
+        $highAmount = Price::create(price: 50000);
+        $highFloatPriceAmount = Price::create(price: 500);
 
-        $highFloatPriceTotal = Price::create(59596);
+        $highFloatPriceTotal = Price::create(price: 59596);
 
         return [
-            'easy_div_calculation' => [
+            'easy_div_calculation'      => [
                 $easyMulCalculationAmount,
                 $easyMulCalculation,
                 81,
                 '0,81 €',
             ],
-            'different_prices' => [
+            'different_prices'          => [
                 $differentAmount,
                 $differentTotalPrice,
                 75,
@@ -91,13 +91,13 @@ final class MulPriceTest extends TestCase
                 0,
                 '0,00 €',
             ],
-            'use_high_numbers' => [
+            'use_high_numbers'          => [
                 $highAmount,
                 $highTotalPrice,
                 250000000,
                 '2.500.000,00 €',
             ],
-            'use_high_float_price' => [
+            'use_high_float_price'      => [
                 $highFloatPriceAmount,
                 $highFloatPriceTotal,
                 29798000,

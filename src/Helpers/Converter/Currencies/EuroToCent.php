@@ -17,11 +17,11 @@ class EuroToCent implements ConverterInterface
      */
     public function convert(float $amount): float
     {
-        if ($this->isEmpty($amount)) {
+        if ($this->isEmpty(amount: $amount)) {
             return FiguresInterface::FLOAT_ZERO;
         }
 
-        return (float) bcmul((string) $amount, FiguresInterface::STRING_HUNDRED);
+        return (float) bcmul(num1: (string) $amount, num2: FiguresInterface::STRING_HUNDRED);
     }
 
     /**

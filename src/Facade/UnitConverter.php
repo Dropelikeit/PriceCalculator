@@ -25,7 +25,7 @@ class UnitConverter
      */
     private function createUnitConverter(): UnitConverterService
     {
-        return new UnitConverterService($this->createFactory());
+        return new UnitConverterService(factory: $this->createFactory());
     }
 
     /**

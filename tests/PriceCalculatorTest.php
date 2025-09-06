@@ -29,16 +29,17 @@ final class PriceCalculatorTest extends TestCase
     public function canInitPriceCalculator(): void
     {
         $priceCalculator = $this->getPriceCalculator();
-        $this->assertInstanceOf(PriceCalculator::class, $priceCalculator);
-        $this->assertInstanceOf(PriceCalculatorInterface::class, $priceCalculator);
+
+        $this->assertInstanceOf(expected: PriceCalculator::class, actual: $priceCalculator);
+        $this->assertInstanceOf(expected: PriceCalculatorInterface::class, actual: $priceCalculator);
     }
 
     #[Test]
     #[DataProvider(methodName: 'dataProviderAddPrice')]
     public function canAdd(Price $price, Price $amount, Price $expected): void
     {
-        $priceCalculator = $this->getPriceCalculator();
-        $calculatedPrice = $priceCalculator->addPrice($price, $amount);
+        $calculatedPrice = $this->getPriceCalculator()->addPrice($price, $amount);
+
         $this->assertSame($expected->getPrice(), $calculatedPrice->getPrice());
     }
 
@@ -50,24 +51,28 @@ final class PriceCalculatorTest extends TestCase
      */
     public static function dataProviderAddPrice(): array
     {
-        $price = Price::create(100);
+        $price = Price::create(price: 100);
 
-        $amount = Price::create(200);
+        $amount = Price::create(price: 200);
 
-        $expectedPrice = Price::create(300);
+        $expectedPrice = Price::create(price: 300);
 
-        $priceUnderHundred = Price::create(13);
+        $priceUnderHundred = Price::create(price: 13);
 
-        $amountUnderHundred = Price::create(2);
+        $amountUnderHundred = Price::create(price: 2);
 
-        $expectedPriceUnderHundred = Price::create(15);
+        $expectedPriceUnderHundred = Price::create(price: 15);
 
         return [
             'add_price_about_hundred' => [
-                $price, $amount, $expectedPrice,
+                $price,
+                $amount,
+                $expectedPrice,
             ],
             'add_price_under_hundred' => [
-                $priceUnderHundred, $amountUnderHundred, $expectedPriceUnderHundred,
+                $priceUnderHundred,
+                $amountUnderHundred,
+                $expectedPriceUnderHundred,
             ],
         ];
     }
@@ -76,10 +81,9 @@ final class PriceCalculatorTest extends TestCase
     #[DataProvider(methodName: 'dataProviderSubPrice')]
     public function canSub(Price $price, Price $amount, Price $total): void
     {
-        $priceCalculator = $this->getPriceCalculator();
-        $calculatedPrice = $priceCalculator->subPrice($price, $amount);
+        $calculatedPrice = $this->getPriceCalculator()->subPrice(total: $price, price: $amount);
 
-        $this->assertSame($total->getPrice(), $calculatedPrice->getPrice());
+        $this->assertSame(expected: $total->getPrice(), actual: $calculatedPrice->getPrice());
     }
 
     /**
@@ -91,33 +95,39 @@ final class PriceCalculatorTest extends TestCase
      */
     public static function dataProviderSubPrice(): array
     {
-        $price = Price::create(300);
+        $price = Price::create(price: 300);
 
-        $amount = Price::create(200);
+        $amount = Price::create(price: 200);
 
-        $expectedPrice = Price::create(100);
+        $expectedPrice = Price::create(price: 100);
 
-        $priceUnderHundred = Price::create(15);
+        $priceUnderHundred = Price::create(price: 15);
 
-        $amountUnderHundred = Price::create(2);
+        $amountUnderHundred = Price::create(price: 2);
 
-        $expectedPriceUnderHundred = Price::create(13);
+        $expectedPriceUnderHundred = Price::create(price: 13);
 
-        $priceForZeroResult = Price::create(5);
+        $priceForZeroResult = Price::create(price: 5);
 
-        $amountForZeroResult = Price::create(6);
+        $amountForZeroResult = Price::create(price: 6);
 
-        $expectedPriceForZeroResult = Price::create(0);
+        $expectedPriceForZeroResult = Price::create(price: 0);
 
         return [
-            'sub_price_about_hundred' => [
-                $price, $amount, $expectedPrice,
+            'sub_price_about_hundred'            => [
+                $price,
+                $amount,
+                $expectedPrice,
             ],
-            'sub_price_under_hundred' => [
-                $priceUnderHundred, $amountUnderHundred, $expectedPriceUnderHundred,
+            'sub_price_under_hundred'            => [
+                $priceUnderHundred,
+                $amountUnderHundred,
+                $expectedPriceUnderHundred,
             ],
             'sub_price_and_calculate_zero_price' => [
-                $priceForZeroResult, $amountForZeroResult, $expectedPriceForZeroResult,
+                $priceForZeroResult,
+                $amountForZeroResult,
+                $expectedPriceForZeroResult,
             ],
         ];
     }
@@ -126,10 +136,9 @@ final class PriceCalculatorTest extends TestCase
     #[DataProvider(methodName: 'dataProviderMulPrice')]
     public function canMul(Price $price, Price $amount, Price $total): void
     {
-        $priceCalculator = $this->getPriceCalculator();
-        $calculatedPrice = $priceCalculator->mulPrice($amount, $price);
+        $calculatedPrice = $this->getPriceCalculator()->mulPrice(amount: $amount, price: $price);
 
-        $this->assertEquals($total->getPrice(), $calculatedPrice->getPrice());
+        $this->assertEquals(expected: $total->getPrice(), actual: $calculatedPrice->getPrice());
     }
 
     /**
@@ -140,24 +149,28 @@ final class PriceCalculatorTest extends TestCase
      */
     public static function dataProviderMulPrice(): array
     {
-        $priceWithBigNumber = Price::create(100);
+        $priceWithBigNumber = Price::create(price: 100);
 
-        $amountForMulWithBigNumber = Price::create(5);
+        $amountForMulWithBigNumber = Price::create(price: 5);
 
-        $expectedPriceWithBigNumber = Price::create(500);
+        $expectedPriceWithBigNumber = Price::create(price: 500);
 
-        $priceWithLowNumbers = Price::create(15);
+        $priceWithLowNumbers = Price::create(price: 15);
 
-        $amountForMulWithLowNumbers = Price::create(2);
+        $amountForMulWithLowNumbers = Price::create(price: 2);
 
-        $expectedPriceWithLowNumbers = Price::create(30);
+        $expectedPriceWithLowNumbers = Price::create(price: 30);
 
         return [
             'mul_with_big_numbers' => [
-                $priceWithBigNumber, $amountForMulWithBigNumber, $expectedPriceWithBigNumber,
+                $priceWithBigNumber,
+                $amountForMulWithBigNumber,
+                $expectedPriceWithBigNumber,
             ],
             'mul_with_low_numbers' => [
-                $priceWithLowNumbers, $amountForMulWithLowNumbers, $expectedPriceWithLowNumbers,
+                $priceWithLowNumbers,
+                $amountForMulWithLowNumbers,
+                $expectedPriceWithLowNumbers,
             ],
         ];
     }
@@ -166,10 +179,9 @@ final class PriceCalculatorTest extends TestCase
     #[DataProvider(methodName: 'dataProviderDivPrice')]
     public function canDiv(Price $price, int $amount, Price $total): void
     {
-        $priceCalculator = $this->getPriceCalculator();
-        $calculatedPrice = $priceCalculator->divPrice($amount, $price);
+        $calculatedPrice = $this->getPriceCalculator()->divPrice(amount: $amount, price: $price);
 
-        $this->assertEquals($total->getPrice(), $calculatedPrice->getPrice());
+        $this->assertEquals(expected: $total->getPrice(), actual: $calculatedPrice->getPrice());
     }
 
     /**
@@ -180,30 +192,36 @@ final class PriceCalculatorTest extends TestCase
      */
     public static function dataProviderDivPrice(): array
     {
-        $priceWithBigNumber = Price::create(500);
+        $priceWithBigNumber = Price::create(price: 500);
 
         $amountForMulWithBigNumber = 5;
-        $expectedPriceWithBigNumber = Price::create(100);
+        $expectedPriceWithBigNumber = Price::create(price: 100);
 
-        $priceWithLowNumbers = Price::create(30);
+        $priceWithLowNumbers = Price::create(price: 30);
 
         $amountForMulWithLowNumbers = 2;
-        $expectedPriceWithLowNumbers = Price::create(15);
+        $expectedPriceWithLowNumbers = Price::create(price: 15);
 
-        $priceForZeroResult = Price::create(0);
+        $priceForZeroResult = Price::create(price: 0);
 
         $amountForZeroResult = 6;
-        $expectedPriceForZeroResult = Price::create(0);
+        $expectedPriceForZeroResult = Price::create(price: 0);
 
         return [
-            'div_with_big_numbers' => [
-                $priceWithBigNumber, $amountForMulWithBigNumber, $expectedPriceWithBigNumber,
+            'div_with_big_numbers'               => [
+                $priceWithBigNumber,
+                $amountForMulWithBigNumber,
+                $expectedPriceWithBigNumber,
             ],
-            'div_with_low_numbers' => [
-                $priceWithLowNumbers, $amountForMulWithLowNumbers, $expectedPriceWithLowNumbers,
+            'div_with_low_numbers'               => [
+                $priceWithLowNumbers,
+                $amountForMulWithLowNumbers,
+                $expectedPriceWithLowNumbers,
             ],
             'sub_price_and_calculate_zero_price' => [
-                $priceForZeroResult, $amountForZeroResult, $expectedPriceForZeroResult,
+                $priceForZeroResult,
+                $amountForZeroResult,
+                $expectedPriceForZeroResult,
             ],
         ];
     }
@@ -211,46 +229,42 @@ final class PriceCalculatorTest extends TestCase
     #[Test]
     public function subResultCannotHaveNegativeAmount(): void
     {
-        $totalPrice = Price::create(200);
-        $sub = Price::create(300);
+        $totalPrice = Price::create(price: 200);
+        $sub = Price::create(price: 300);
 
-        $priceCalculator = $this->getPriceCalculator();
-        $calculatedPrice = $priceCalculator->subPrice($totalPrice, $sub);
+        $calculatedPrice = $this->getPriceCalculator()->subPrice(total: $totalPrice, price: $sub);
 
-        $this->assertSame(0, $calculatedPrice->getPrice());
+        $this->assertSame(expected: 0, actual: $calculatedPrice->getPrice());
     }
 
     #[Test]
     public function subResultCannotHaveZeroAmount(): void
     {
-        $totalPrice = Price::create(200);
-        $sub = Price::create(200);
+        $totalPrice = Price::create(price: 200);
+        $sub = Price::create(price: 200);
 
-        $priceCalculator = $this->getPriceCalculator();
-        $calculatedPrice = $priceCalculator->subPrice($totalPrice, $sub);
+        $calculatedPrice = $this->getPriceCalculator()->subPrice(total: $totalPrice, price: $sub);
 
-        $this->assertSame(0, $calculatedPrice->getPrice());
+        $this->assertSame(expected: 0, actual: $calculatedPrice->getPrice());
     }
 
     #[Test]
     public function divResultCannotHaveZeroAmount(): void
     {
-        $totalPrice = Price::create(200);
+        $totalPrice = Price::create(price: 200);
 
-        $priceCalculator = $this->getPriceCalculator();
-        $calculatedPrice = $priceCalculator->divPrice(0, $totalPrice);
+        $calculatedPrice = $this->getPriceCalculator()->divPrice(amount: 0, price: $totalPrice);
 
-        $this->assertSame(0, $calculatedPrice->getPrice());
+        $this->assertSame(expected: 0, actual: $calculatedPrice->getPrice());
     }
 
     #[Test]
     public function divResultCannotHaveNegativeAmount(): void
     {
-        $totalPrice = Price::create(0);
+        $totalPrice = Price::create(price: 0);
 
-        $priceCalculator = $this->getPriceCalculator();
-        $calculatedPrice = $priceCalculator->divPrice(-200, $totalPrice);
+        $calculatedPrice = $this->getPriceCalculator()->divPrice(amount: -200, price: $totalPrice);
 
-        $this->assertSame(0, $calculatedPrice->getPrice());
+        $this->assertSame(expected: 0, actual: $calculatedPrice->getPrice());
     }
 }

@@ -13,10 +13,12 @@ use function sprintf;
  */
 class PriceCalculatorFactoryException extends InvalidArgumentException
 {
+    private const MESSAGE = 'The required currency translation is not currently supported. Type: %s';
+
     public static function fromUnsupportedArgument(string $type): self
     {
         return new self(
-            sprintf('The required currency translation is not currently supported. Type: %s', $type),
+            sprintf(self::MESSAGE, $type),
             500
         );
     }

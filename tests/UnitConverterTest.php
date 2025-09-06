@@ -24,9 +24,10 @@ final class UnitConverterTest extends TestCase
     #[Test]
     public function hasImplemented(): void
     {
-        $unitConverter = new UnitConverter(new Converter());
-        $this->assertInstanceOf(UnitConverterInterface::class, $unitConverter);
-        $this->assertInstanceOf(UnitConverter::class, $unitConverter);
+        $unitConverter = new UnitConverter(factory: new Converter());
+
+        $this->assertInstanceOf(expected: UnitConverterInterface::class, actual: $unitConverter);
+        $this->assertInstanceOf(expected: UnitConverter::class, actual: $unitConverter);
     }
 
     #[Test]
@@ -34,10 +35,10 @@ final class UnitConverterTest extends TestCase
     {
         $unitConverter = new UnitConverter(new Converter());
 
-        $converter = $unitConverter->convert(ConverterFactoryInterface::EURO_TO_CENT);
-        $this->assertInstanceOf(ConverterInterface::class, $converter);
+        $converter = $unitConverter->convert(destinationUnit: ConverterFactoryInterface::EURO_TO_CENT);
+        $this->assertInstanceOf(expected: ConverterInterface::class, actual: $converter);
 
-        $converter = $unitConverter->convert(ConverterFactoryInterface::CENT_TO_EURO);
-        $this->assertInstanceOf(ConverterInterface::class, $converter);
+        $converter = $unitConverter->convert(destinationUnit: ConverterFactoryInterface::CENT_TO_EURO);
+        $this->assertInstanceOf(expected: ConverterInterface::class, actual: $converter);
     }
 }

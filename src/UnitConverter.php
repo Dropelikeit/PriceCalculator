@@ -31,6 +31,6 @@ class UnitConverter implements UnitConverterInterface
      */
     public function convert(string $destinationUnit): ConverterInterface
     {
-        return $this->factory->factorize($destinationUnit);
+        return $this->factory->factorize(destinationUnit: $destinationUnit);
     }
 }

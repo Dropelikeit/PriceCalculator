@@ -23,18 +23,18 @@ final class VatCalculationTest extends TestCase
     {
         parent::setUp();
 
-        $vat = Vat::create(19);
+        $vat = Vat::create(vat: 19);
 
-        $this->vatCalculator = new VatCalculator($vat, new PriceCalculator());
+        $this->vatCalculator = new VatCalculator(vat: $vat, priceCalculator: new PriceCalculator());
     }
 
     #[Test]
     #[DataProvider(methodName: 'dataProviderCanCalculatePriceWithSalesTax')]
     public function canCalculatePriceWithSalesTax(Price $netPrice, Price $expectedGrossPrice): void
     {
-        $grossPrice = $this->vatCalculator->calculatePriceWithSalesTax($netPrice);
+        $grossPrice = $this->vatCalculator->calculatePriceWithSalesTax(netPrice: $netPrice);
 
-        $this->assertEquals($expectedGrossPrice->getPrice(), $grossPrice->getPrice());
+        $this->assertEquals(expected: $expectedGrossPrice->getPrice(), actual: $grossPrice->getPrice());
     }
 
     /**
@@ -46,17 +46,17 @@ final class VatCalculationTest extends TestCase
      */
     public static function dataProviderCanCalculatePriceWithSalesTax(): array
     {
-        $firstTestCase = Price::create(1200); // 12,00 €
+        $firstTestCase = Price::create(price: 1200); // 12,00 €
 
-        $expectedFirstGrossPrice = Price::create(1428); // 14,28 €
+        $expectedFirstGrossPrice = Price::create(price: 1428); // 14,28 €
 
-        $secondTestCase = Price::create(10599); // 105,99 €
+        $secondTestCase = Price::create(price: 10599); // 105,99 €
 
-        $expectedSecondGrossPrice = Price::create(12613); // 126,13 €
+        $expectedSecondGrossPrice = Price::create(price: 12613); // 126,13 €
 
-        $thirdTestCase = Price::create(411); // 4,11 €
+        $thirdTestCase = Price::create(price: 411); // 4,11 €
 
-        $expectedThirdGrossPrice = Price::create(489); // 4,89 €
+        $expectedThirdGrossPrice = Price::create(price: 489); // 4,89 €
 
         return [
             [
@@ -78,9 +78,9 @@ final class VatCalculationTest extends TestCase
     #[DataProvider(methodName: 'dataProviderCanCalculateSalesTaxFromTotalPrice')]
     public function canCalculateSalesTaxFromTotalPrice(Price $total, Price $expectedSalesTax): void
     {
-        $salesTax = $this->vatCalculator->calculateSalesTaxFromTotalPrice($total);
+        $salesTax = $this->vatCalculator->calculateSalesTaxFromTotalPrice(total: $total);
 
-        $this->assertEquals($expectedSalesTax->getPrice(), $salesTax->getPrice());
+        $this->assertEquals(expected: $expectedSalesTax->getPrice(), actual: $salesTax->getPrice());
     }
 
     /**
@@ -91,13 +91,13 @@ final class VatCalculationTest extends TestCase
      */
     public static function dataProviderCanCalculateSalesTaxFromTotalPrice(): array
     {
-        $firstGrossPrice = Price::create(1428); // 14,28 €
+        $firstGrossPrice = Price::create(price: 1428); // 14,28 €
 
-        $salesTaxFromFirstGrossPrice = Price::create(228); // 2,28 €
+        $salesTaxFromFirstGrossPrice = Price::create(price: 228); // 2,28 €
 
-        $secondGrossPrice = Price::create(12613); // 126,13 €
+        $secondGrossPrice = Price::create(price: 12613); // 126,13 €
 
-        $salesTaxFromSecondGrossPrice = Price::create(2014); // 20,14 €
+        $salesTaxFromSecondGrossPrice = Price::create(price: 2014); // 20,14 €
 
         return [
             [
@@ -115,9 +115,9 @@ final class VatCalculationTest extends TestCase
     #[DataProvider(methodName: 'dataProviderCanCalculateNetPriceFromGrossPrice')]
     public function canCalculateNetPriceFromGrossPrice(Price $total, Price $expectedNetPrice): void
     {
-        $netPrice = $this->vatCalculator->calculateNetPriceFromGrossPrice($total);
+        $netPrice = $this->vatCalculator->calculateNetPriceFromGrossPrice(total: $total);
 
-        $this->assertEquals($expectedNetPrice->getPrice(), $netPrice->getPrice());
+        $this->assertEquals(expected: $expectedNetPrice->getPrice(), actual: $netPrice->getPrice());
     }
 
     /**
@@ -128,13 +128,13 @@ final class VatCalculationTest extends TestCase
      */
     public static function dataProviderCanCalculateNetPriceFromGrossPrice(): array
     {
-        $firstTestCase = Price::create(1428); // 14,28 €
+        $firstTestCase = Price::create(price: 1428); // 14,28 €
 
-        $expectedFirstNetPrice = Price::create(1200); // 12,00 €
+        $expectedFirstNetPrice = Price::create(price: 1200); // 12,00 €
 
-        $secondTestCase = Price::create(12613); // 126,13 €
+        $secondTestCase = Price::create(price: 12613); // 126,13 €
 
-        $expectedSecondNetPrice = Price::create(10599); // 105,99 €
+        $expectedSecondNetPrice = Price::create(price: 10599); // 105,99 €
 
         return [
             [

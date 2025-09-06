@@ -20,7 +20,7 @@ final class PriceCalculatorTest extends TestCase
     public function canInitPriceCalculatorFacade(): void
     {
         $facade = new PriceCalculatorFacade();
-        $this->assertInstanceOf(PriceCalculatorFacade::class, $facade);
+        $this->assertInstanceOf(expected: PriceCalculatorFacade::class, actual: $facade);
     }
 
     #[Test]
@@ -29,6 +29,6 @@ final class PriceCalculatorTest extends TestCase
         $facade = new PriceCalculatorFacade();
         $priceCalculator = $facade::getPriceCalculator();
 
-        $this->assertInstanceOf(PriceCalculatorInterface::class, $priceCalculator);
+        $this->assertInstanceOf(expected: PriceCalculatorInterface::class, actual: $priceCalculator);
     }
 }

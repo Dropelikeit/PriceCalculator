@@ -17,6 +17,8 @@ use function strstr;
  */
 class DiscountCalculator implements DiscountCalculatorInterface
 {
+    private const NEEDLE_FLOAT_SEPARATOR = '.';
+
     /**
      * @param Price $total
      * @param Discount $discount
@@ -24,11 +26,12 @@ class DiscountCalculator implements DiscountCalculatorInterface
      */
     public function calculateDiscountFromTotal(Price $total, Discount $discount): Price
     {
-        if (($discountPrice = $this->calculateDiscountPriceFromTotal($total, $discount))->getPrice() === FiguresInterface::INTEGER_ZERO) {
+        $discountPrice = $this->calculateDiscountPriceFromTotal(total: $total, discount: $discount);
+        if ($discountPrice->getPrice() === FiguresInterface::INTEGER_ZERO) {
             return $discountPrice;
         }
 
-        return Price::create($total->getPrice() - $discountPrice->getPrice());
+        return Price::create(price: $total->getPrice() - $discountPrice->getPrice());
     }
 
     /**
@@ -39,23 +42,23 @@ class DiscountCalculator implements DiscountCalculatorInterface
     public function calculateDiscountPriceFromTotal(Price $total, Discount $discount): Price
     {
         if ($total->getPrice() === FiguresInterface::INTEGER_ZERO) {
-            return Price::create(FiguresInterface::INTEGER_ZERO);
+            return Price::create(price: FiguresInterface::INTEGER_ZERO);
         }
 
         $totalPrice = $total->getPrice() / FiguresInterface::INTEGER_HUNDRED;
 
         $calculatedAmount = $totalPrice * $discount->getDiscount();
 
-        $foundAmount = strstr((string) $calculatedAmount, '.');
+        $foundAmount = strstr(haystack: (string) $calculatedAmount, needle: self::NEEDLE_FLOAT_SEPARATOR);
 
-        if (!is_string($foundAmount)) {
-            return Price::create((int) $calculatedAmount);
+        if (!is_string(value: $foundAmount)) {
+            return Price::create(price: (int) $calculatedAmount);
         }
 
         $calculatedAmount /= FiguresInterface::INTEGER_HUNDRED;
-        $calculatedAmount = round($calculatedAmount, FiguresInterface::INTEGER_TWO);
+        $calculatedAmount = round(num: $calculatedAmount, precision: FiguresInterface::INTEGER_TWO);
         $calculatedAmount *= FiguresInterface::INTEGER_HUNDRED;
 
-        return Price::create((int) $calculatedAmount);
+        return Price::create(price: (int) $calculatedAmount);
     }
 }

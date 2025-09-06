@@ -23,7 +23,7 @@ final class UnitConverterTest extends TestCase
     public function canInitPriceCalculatorFacade(): void
     {
         $facade = new UnitConverterFacade();
-        $this->assertInstanceOf(UnitConverterFacade::class, $facade);
+        $this->assertInstanceOf(expected: UnitConverterFacade::class, actual: $facade);
     }
 
     #[Test]
@@ -32,6 +32,6 @@ final class UnitConverterTest extends TestCase
         $facade = new UnitConverterFacade();
         $unitConverter = $facade::getConverter();
 
-        $this->assertInstanceOf(UnitConverterInterface::class, $unitConverter);
+        $this->assertInstanceOf(expected: UnitConverterInterface::class, actual: $unitConverter);
     }
 }

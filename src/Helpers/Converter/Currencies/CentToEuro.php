@@ -17,11 +17,11 @@ class CentToEuro implements ConverterInterface
      */
     public function convert(float $amount): float
     {
-        if ($this->isEmpty($amount)) {
+        if ($this->isEmpty(amount: $amount)) {
             return FiguresInterface::FLOAT_ZERO;
         }
 
-        return (float) bcdiv((string) $amount, FiguresInterface::STRING_HUNDRED, FiguresInterface::INTEGER_TWO);
+        return (float) bcdiv(num1: (string) $amount, num2: FiguresInterface::STRING_HUNDRED, scale: FiguresInterface::INTEGER_TWO);
     }
 
     /**

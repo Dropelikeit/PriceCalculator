@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<ruleset name="PriceCalculator PHPMD Ruleset"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>
+        PHPMD configuration for the PriceCalculator project.
+        Targets PHP 8.1+ and aims for pragmatic, readable library code.
+        This ruleset is intentionally balanced to reduce noise while catching real issues.
+    </description>
+
+    <!-- Exclude generated/vendor/build/docs from analysis -->
+    <exclude-pattern>vendor/.*</exclude-pattern>
+    <exclude-pattern>build/.*</exclude-pattern>
+    <exclude-pattern>docs/.*</exclude-pattern>
+    <exclude-pattern>\.phpstorm\.meta\.php</exclude-pattern>
+
+    <!-- Clean code rules (StaticAccess disabled for pragmatic use of static helpers/factories) -->
+    <rule ref="rulesets/cleancode.xml">
+        <exclude name="StaticAccess"/>
+    </rule>
+
+    <!-- Code size / complexity with adjusted thresholds for this project -->
+    <rule ref="rulesets/codesize.xml">
+        <!-- Slightly relaxed thresholds compared to defaults -->
+        <exclude name="CyclomaticComplexity"/>
+        <exclude name="NPathComplexity"/>
+        <exclude name="ExcessiveMethodLength"/>
+        <exclude name="ExcessiveClassLength"/>
+        <exclude name="TooManyPublicMethods"/>
+    </rule>
+
+    <!-- Re-add selected codesize rules with tuned limits -->
+    <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
+        <properties>
+            <property name="reportLevel" value="15"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/NPathComplexity">
+        <properties>
+            <property name="minimum" value="200"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <property name="minimum" value="50"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessiveClassLength">
+        <properties>
+            <property name="minimum" value="800"/>
+        </properties>
+    </rule>
+
+    <!-- Design rules -->
+    <rule ref="rulesets/design.xml">
+        <!-- Allow test doubles and some patterns typical in libraries -->
+        <exclude name="CouplingBetweenObjects"/>
+    </rule>
+
+    <!-- Naming rules with pragmatic exclusions -->
+    <rule ref="rulesets/naming.xml">
+        <!-- Allow short and long variables to reduce noise, especially in tests -->
+        <exclude name="ShortVariable"/>
+        <exclude name="LongVariable"/>
+        <exclude name="ShortMethodName"/>
+    </rule>
+
+    <!-- Unused code rules (exclude UnusedPrivateMethod to avoid false positives with magic/reflective/test calls) -->
+    <rule ref="rulesets/unusedcode.xml">
+        <exclude name="UnusedPrivateMethod"/>
+    </rule>
+
+</ruleset>

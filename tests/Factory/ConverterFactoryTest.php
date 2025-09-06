@@ -26,8 +26,8 @@ final class ConverterFactoryTest extends TestCase
     public function hasImplemented(): void
     {
         $converterFactory = new Converter();
-        $this->assertInstanceOf(ConverterFactoryInterface::class, $converterFactory);
-        $this->assertInstanceOf(Converter::class, $converterFactory);
+        $this->assertInstanceOf(expected: ConverterFactoryInterface::class, actual: $converterFactory);
+        $this->assertInstanceOf(expected: Converter::class, actual: $converterFactory);
     }
 
     /**
@@ -40,9 +40,9 @@ final class ConverterFactoryTest extends TestCase
         $factory = new Converter();
 
         if ($destinationUnit === '') {
-            $this->expectException(PriceCalculatorFactoryException::class);
-            $this->expectExceptionCode(500);
-            $this->expectExceptionMessage('The required currency translation is not currently supported. Type: ');
+            $this->expectException(exception: PriceCalculatorFactoryException::class);
+            $this->expectExceptionCode(code: 500);
+            $this->expectExceptionMessage(message: 'The required currency translation is not currently supported. Type: ');
         }
         $converter = $factory->factorize($destinationUnit);
 
@@ -59,9 +59,18 @@ final class ConverterFactoryTest extends TestCase
     public static function dataProviderGetConverter(): array
     {
         return [
-            [ConverterFactoryInterface::CENT_TO_EURO, CentToEuro::class],
-            [ConverterFactoryInterface::EURO_TO_CENT, EuroToCent::class],
-            ['', ''],
+            [
+                ConverterFactoryInterface::CENT_TO_EURO,
+                CentToEuro::class,
+            ],
+            [
+                ConverterFactoryInterface::EURO_TO_CENT,
+                EuroToCent::class,
+            ],
+            [
+                '',
+                '',
+            ],
         ];
     }
 }

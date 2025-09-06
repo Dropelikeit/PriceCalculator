@@ -23,7 +23,7 @@ class Converter implements ConverterFactoryInterface
         return match ($destinationUnit) {
             ConverterFactoryInterface::CENT_TO_EURO => new CentToEuro(),
             ConverterFactoryInterface::EURO_TO_CENT => new EuroToCent(),
-            default => throw PriceCalculatorFactoryException::fromUnsupportedArgument($destinationUnit),
+            default => throw PriceCalculatorFactoryException::fromUnsupportedArgument(type: $destinationUnit),
         };
     }
 }

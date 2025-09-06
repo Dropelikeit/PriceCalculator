@@ -37,7 +37,8 @@ final class DiscountTest extends TestCase
     {
         return [
             'create_discount_successfully' => [
-                100, 100,
+                100,
+                100,
             ],
 
         ];
@@ -65,10 +66,12 @@ final class DiscountTest extends TestCase
     {
         return [
             'failed_by_string' => [
-                'hello', true,
+                'hello',
+                true,
             ],
             'failed_by_object' => [
-                new stdClass(), true,
+                new stdClass(),
+                true,
             ],
         ];
     }

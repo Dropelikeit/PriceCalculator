@@ -28,7 +28,7 @@ final class AddPriceTest extends TestCase
         parent::setUp();
 
         $this->priceCalculator = PriceCalculator::getPriceCalculator();
-        $this->formatter = new PriceFormatter(2, ',', '.', '€');
+        $this->formatter = new PriceFormatter(decimals: 2, decPoint: ',', thousandsSep: '.', currency: '€');
     }
 
     #[Test]
@@ -41,19 +41,19 @@ final class AddPriceTest extends TestCase
     ): void {
         $priceCalculator = PriceCalculator::getPriceCalculator();
 
-        $this->assertInstanceOf(PriceCalculatorInterface::class, $priceCalculator);
+        $this->assertInstanceOf(expected: PriceCalculatorInterface::class, actual: $priceCalculator);
 
-        $calculatedPrice = $priceCalculator->addPrice($total, $addPrice);
+        $calculatedPrice = $priceCalculator->addPrice(total: $total, price: $addPrice);
 
-        $this->assertEquals($expectedPrice, $calculatedPrice->getPrice());
+        $this->assertEquals(expected: $expectedPrice, actual: $calculatedPrice->getPrice());
 
         $converter = new CentToEuro();
 
-        $convertedPrice = $converter->convert($calculatedPrice->getPrice());
+        $convertedPrice = $converter->convert(amount: $calculatedPrice->getPrice());
 
-        $formattedPrice = $this->formatter->formatPrice($convertedPrice);
+        $formattedPrice = $this->formatter->formatPrice(price: $convertedPrice);
 
-        $this->assertEquals($expectedFormattedPrice, $formattedPrice);
+        $this->assertEquals(expected: $expectedFormattedPrice, actual: $formattedPrice);
     }
 
     /**
@@ -61,14 +61,14 @@ final class AddPriceTest extends TestCase
      */
     public static function dataProviderCanAddCentPrices(): array
     {
-        $samePrice = Price::create(300);
+        $samePrice = Price::create(price: 300);
 
-        $firstDifferentPrice = Price::create(149);
+        $firstDifferentPrice = Price::create(price: 149);
 
-        $secondDifferentPrice = Price::create(1034);
+        $secondDifferentPrice = Price::create(price: 1034);
 
         return [
-            'same_first_and_second_price' => [
+            'same_first_and_second_price'          => [
                 $samePrice,
                 $samePrice,
                 600,
@@ -92,22 +92,22 @@ final class AddPriceTest extends TestCase
         string $expectedFormattedPrice
     ): void {
         $euroToCentConverter = new EuroToCent();
-        $totalPriceInCent = $euroToCentConverter->convert($total);
-        $addPriceInCent = $euroToCentConverter->convert($addPrice);
+        $totalPriceInCent = $euroToCentConverter->convert(amount: $total);
+        $addPriceInCent = $euroToCentConverter->convert(amount: $addPrice);
 
-        $totalPrice = Price::create((int) $totalPriceInCent);
-        $addPrice = Price::create((int) $addPriceInCent);
+        $totalPrice = Price::create(price: (int) $totalPriceInCent);
+        $addPrice = Price::create(price: (int) $addPriceInCent);
 
-        $calculatedPrice = $this->priceCalculator->addPrice($totalPrice, $addPrice);
+        $calculatedPrice = $this->priceCalculator->addPrice(total: $totalPrice, price: $addPrice);
 
-        $this->assertEquals($expectedCalculatedPrice, $calculatedPrice->getPrice());
+        $this->assertEquals(expected: $expectedCalculatedPrice, actual: $calculatedPrice->getPrice());
 
         $centToEuroConverter = new CentToEuro();
-        $convertedPrice = $centToEuroConverter->convert($calculatedPrice->getPrice());
+        $convertedPrice = $centToEuroConverter->convert(amount: $calculatedPrice->getPrice());
 
-        $formattedPrice = $this->formatter->formatPrice($convertedPrice);
+        $formattedPrice = $this->formatter->formatPrice(price: $convertedPrice);
 
-        $this->assertEquals($expectedFormattedPrice, $formattedPrice);
+        $this->assertEquals(expected: $expectedFormattedPrice, actual: $formattedPrice);
     }
 
     /**
@@ -119,7 +119,7 @@ final class AddPriceTest extends TestCase
     public static function dataProviderCanAddEuroPrice(): array
     {
         return [
-            'same_price' => [
+            'same_price'                           => [
                 3.00,
                 3.00,
                 600,
