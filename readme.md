@@ -22,12 +22,15 @@ You are also welcome to use the Issue Tracker to set bugs, improvements or upgra
 ```bash
 composer require marcel-strahl/price-calculator 
 ```
+
 ### Supported PHP Versions
-|  PHP  | Package Version |    Status     |
-|:-----:|:---------------:|:-------------:|
-| ^8.0  |     v5.x.x      |    Support    |
-| ^7.4  |     v4.x.x      | Not supported |
-| <^7.4 |    <=v3.x.x     | Not supported |
+
+|  PHP   | Package Version |    Status     |
+|:------:|:---------------:|:-------------:|
+| >=^8.1 |     v6.x.x      |   Supported   |
+| <=^8.0 |     v5.0.1      | Not supported |
+|  ^7.4  |     v4.x.x      | Not supported |
+| <^7.4  |    <=v3.x.x     | Not supported |
 
 ### Documentation
 

@@ -159,6 +159,9 @@ jobs:
       - name: "Install dependencies"
         run: composer install --no-interaction
 
+      - name: "Generate PHPUnit coverage for Infection"
+        run: composer test
+
       - name: "Run infection (with badge upload)"
         if: matrix.php == '8.3'
         env:
