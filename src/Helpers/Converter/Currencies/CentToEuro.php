@@ -10,7 +10,7 @@ use MarcelStrahl\PriceCalculator\Contracts\Type\FiguresInterface;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class CentToEuro implements ConverterInterface
+final class CentToEuro implements ConverterInterface
 {
     /**
      * {@inheritdoc}

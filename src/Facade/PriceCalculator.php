@@ -10,7 +10,7 @@ use MarcelStrahl\PriceCalculator\PriceCalculator as PriceCalculatorService;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class PriceCalculator
+final class PriceCalculator
 {
     public static function getPriceCalculator(): PriceCalculatorInterface
     {

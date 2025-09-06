@@ -14,7 +14,7 @@ use function round;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class VatCalculator implements VatCalculatorInterface
+final class VatCalculator implements VatCalculatorInterface
 {
     private Vat $vat;
     private PriceCalculatorInterface $priceCalculator;

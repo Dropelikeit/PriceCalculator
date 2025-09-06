@@ -11,7 +11,7 @@ use MarcelStrahl\PriceCalculator\Contracts\UnitConverterInterface;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class UnitConverter implements UnitConverterInterface
+final class UnitConverter implements UnitConverterInterface
 {
     /**
      * @var ConverterFactoryInterface

@@ -11,7 +11,7 @@ use MarcelStrahl\PriceCalculator\Service\VatCalculator as VatCalculatorService;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class VatCalculator
+final class VatCalculator
 {
     private function __construct(private Vat $vat, private PriceCalculatorInterface $priceCalculator)
     {

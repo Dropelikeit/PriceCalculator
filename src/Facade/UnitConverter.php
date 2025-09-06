@@ -10,7 +10,7 @@ use MarcelStrahl\PriceCalculator\UnitConverter as UnitConverterService;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class UnitConverter
+final class UnitConverter
 {
     /**
      * @return UnitConverterService

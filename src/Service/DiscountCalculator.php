@@ -15,7 +15,7 @@ use function strstr;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class DiscountCalculator implements DiscountCalculatorInterface
+final class DiscountCalculator implements DiscountCalculatorInterface
 {
     private const NEEDLE_FLOAT_SEPARATOR = '.';
 

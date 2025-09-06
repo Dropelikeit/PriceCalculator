@@ -11,7 +11,7 @@ use MarcelStrahl\PriceCalculator\Helpers\Entity\Price;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class PriceCalculator implements PriceCalculatorInterface
+final class PriceCalculator implements PriceCalculatorInterface
 {
     /**
      * {@inheritdoc}

@@ -7,7 +7,7 @@ namespace MarcelStrahl\PriceCalculator\Helpers\Entity;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class Price
+final class Price
 {
     private function __construct(private int $price)
     {

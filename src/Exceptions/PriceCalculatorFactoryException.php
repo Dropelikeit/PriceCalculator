@@ -11,15 +11,15 @@ use function sprintf;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class PriceCalculatorFactoryException extends InvalidArgumentException
+final class PriceCalculatorFactoryException extends InvalidArgumentException
 {
     private const MESSAGE = 'The required currency translation is not currently supported. Type: %s';
 
     public static function fromUnsupportedArgument(string $type): self
     {
         return new self(
-            sprintf(self::MESSAGE, $type),
-            500
+            message: sprintf(self::MESSAGE, $type),
+            code: 500
         );
     }
 }

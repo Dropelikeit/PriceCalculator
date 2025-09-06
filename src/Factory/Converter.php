@@ -13,7 +13,7 @@ use MarcelStrahl\PriceCalculator\Helpers\Converter\Currencies\EuroToCent;
 /**
  * @author Marcel Strahl <info@marcel-strahl.de>
  */
-class Converter implements ConverterFactoryInterface
+final class Converter implements ConverterFactoryInterface
 {
     /**
      * {@inheritDoc}
