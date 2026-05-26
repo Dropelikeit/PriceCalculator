@@ -1,0 +1,80 @@
+# ============================================================
+# Area Labels (src/)
+# ============================================================
+"area:contracts":
+  - changed-files:
+      - any-glob-to-any-file: 'src/Contracts/**'
+
+"area:exceptions":
+  - changed-files:
+      - any-glob-to-any-file: 'src/Exceptions/**'
+
+"area:facade":
+  - changed-files:
+      - any-glob-to-any-file: 'src/Facade/**'
+
+"area:factory":
+  - changed-files:
+      - any-glob-to-any-file: 'src/Factory/**'
+
+"area:helpers":
+  - changed-files:
+      - any-glob-to-any-file: 'src/Helpers/**'
+
+"area:services":
+  - changed-files:
+      - any-glob-to-any-file: 'src/Service/**'
+
+# ============================================================
+# Project Area Labels
+# ============================================================
+"area:tests":
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'tests/**'
+          - 'phpunit.xml'
+          - 'infection.json5'
+
+"area:docs":
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'docs/**'
+          - '**/*.md'
+          - 'LICENSE'
+
+"area:ci":
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/**'
+          - '.php-cs-fixer*'
+          - 'psalm.xml'
+
+"area:dependencies":
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'composer.json'
+          - 'composer.lock'
+
+"area:release":
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'CHANGELOG.md'
+          - 'UPGRADE-*.md'
+          - '.github/workflows/release.yml'
+
+# ============================================================
+# Language Labels
+# ============================================================
+"lang:php":
+  - changed-files:
+      - any-glob-to-any-file: '**/*.php'
+
+"lang:yaml":
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.yml'
+          - '**/*.yaml'
+
+"lang:shell":
+  - changed-files:
+      - any-glob-to-any-file: '**/*.sh'

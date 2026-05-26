@@ -1,173 +1,101 @@
-name: "CI Tests"
+name: "App tester"
 
 on:
   pull_request:
   push:
     branches:
       - master
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
-  phpunit:
-    name: "PHP ${{ matrix.php }} - PHPUnit"
+  tests:
+    name: "PHP ${{ matrix.php-version }}"
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.1', '8.2', '8.3', '8.4' ]
+        php-version:
+          - "8.2"
+          - "8.3"
+          - "8.4"
+          - "8.5"
+
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 2
 
-      - name: "Setup PHP"
+      - name: "Install PHP ${{ matrix.php-version }}"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: "${{ matrix.php-version }}"
+          coverage: "xdebug"
+          tools: composer:v2
+          extensions: bcmath
+          ini-values: memory_limit=-1
+
+      - name: "Validate composer.json"
+        run: "composer validate --strict"
 
       - name: "Cache composer packages"
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
-          path: ~/.composer/cache
-          key: php-composer-locked-${{ hashFiles('composer.lock') }}
-          restore-keys: php-composer-locked-
+          path: |
+            ~/.composer/cache
+            vendor
+          key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
+          restore-keys: |
+            php-${{ matrix.php-version }}-composer-
 
-      - name: "Install dependencies"
-        run: composer install --no-interaction
+      - name: "Install dependencies with composer"
+        run: "composer install --no-interaction --prefer-dist --optimize-autoloader"
 
-      - name: "Run PHPUnit Tests"
-        run: composer test
-
-  cs:
-    name: "PHP ${{ matrix.php }} - CS Check"
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        php: [ '8.1', '8.2', '8.3', '8.4' ]
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 2
-
-      - name: "Setup PHP"
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-
-      - name: "Cache composer packages"
-        uses: actions/cache@v4
-        with:
-          path: ~/.composer/cache
-          key: php-composer-locked-${{ hashFiles('composer.lock') }}
-          restore-keys: php-composer-locked-
-
-      - name: "Install dependencies"
-        run: composer install --no-interaction
+      - name: "Check platform requirements"
+        run: "composer check-platform-reqs"
 
       - name: "Run PHP CS Check"
-        run: composer cs-check
-
-  phpmd:
-    name: "PHP ${{ matrix.php }} - PHP Mess Detector"
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        php: [ '8.1', '8.2', '8.3', '8.4' ]
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 2
-
-      - name: "Setup PHP"
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-
-      - name: "Cache composer packages"
-        uses: actions/cache@v4
-        with:
-          path: ~/.composer/cache
-          key: php-composer-locked-${{ hashFiles('composer.lock') }}
-          restore-keys: php-composer-locked-
-
-      - name: "Install dependencies"
-        run: composer install --no-interaction
+        run: "composer cs-check"
 
       - name: "Run PHP Mess Detector"
-        run: composer phpmd
-
-  psalm:
-    name: "PHP ${{ matrix.php }} - Psalm"
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        php: [ '8.1', '8.2', '8.3', '8.4' ]
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 2
-
-      - name: "Setup PHP"
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-
-      - name: "Cache composer packages"
-        uses: actions/cache@v4
-        with:
-          path: ~/.composer/cache
-          key: php-composer-locked-${{ hashFiles('composer.lock') }}
-          restore-keys: php-composer-locked-
-
-      - name: "Install dependencies"
-        run: composer install --no-interaction
+        run: "composer phpmd"
 
       - name: "Run Psalm"
-        run: composer psalm
+        run: "composer psalm -- --output-format=github"
 
-  infection:
-    name: "PHP ${{ matrix.php }} - Infection"
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        php: [ '8.1', '8.2', '8.3', '8.4' ]
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 2
-
-      - name: "Setup PHP"
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-
-      - name: "Cache composer packages"
-        uses: actions/cache@v4
-        with:
-          path: ~/.composer/cache
-          key: php-composer-locked-${{ hashFiles('composer.lock') }}
-          restore-keys: php-composer-locked-
-
-      - name: "Install dependencies"
-        run: composer install --no-interaction
-
-      - name: "Generate PHPUnit coverage for Infection"
-        run: composer test
-
-      - name: "Run infection (with badge upload)"
-        if: matrix.php == '8.3'
-        env:
-          INFECTION_BADGE_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
-        run: composer infection-ci
+      - name: "Run PHPUnit Tests"
+        run: "composer test"
 
       - name: "Run infection"
-        if: matrix.php != '8.3'
-        run: composer infection-ci
+        if: matrix.php-version == '8.3'
+        env:
+          INFECTION_BADGE_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+        run: "composer infection-ci"
+
+      - name: "Security audit"
+        run: "composer audit --no-dev"
+
+  dependency-review:
+    name: "Dependency Review"
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v6
+
+      - name: "Dependency Review"
+        uses: actions/dependency-review-action@v5
+        with:
+          fail-on-severity: moderate
