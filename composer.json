@@ -1,7 +1,10 @@
 {
   "name": "marcel-strahl/price-calculator",
   "description": "A service to calculate prices",
-  "keywords": ["price", "calculator"],
+  "keywords": [
+    "price",
+    "calculator"
+  ],
   "type": "library",
   "minimum-stability": "stable",
   "license": "MIT",
