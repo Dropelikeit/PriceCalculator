@@ -1,7 +1,14 @@
 # Changelog
 
-This Changelog refers to all changes since v5.0.0
+This Changelog refers to all changes since v6.0.0
 ***
+
+# v7.0.0
++ Breaking change: removed PHP 8.1 support. The package now requires PHP >= 8.2.
++ Reworked GitHub Actions CI to use a consolidated matrix workflow for PHP 8.2, 8.3, 8.4 and 8.5.
++ Added release automation that writes the calculated SemVer version into `composer.json` before creating the matching git tag.
++ Added Dependabot updates and auto-merge automation for supported dependency updates.
++ Added automatic PR labeling based on changed areas and file types.
 
 # v6.0.0
 + Upgrade of dependencies, removed PHP 8.0 support.
@@ -22,4 +29,3 @@ This Changelog refers to all changes since v5.0.0
 * Vat and Price entity now has a private constructor and is initialized by a new `static` create method.
 * The `ConverterFactory` class uses `match` instead of `switch`.
 * Fixed unwanted forced order in the VAT calculation (for more details see [Upgrade to 5.0 Guide](UPGRADE-5.0.md))
-
